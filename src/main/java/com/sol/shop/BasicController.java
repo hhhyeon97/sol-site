@@ -9,7 +9,7 @@ import java.time.ZonedDateTime;
 @Controller
 public class BasicController {
    @GetMapping("/")
-    String hello(){
+    String main(){
     return "index.html";
    }
 

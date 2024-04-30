@@ -9,6 +9,7 @@
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="~{ nav.html::navbar }"></div>
     <div class="card" th:each="i : ${items}">
         <img src="https://placehold.co/300">
         <div>

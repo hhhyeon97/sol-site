@@ -9,6 +9,8 @@
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="~{ nav.html::navbar }"></div>
+
 <form action="/add" method="POST">
     <input name="title">
     <input name="price">
