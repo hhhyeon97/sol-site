@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>write</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<form action="/add" method="POST">
+    <input name="title">
+    <input name="price">
+    <button type="submit">전송</button>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    document.getElementById("itemForm").addEventListener("submit", function(event) {
+        var title = document.getElementById("titleInput").value;
+        if (title.length > 50) { // 임의의 길이 제한 (예: 50자)
+            alert("타이틀이 너무 깁니다. 50자 이하로 입력해주세요.");
+            event.preventDefault(); // 폼 제출 방지
+        }
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
