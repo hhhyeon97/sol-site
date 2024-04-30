@@ -30,4 +30,17 @@ public class BasicController {
     String date(){
        return ZonedDateTime.now().toString();
     }
+
+    @GetMapping("/test")
+    @ResponseBody
+    String test(){
+        var a = new Test();
+        a.setName("홍길동");
+        a.setAge(60);
+        a.ageSetting(-20);
+        a.add1age();
+        System.out.println(a.getAge());
+        return "TEST";
+    }
+
 }

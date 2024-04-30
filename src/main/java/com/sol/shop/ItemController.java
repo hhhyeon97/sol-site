@@ -20,8 +20,11 @@ public class ItemController {
         List<Item> result = itemRepository.findAll(); //리스트 자료형으로 가져옴
         model.addAttribute("items",result);
 
-        var a = new Item();
-        System.out.println(a.toString());
+        String firstTitle = null;
+        if (!result.isEmpty()) {
+            firstTitle = result.get(0).getTitle();
+        }
+        System.out.println("첫 번째 제목: " + firstTitle);
 
         return "list.html";
     }
