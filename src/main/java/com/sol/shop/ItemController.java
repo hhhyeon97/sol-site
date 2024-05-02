@@ -62,11 +62,7 @@ public class ItemController {
 
     @PostMapping("/edit")
     String editItem(@RequestParam String title, Integer price, Long id){
-        Item item = new Item();
-        item.setId(id);
-        item.setTitle(title);
-        item.setPrice(price);
-        itemRepository.save(item);
+      itemService.editItem(title,price,id);
         return "redirect:/list";
     }
 

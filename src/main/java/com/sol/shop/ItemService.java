@@ -26,4 +26,22 @@ public class ItemService {
     public Optional<Item> findItemById(Long id) {
         return itemRepository.findById(id);
     }
+
+    public void editItem(String title, Integer price, Long id){
+        if (title.length() > 100) {
+            throw new IllegalArgumentException("제목은 100자 이하여야 합니다.");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("가격은 음수가 될 수 없습니다.");
+        }
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            item.setTitle(title);
+            item.setPrice(price);
+            itemRepository.save(item);
+        } else {
+            throw new IllegalArgumentException("해당 아이템이 존재하지 않습니다.");
+        }
+    }
 }
