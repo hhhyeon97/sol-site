@@ -13,8 +13,8 @@
 <div class="detail">
     <h4>상세페이지</h4>
     <img src="https://placehold.co/300">
-    <h4>바지</h4>
-    <p>7억</p>
+    <h4 th:text="${item.title}"></h4> <!-- 아이템의 이름을 출력합니다. -->
+    <p th:text="${item.price}"></p>
 </div>
 </body>
 </html>

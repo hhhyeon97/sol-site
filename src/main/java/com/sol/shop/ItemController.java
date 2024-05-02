@@ -48,11 +48,11 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Integer id){
-        System.out.println(id);
-        Optional<Item> result = itemRepository.findById(1L);
+    String detail(@PathVariable Long id, Model model){
+        Optional<Item> result = itemRepository.findById(id);
         if(result.isPresent()){
-            System.out.println(result.get());
+            Item item = result.get();
+            model.addAttribute("item",item);
             return "detail.html";
         }else {
             return "404page.html";
