@@ -14,7 +14,9 @@
         <img src="https://placehold.co/300">
         <div>
             <a th:href="@{/detail/{id}(id=${i.id})}"><h4 th:text="${i.title}"></h4></a>
-            <p th:text="${i.price}"></p>
+            <p th:text="${i.price + '원'}"></p>
+<!--            <a th:href="@{/edit/{id}(id=${i.id})}">✏️</a>-->
+            <a th:href="@{'/edit/'+${i.id}}">✏️</a>
         </div>
     </div>
 </body>
