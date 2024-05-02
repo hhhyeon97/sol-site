@@ -39,3 +39,12 @@ button {
 input {
  display : block;
 }
+
+.detail {
+  text-align : center;
+}
+.detail img{
+  max-width : 30%;
+  display : block;
+  margin : auto;
+}
