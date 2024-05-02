@@ -1,4 +1,4 @@
-package com.sol.shop;
+package com.sol.shop.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;

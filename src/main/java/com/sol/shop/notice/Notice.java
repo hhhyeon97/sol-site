@@ -1,4 +1,4 @@
-package com.sol.shop;
+package com.sol.shop.notice;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

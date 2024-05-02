@@ -1,4 +1,4 @@
-package com.sol.shop;
+package com.sol.shop.notice;
 
 
 import lombok.RequiredArgsConstructor;

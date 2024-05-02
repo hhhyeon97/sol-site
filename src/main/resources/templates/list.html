@@ -17,7 +17,25 @@
             <p th:text="${i.price + '원'}"></p>
 <!--            <a th:href="@{/edit/{id}(id=${i.id})}">✏️</a>-->
             <a th:href="@{'/edit/'+${i.id}}">✏️</a>
+            <span th:onclick="fetch('/item?id=[[${i.id}]]',{method:'DELETE'})
+            .then(r => r.text())
+            .then((a)=>{
+            console.log(a)
+                location.reload();
+            })
+            ">🗑️</span>
         </div>
     </div>
+
+    <button class="btn">버튼</button>
+<script>
+    document.querySelectorAll('.btn')[0].addEventListener('click',function(){
+        fetch('/test1',{
+        method: 'POST',
+        headers : { 'Content-Type' : 'application/json'},
+        body : JSON.stringify({name : 'kim'})
+        })
+    })
+</script>
 </body>
 </html>
