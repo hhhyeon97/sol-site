@@ -21,9 +21,8 @@ public class ItemController {
 
     @GetMapping("/list")
     String list(Model model){
-        List<Item> result = itemRepository.findAll(); //리스트 자료형으로 가져옴
-        model.addAttribute("items",result);
-
+        List<Item> result = itemService.findAllItems(); // 서비스로부터 아이템 리스트를 가져옴
+        model.addAttribute("items", result);
         return "list.html";
     }
 
@@ -39,15 +38,15 @@ public class ItemController {
     }
 
     @GetMapping("/detail/{id}")
-    String detail(@PathVariable Long id, Model model){
-            Optional<Item> result = itemRepository.findById(id);
-            if(result.isPresent()){
-                Item item = result.get();
-                model.addAttribute("item",item);
-                return "detail.html";
-            }else {
-                return "404page.html";
-            }
+    String detail(@PathVariable Long id, Model model) {
+    Optional<Item> result = itemService.findItemById(id);
+    if (result.isPresent()) {
+        Item item = result.get();
+        model.addAttribute("item", item);
+        return "detail.html";
+    } else {
+        return "404page.html";
+    }
     }
 
 }
