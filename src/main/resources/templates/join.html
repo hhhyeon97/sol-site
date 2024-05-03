@@ -20,10 +20,10 @@
     <button type="submit">전송</button>
 </form>
 
+<!-- 에러 메시지 표시 -->
 <div th:if="${errorMessage != null}">
-    <div th:text="${errorMessage}" style="color: red;"></div>
+    <div style="color: red;" th:text="${errorMessage}"></div>
 </div>
-
 
 <script>
     function validateForm() {
