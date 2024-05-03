@@ -12,12 +12,36 @@
 
 <h4>회원가입</h4>
 
-<form action="/member" method="POST">
+<form action="/member" method="POST" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input name="displayName" placeholder="이름">
-    <input name="username" placeholder="아이디">
-    <input name="password" placeholder="password">
+    <input name="displayName"  placeholder="이름">
+    <input name="username" id="username" placeholder="아이디">
+    <input name="password" id="password" placeholder="password">
     <button type="submit">전송</button>
 </form>
+
+<div th:if="${errorMessage != null}">
+    <div th:text="${errorMessage}" style="color: red;"></div>
+</div>
+
+
+<script>
+    function validateForm() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+
+    if (username.length < 5) {
+        alert("아이디는 5자 이상이어야 합니다.");
+        return false;
+    }
+
+    if (password.length < 8) {
+        alert("비밀번호는 8자 이상이어야 합니다.");
+        return false;
+    }
+
+    return true;
+}
+</script>
 </body>
 </html>

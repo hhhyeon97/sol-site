@@ -5,11 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,14 +26,23 @@ public class MemberController {
     }
 
     @PostMapping("/member")
-    String addMember(@RequestParam String username,String password, String displayName){
-        Member member = new Member();
-        member.setUsername(username);
-        var hash = passwordEncoder.encode(password);
-        member.setPassword(hash);
-        member.setDisplayName(displayName);
-        memberRepository.save(member);
-        return "redirect:/list";
+    String addMember(@RequestParam String username, String password, String displayName, Model model){
+        // 아이디 중복 확인
+        Optional<Member> existingMember = memberRepository.findByUsername(username);
+        if (existingMember != null) {
+            model.addAttribute("errorMessage", "이미 사용 중인 아이디입니다.");
+            return "join.html";
+        }
+
+            Member member = new Member();
+            member.setUsername(username);
+            var hash = passwordEncoder.encode(password);
+            member.setPassword(hash);
+            member.setDisplayName(displayName);
+            memberRepository.save(member);
+            return "redirect:/list";
+
+
     }
 
     @GetMapping("/login")

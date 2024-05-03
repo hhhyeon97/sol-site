@@ -7,8 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link href="/main.css" rel="stylesheet">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
@@ -19,45 +17,12 @@
             <p th:text="${i.price + '원'}"></p>
 <!--            <a th:href="@{/edit/{id}(id=${i.id})}">✏️</a>-->
             <a th:href="@{'/edit/'+${i.id}}">✏️</a>
-            <button onclick="deleteItem([[${i.id}]], this)">삭제</button>
+            <!--삭제기능 다시 -->
         </div>
     </div>
-
     <button class="btn">버튼</button>
 <script>
-    document.querySelectorAll('.btn')[0].addEventListener('click',function(){
-        fetch('/test1',{
-        method: 'POST',
-        headers : { 'Content-Type' : 'application/json'},
-        body : JSON.stringify({name : 'kim'})
-        })
-    })
 
-
-var csrfToken = document.querySelector('meta[name="_csrf"]').content;
-var csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
-    function deleteItem(itemId, button) {
-        if (confirm('정말로 삭제하시겠습니까?')) {
-            fetch('/item?id=' + itemId, { method: 'DELETE',
-             headers: {
-            'Content-Type': 'application/json',
-            [csrfHeader]: csrfToken
-                }
-             })
-                .then(response => {
-                    if (response.ok) {
-                        button.closest('.card').remove(); // 삭제한 카드 제거
-                    } else {
-                        alert('상품 삭제에 실패했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('상품 삭제 중 오류 발생:', error);
-                    alert('상품 삭제 중 오류가 발생했습니다.');
-                });
-        }
-    }
 </script>
 
 </body>
