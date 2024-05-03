@@ -3,6 +3,7 @@ package com.sol.shop.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +26,14 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/join")
-    String join(){
-        return "join.html";
+    String join(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            // 로그인한 사용자인 경우
+            return "redirect:/";
+        } else {
+            // 로그인하지 않은 사용자인 경우
+            return "join.html";
+        }
     }
 
     @PostMapping("/member")
@@ -50,17 +57,25 @@ public class MemberController {
     }
 
 
-
     @GetMapping("/login")
-    public String login(){
-        return "login.html";
+    public String login(Authentication auth){
+        if (auth != null && auth.isAuthenticated()) {
+            return "redirect:/";
+        } else {
+            return "login.html";
+        }
     }
 
     @GetMapping("/my-page")
     public String myPage(Authentication auth){
-        CustomUser result = (CustomUser)auth.getPrincipal();
-        System.out.println(result.displayName);
-        return "mypage.html";
+        if(auth != null && auth.isAuthenticated()){
+            return "mypage.html";
+        }else {
+            return "redirect:/";
+        }
+//        CustomUser result = (CustomUser)auth.getPrincipal();
+//        System.out.println(result.displayName);
+
     }
 
 

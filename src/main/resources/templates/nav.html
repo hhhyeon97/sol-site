@@ -2,4 +2,19 @@
     <a href="/" class="logo">SpringMall</a>
     <a href="/list">List</a>
     <a href="/write">Write</a>
+
+    <!-- 로그인/로그아웃 버튼 -->
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        <!-- 현재 로그인된 유저의 아이디 출력 -->
+        <span th:text="${#authentication.principal.username}"></span>
+        <!-- 로그아웃 버튼 -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">로그아웃</button>
+        </form>
+    </div>
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        <!-- 로그인 버튼 -->
+        <a href="/login">로그인</a>
+    </div>
+
 </div>
