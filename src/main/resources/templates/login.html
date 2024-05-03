@@ -16,6 +16,7 @@
     <h3>아이디나 비번이 틀렸다!</h3>
 </div>
 <form action="/login" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="username">
     <input name="password" type="password">
     <button type="submit">전송</button>

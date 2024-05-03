@@ -12,6 +12,7 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <form action="/edit" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="id" th:value="${data.id}" style="display:none">
     <input name="title" th:value="${data.title}">
     <input name="price" th:value="${data.price}">

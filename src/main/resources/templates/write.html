@@ -12,20 +12,10 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 
 <form action="/add" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="title">
     <input name="price">
     <button type="submit">전송</button>
 </form>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    document.getElementById("itemForm").addEventListener("submit", function(event) {
-        var title = document.getElementById("titleInput").value;
-        if (title.length > 50) { // 임의의 길이 제한 (예: 50자)
-            alert("타이틀이 너무 깁니다. 50자 이하로 입력해주세요.");
-            event.preventDefault(); // 폼 제출 방지
-        }
-    });
-    /*]]>*/
-</script>
 </body>
 </html>
