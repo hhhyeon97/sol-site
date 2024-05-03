@@ -19,11 +19,11 @@ public class BasicController {
 //        return "로그인입니다 하이";
 //    }
 
-    @GetMapping("/mypage")
-    @ResponseBody
-    String myPage(){
-        return "마이페이지입니다 하이";
-    }
+//    @GetMapping("/mypage")
+//    @ResponseBody
+//    String myPage(){
+//        return "마이페이지입니다 하이";
+//    }
 
     @GetMapping("/date")
     @ResponseBody

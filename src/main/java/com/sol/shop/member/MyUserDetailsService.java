@@ -27,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService {
      }
         var user = result.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("일반 유저"));
+        authorities.add(new SimpleGrantedAuthority("일반유저"));
 
         return new User(user.getUsername(), user.getPassword(), authorities);
     }

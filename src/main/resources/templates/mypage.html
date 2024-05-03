@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mypage</title>
+</head>
+<body>
+<div th:replace="~{ nav.html::navbar }"></div>
+    <h3>마이페이지</h3>
+<!--<div sec:authentication="principal"></div>-->
+<!--<div sec:authentication="principal.username"></div>-->
+<!--<div sec:authorize="hasAuthority('일반유저')">-->
+<div sec:authorize="isAnonymous()">
+    <h3>이 유저는 일반 유저 권한입니다.</h3>
+</div>
+</body>
+</html>
