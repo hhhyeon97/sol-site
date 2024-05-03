@@ -1,12 +1,17 @@
 package com.sol.shop.item;
 
+import com.sol.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +22,7 @@ public class ItemController {
 
     private final ItemRepository itemRepository;
     private final ItemService itemService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/list")
     String list(Model model){
@@ -26,13 +32,28 @@ public class ItemController {
     }
 
     @GetMapping("/write")
-    String write(){
-        return "write.html";
+    String write(Authentication authentication){
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "write.html";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/add")
-    String addPost(@RequestParam String title, @RequestParam Integer price) {
-        itemService.saveItem(title, price);
+    String addPost(@RequestParam String title, @RequestParam Integer price, Authentication authentication) {
+        // 현재 로그인한 사용자의 아이디 가져오기
+        String username = authentication.getName();
+
+        // 해당 아이디로 사용자 정보 조회
+        var result = memberRepository.findByUsername(username);
+        if(result.isEmpty()){
+            // 사용자 정보가 없는 경우에 대한 처리
+        }
+        // 사용자 정보에서 userId 가져오기
+        Long userId = result.get().getId();
+
+        itemService.saveItem(title, price, userId);
         return "redirect:/list";
     }
 

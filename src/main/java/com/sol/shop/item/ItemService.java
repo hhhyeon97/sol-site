@@ -1,6 +1,7 @@
 package com.sol.shop.item;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,11 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(String title, Integer price){
+    public void saveItem(String title, Integer price, Long userId){
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
+        item.setUserId(userId);
         itemRepository.save(item);
     }
 

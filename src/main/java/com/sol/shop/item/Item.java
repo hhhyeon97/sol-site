@@ -16,5 +16,6 @@ public class Item {
     private String title;
     private Integer price;
 
+    private Long userId;
 
 }
