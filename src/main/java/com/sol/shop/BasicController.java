@@ -13,11 +13,11 @@ public class BasicController {
     return "index.html";
    }
 
-    @GetMapping("/login")
-    @ResponseBody
-    String login(){
-        return "로그인입니다 하이";
-    }
+//    @GetMapping("/login")
+//    @ResponseBody
+//    String login(){
+//        return "로그인입니다 하이";
+//    }
 
     @GetMapping("/mypage")
     @ResponseBody

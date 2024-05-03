@@ -1,7 +1,6 @@
 package com.sol.shop.member;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +29,14 @@ public class MemberController {
         memberRepository.save(member);
         return "redirect:/list";
     }
+
+    @GetMapping("/login")
+    public String login(){
+//        var result = memberRepository.findByUsername("kim");
+//        System.out.println(result.get().getDisplayName());
+        return "login.html";
+    }
+
+
 
 }
