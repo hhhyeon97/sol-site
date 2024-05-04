@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    Page<Item> findPageBy(Pageable page);
+//    Page<Item> findPageBy(Pageable page);
+    Page<Item> findAll(Pageable pageable);
 }

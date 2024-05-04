@@ -6,26 +6,47 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
-<div th:replace="~{ nav.html::navbar }"></div>
-<div class="card" th:each="item : ${items}">
-    <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
-    <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
-    <div>
-        <a th:href="@{/detail/{id}(id=${item.id})}">
-            <h4 th:text="${item.title}"></h4>
-        </a>
-        <p th:text="${item.price + '원'}"></p>
-        <a th:href="@{'/edit/'+${item.id}}">✏️</a>
-        <!--삭제기능 다시 -->
+<div th:replace="~{nav.html::navbar}"></div>
+<div class="container">
+    <div class="card" th:each="item : ${items}">
+        <!-- 상품 이미지 -->
+        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+        <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
+        <div>
+            <!-- 상품 상세 페이지 링크 -->
+            <a th:href="@{/detail/{id}(id=${item.id})}">
+                <h4 th:text="${item.title}"></h4>
+            </a>
+            <p th:text="${item.price + '원'}"></p>
+            <!-- 상품 편집 페이지 링크 -->
+            <a th:href="@{'/edit/' + ${item.id}}">✏️</a>
+        </div>
     </div>
 </div>
-    <button class="btn">버튼</button>
-<script>
 
-</script>
+<div class="pagination justify-content-center">
+    <ul class="pagination">
+        <li class="page-item" th:unless="${currentPage == 1}">
+            <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
 
+        <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+            th:class="${pageNum == currentPage} ? 'active' : ''">
+            <a class="page-link" th:href="@{/list(page=${pageNum})}" th:text="${pageNum}"></a>
+        </li>
+
+        <li class="page-item" th:unless="${currentPage == totalPages}">
+            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

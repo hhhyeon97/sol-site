@@ -4,6 +4,8 @@ import com.sol.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -29,11 +31,24 @@ public class ItemController {
     private final S3Service s3Service;
     private final S3Service2 s3Service2;
 
+//    @GetMapping("/list")
+//    String list(Model model){
+//        List<Item> result = itemService.findAllItems(); // 서비스로부터 아이템 리스트를 가져옴
+//        model.addAttribute("items", result);
+//        return "list.html";
+//    }
+
     @GetMapping("/list")
-    String list(Model model){
-        List<Item> result = itemService.findAllItems(); // 서비스로부터 아이템 리스트를 가져옴
-        model.addAttribute("items", result);
-        return "list.html";
+    public String list(Model model, @RequestParam(defaultValue = "1") int page) {
+    // 페이지 번호는 0부터 시작하므로 -1 처리
+    Pageable pageable = PageRequest.of(page - 1, 5, Sort.by("id").descending());
+
+    // 페이지네이션된 결과 가져오기
+    Page<Item> itemsPage = itemRepository.findAll(pageable);
+    model.addAttribute("items", itemsPage.getContent());
+    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPages", itemsPage.getTotalPages());
+    return "list.html";
     }
 
     @GetMapping("/write")
@@ -114,12 +129,12 @@ public class ItemController {
         return "redirect:/list";
     }
 
-    @GetMapping("/list/page/{pageNum}")
-    String getListPage(Model model, @PathVariable Integer pageNum) {
-        Page<Item> result = itemRepository.findPageBy(PageRequest.of(pageNum-1,5));
-        model.addAttribute("items",result);
-        return "list.html";
-    }
+//    @GetMapping("/list/page/{pageNum}")
+//    String getListPage(Model model, @PathVariable Integer pageNum) {
+//        Page<Item> result = itemRepository.findPageBy(PageRequest.of(pageNum-1,5));
+//        model.addAttribute("items",result);
+//        return "list.html";
+//    }
 
     @GetMapping("/presigned-url")
     @ResponseBody
