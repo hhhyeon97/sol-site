@@ -2,6 +2,8 @@ package com.sol.shop.item;
 
 import com.sol.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -103,6 +105,13 @@ public class ItemController {
         var result = new BCryptPasswordEncoder().encode("문자~");
         System.out.println(result);
         return "redirect:/list";
+    }
+
+    @GetMapping("/list/page/{pageNum}")
+    String getListPage(Model model, @PathVariable Integer pageNum) {
+        Page<Item> result = itemRepository.findPageBy(PageRequest.of(pageNum-1,5));
+        model.addAttribute("items",result);
+        return "list.html";
     }
 
 }
