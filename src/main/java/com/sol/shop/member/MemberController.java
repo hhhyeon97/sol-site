@@ -2,21 +2,14 @@ package com.sol.shop.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -78,6 +71,28 @@ public class MemberController {
 
     }
 
+    @GetMapping("/user/1")
+    @ResponseBody
+    public MemberDto getUser(){
+        var a = memberRepository.findById(1L);
+        var result = a.get();
+        var data = new MemberDto(result.getUsername(), result.getDisplayName(), result.getId());
+        return data;
+    }
 
+}
 
+class MemberDto {
+    public String username;
+    public String displayName;
+    public Long id;
+    MemberDto(String a, String b) {
+        this.username = a;
+        this.displayName = b;
+    }
+    MemberDto(String a, String b, Long c){
+        this.username = a;
+        this.displayName = b;
+        this.id = c;
+    }
 }
