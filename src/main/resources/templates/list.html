@@ -10,16 +10,18 @@
 </head>
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
-    <div class="card" th:each="i : ${items}">
-        <img src="https://placehold.co/300">
-        <div>
-            <a th:href="@{/detail/{id}(id=${i.id})}"><h4 th:text="${i.title}"></h4></a>
-            <p th:text="${i.price + '원'}"></p>
-<!--            <a th:href="@{/edit/{id}(id=${i.id})}">✏️</a>-->
-            <a th:href="@{'/edit/'+${i.id}}">✏️</a>
-            <!--삭제기능 다시 -->
-        </div>
+<div class="card" th:each="item : ${items}">
+    <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+    <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
+    <div>
+        <a th:href="@{/detail/{id}(id=${item.id})}">
+            <h4 th:text="${item.title}"></h4>
+        </a>
+        <p th:text="${item.price + '원'}"></p>
+        <a th:href="@{'/edit/'+${item.id}}">✏️</a>
+        <!--삭제기능 다시 -->
     </div>
+</div>
     <button class="btn">버튼</button>
 <script>
 

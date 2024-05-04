@@ -12,7 +12,8 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 <div class="detail">
     <h4>상세페이지</h4>
-    <img src="https://placehold.co/300">
+    <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+    <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
     <h4 th:text="${item.title}"></h4> <!-- 아이템의 이름을 출력합니다. -->
     <p th:text="${item.price + '원'}"></p>
 </div>

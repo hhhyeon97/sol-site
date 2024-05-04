@@ -11,34 +11,26 @@
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
 
-<form action="/add" method="POST">
+<form id="itemForm" action="/add" method="POST" enctype="multipart/form-data">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input name="title">
-    <input name="price">
-    <button type="submit">전송</button>
+    <input name="title" placeholder="제목" required>
+    <input name="price" placeholder="가격" required>
+    <input type="file" name="imageFile" id="imageInput" required>
+    <button type="submit">등록</button>
 </form>
 
-<input type="file" onchange="getURL(this)">
-<img src="" alt="">
+<img id="previewImage" src="" alt="미리보기 이미지">
 <script>
-    async function getURL(e) {
-        console.log(e.files[0].name);
-        let name = encodeURIComponent(e.files[0].name)
-        let result = await fetch('/presigned-url?filename='+ name)
-        result = await result.text()
-        console.log(result)
-
-        let result2 =  await fetch(result, {
-        method : 'PUT',
-        body : e.files[0]
-        })
-        console.log(result2)
-        console.log(result2.url.split("?")[0])
-
-        if(result2.ok) {
-            document.querySelector('img').src= result2.url.split("?")[0]
-        }
-    }
+    document.getElementById('imageInput').addEventListener('change', function(event) {
+        let input = event.target;
+        let reader = new FileReader();
+        reader.onload = function() {
+            let dataURL = reader.result;
+            let previewImage = document.getElementById('previewImage');
+            previewImage.src = dataURL;
+        };
+        reader.readAsDataURL(input.files[0]);
+    });
 </script>
 </body>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -26,6 +27,7 @@ public class ItemController {
     private final ItemService itemService;
     private final MemberRepository memberRepository;
     private final S3Service s3Service;
+    private final S3Service2 s3Service2;
 
     @GetMapping("/list")
     String list(Model model){
@@ -44,21 +46,25 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    String addPost(@RequestParam String title, @RequestParam Integer price, Authentication authentication) {
+    String addPost(@RequestParam String title, @RequestParam Integer price,@RequestParam("imageFile") MultipartFile imageFile, Authentication authentication) {
         // 현재 로그인한 사용자의 아이디 가져오기
         String username = authentication.getName();
 
         // 해당 아이디로 사용자 정보 조회
         var result = memberRepository.findByUsername(username);
         if(result.isEmpty()){
-            // 사용자 정보가 없는 경우에 대한 처리
+
         }
         // 사용자 정보에서 userId 가져오기
         Long userId = result.get().getId();
 
-        itemService.saveItem(title, price, userId);
+        // 이미지 파일을 S3에 업로드하고 URL 가져오기
+        String imageUrl = s3Service2.uploadImageToS3(imageFile, "items");
+
+        itemService.saveItem(title, price, userId, imageUrl);
         return "redirect:/list";
     }
+
 
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
