@@ -25,6 +25,7 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final ItemService itemService;
     private final MemberRepository memberRepository;
+    private final S3Service s3Service;
 
     @GetMapping("/list")
     String list(Model model){
@@ -114,4 +115,12 @@ public class ItemController {
         return "list.html";
     }
 
+    @GetMapping("/presigned-url")
+    @ResponseBody
+    String getURL(@RequestParam String filename){
+//        System.out.println(filename);
+        var result = s3Service.createPreSignedUrl("test/"+filename);
+        System.out.println(result);
+        return result;
+    }
 }
