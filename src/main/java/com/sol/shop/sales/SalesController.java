@@ -2,6 +2,7 @@ package com.sol.shop.sales;
 
 
 import com.sol.shop.member.CustomUser;
+import com.sol.shop.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -29,18 +30,32 @@ public class SalesController {
         sales.setPrice(price);
         sales.setItemName(title);
         CustomUser user = (CustomUser) auth.getPrincipal();
-//        System.out.println(user.userId);
+        System.out.println(user.userId);
+        var member = new Member();
+        member.setId(user.userId);
+        sales.setMember(member);
 //        sales.setMemberId(user.userId);
-//        salesRepository.save(sales);
+        salesRepository.save(sales);
         return "redirect:/list";
     }
 
     @GetMapping("/order/all")
     String getOrderAll(Model model) {
-        List<Sales> result = salesRepository.findAll();
-        System.out.println(result.get(0));
+//        List<Sales> result = salesRepository.findAll();
+    List<Sales> result = salesRepository.customFindAll();
+//        System.out.println(result);
+//        var salesDto = new SalesDto();
+//        salesDto.itemName = result.get(0).getItemName();
+//        salesDto.price = result.get(0).getPrice();
+//        salesDto.username = result.get(0).getMember().getUsername();
         model.addAttribute("orderList",result);
         return "orderList.html";
     }
 
+}
+
+class SalesDto {
+    public String itemName;
+    public Integer price;
+    public String username;
 }
