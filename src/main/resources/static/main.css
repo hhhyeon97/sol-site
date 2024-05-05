@@ -48,3 +48,17 @@ input {
   display : block;
   margin : auto;
 }
+
+.review-form {
+    display : flex;
+    text-align : center;
+    align-items : center;
+    justify-content : center;
+    flex-direction : column;
+}
+
+.review-content {
+    list-style : none;
+    text-align : center;
+    padding : 0;
+}
