@@ -154,7 +154,7 @@ public class ItemController {
     @PostMapping("/search")
     String postSearch(@RequestParam String searchText){
 
-        var result = itemRepository.findAllByTitleContains(searchText);
+        var result = itemRepository.rawQuery1(searchText);
         System.out.println(result);
 
         return "redirect:/list";
