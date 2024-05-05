@@ -152,12 +152,13 @@ public class ItemController {
     }
 
     @PostMapping("/search")
-    String postSearch(@RequestParam String searchText){
+    String postSearch(@RequestParam String searchText, Model model){
 
-        var result = itemRepository.rawQuery1(searchText);
-        System.out.println(result);
+        List<Item> result = itemRepository.rawQuery1(searchText);
+        //System.out.println(result);
+        model.addAttribute("searchList",result);
 
-        return "redirect:/list";
+        return "searchList.html";
     }
 
 
