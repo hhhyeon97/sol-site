@@ -87,7 +87,7 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
 
-    List<Comment> comment = commentRepository.findAllByParentId(21L);
+    List<Comment> comment = commentRepository.findAllByParentId(id);
     Optional<Item> result = itemService.findItemById(id);
     if (result.isPresent()) {
         Item item = result.get();
@@ -132,7 +132,7 @@ public class ItemController {
     String test2(){
         var result = new BCryptPasswordEncoder().encode("문자~");
         System.out.println(result);
-        return "redirect:/list";
+        return "list.html";
     }
 
 //    @GetMapping("/list/page/{pageNum}")
@@ -150,4 +150,15 @@ public class ItemController {
         System.out.println(result);
         return result;
     }
+
+    @PostMapping("/search")
+    String postSearch(@RequestParam String searchText){
+
+        var result = itemRepository.findAllByTitleContains(searchText);
+        System.out.println(result);
+
+        return "redirect:/list";
+    }
+
+
 }

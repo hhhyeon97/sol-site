@@ -11,6 +11,13 @@
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"></div>
+
+<form action="/search" method="POST">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input name="searchText" style="display:inline">
+    <button type="submit">검색</button>
+</form>
+
 <div class="container">
     <div class="card" th:each="item : ${items}">
         <!-- 상품 이미지 -->
