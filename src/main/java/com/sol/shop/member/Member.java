@@ -1,9 +1,13 @@
 package com.sol.shop.member;
 
+import com.sol.shop.sales.Sales;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,7 +21,12 @@ public class Member {
 
     @Column(unique = true)
     private String username;
+
     private String displayName;
     private String password;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member")
+    private List<Sales> sales = new ArrayList<>();
 
 }

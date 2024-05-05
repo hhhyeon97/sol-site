@@ -3,6 +3,7 @@ package com.sol.shop.sales;
 
 import com.sol.shop.member.CustomUser;
 import com.sol.shop.member.Member;
+import com.sol.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import java.util.List;
 public class SalesController {
 
     private final SalesRepository salesRepository;
+    private final MemberRepository memberRepository;
 
     @PostMapping("/order")
     String postOrder(@RequestParam String title,
@@ -49,6 +51,10 @@ public class SalesController {
 //        salesDto.price = result.get(0).getPrice();
 //        salesDto.username = result.get(0).getMember().getUsername();
         model.addAttribute("orderList",result);
+
+        var result2 = memberRepository.findById(1L);
+        System.out.println(result2.get().getSales());
+
         return "orderList.html";
     }
 
