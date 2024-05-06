@@ -25,13 +25,14 @@ public class SalesController {
 
     @PostMapping("/order")
     String postOrder(@RequestParam String title,
-                     @RequestParam Integer price,
                      @RequestParam Integer count,
+                     @RequestParam Integer price,
                      Authentication auth,
-                     @RequestParam Long itemId) {
+                     @RequestParam Long itemId
+                     ) {
         Sales sales = new Sales();
         sales.setCount(count);
-        sales.setPrice(price);
+        sales.setPrice(price*count);
         sales.setItemName(title);
         sales.setItemId(itemId);
         CustomUser user = (CustomUser) auth.getPrincipal();

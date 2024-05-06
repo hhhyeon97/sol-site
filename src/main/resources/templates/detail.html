@@ -33,9 +33,32 @@
     <input name="itemId" th:value="${item.id}" style="display:none">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="title" th:value="${item.title}" readonly>
-    <input name="price" th:value="${item.price}">
-    <input name="count" placeholder="count">
+    <input id="itemPrice" name="price" th:value="${item.price}" readonly>
+    <input id="count" name="count" type="number" min="1" max="100" value="1" placeholder="count" oninput="updatePrice();" onkeypress="validateInput(event)">
+    <span id="totalPrice">0원</span>
     <button style="text-align:left">주문하기</button>
 </form>
+
+
+<script>
+    window.onload = function() {
+        updatePrice(); // 페이지 로드시 total price 업데이트
+    };
+
+    function updatePrice() {
+        var count = parseInt(document.getElementById('count').value);
+        var price = parseFloat(document.getElementById('itemPrice').value);
+        var totalPrice = count * price;
+        document.getElementById('totalPrice').innerText = totalPrice + '원';
+    }
+
+    function validateInput(event) {
+        var keyCode = event.keyCode;
+        if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
+            event.preventDefault();
+        }
+    }
+</script>
+
 </body>
 </html>
