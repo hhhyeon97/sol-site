@@ -30,6 +30,7 @@
 
 <form action="/order" method="POST">
     <h3>주문하기</h3>
+    <input name="itemId" th:value="${item.id}" style="display:none">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="title" th:value="${item.title}" readonly>
     <input name="price" th:value="${item.price}">

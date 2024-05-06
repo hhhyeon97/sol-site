@@ -29,4 +29,6 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Sales> sales = new ArrayList<>();
 
+    private String role;
+
 }

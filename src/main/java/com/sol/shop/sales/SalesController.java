@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,11 +27,13 @@ public class SalesController {
     String postOrder(@RequestParam String title,
                      @RequestParam Integer price,
                      @RequestParam Integer count,
-                     Authentication auth) {
+                     Authentication auth,
+                     @RequestParam Long itemId) {
         Sales sales = new Sales();
         sales.setCount(count);
         sales.setPrice(price);
         sales.setItemName(title);
+        sales.setItemId(itemId);
         CustomUser user = (CustomUser) auth.getPrincipal();
         System.out.println(user.userId);
         var member = new Member();

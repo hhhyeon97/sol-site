@@ -23,6 +23,7 @@ public class Sales {
     private String itemName;
     private Integer price;
     private Integer count;
+    private Long itemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id",
