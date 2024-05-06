@@ -31,6 +31,12 @@
             <p th:text="${item.price + '원'}"></p>
             <!-- 상품 편집 페이지 링크 -->
             <a th:href="@{'/edit/' + ${item.id}}">✏️</a>
+            <!-- 상품 삭제 버튼 -->
+            <form id="deleteForm" th:action="@{/delete/{id}(id=${item.id})}" method="post" style="display:inline">
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="button" onclick="confirmDelete()">삭제</button>
+            </form>
         </div>
     </div>
 </div>
@@ -55,5 +61,13 @@
         </li>
     </ul>
 </div>
+
+<script>
+    function confirmDelete() {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>
 </body>
 </html>

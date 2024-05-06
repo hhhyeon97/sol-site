@@ -122,11 +122,16 @@ public class ItemController {
         return "redirect:/list";
     }
 
-    @DeleteMapping("/item")
-    ResponseEntity<String> deleteItem(@RequestParam Long id){
+    @PostMapping("/delete/{id}")
+    String deleteItem(@PathVariable Long id){
         itemRepository.deleteById(id);
-        return ResponseEntity.status(200).body("삭제완료");
+        return "redirect:/list";
     }
+//    @DeleteMapping("/item")
+//    ResponseEntity<String> deleteItem(@RequestParam Long id){
+//        itemRepository.deleteById(id);
+//        return ResponseEntity.status(200).body("삭제완료");
+//    }
 
     @GetMapping("/test2")
     String test2(){
