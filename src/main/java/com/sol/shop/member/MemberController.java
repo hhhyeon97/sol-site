@@ -76,8 +76,8 @@ public class MemberController {
                 model.addAttribute("username", member.getUsername());
                 model.addAttribute("displayName", member.getDisplayName());
 //                // 주문 내역 가져오기
-//                List<Sales> sales = salesRepository.findByMemberId(member.getId());
-//                model.addAttribute("sales", sales);
+                List<Sales> sales = salesRepository.findByMemberId(member.getId());
+                model.addAttribute("sales", sales);
                 // 작성한 리뷰 가져오기
                 List<Comment> reviews = commentRepository.findByUsername(member.getUsername());
                 model.addAttribute("reviews", reviews);

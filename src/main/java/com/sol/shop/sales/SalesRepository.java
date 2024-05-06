@@ -12,4 +12,5 @@ public interface SalesRepository extends JpaRepository<Sales, Long> {
     @Query(value = "select s from Sales s join fetch s.member")
     List<Sales> customFindAll();
 
+    List<Sales> findByMemberId(Long memberId);
 }

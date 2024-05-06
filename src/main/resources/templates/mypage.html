@@ -50,12 +50,12 @@
     <p>user 이름 <span th:text="${displayName}"></span></p>
     <button class="accordion">주문 내역</button>
     <div class="panel">
-<!--        <p th:if="${!sales.isEmpty()}">-->
-<!--            <span th:each="sale : ${sales}">-->
-<!--                주문 번호: <span th:text="${sale.id}"></span>, 상품명: <span th:text="${sale.itemName}"></span>, 가격: <span th:text="${sale.price}"></span><br>-->
-<!--            </span>-->
-<!--        </p>-->
-<!--        <p th:if="${sales.isEmpty()}">주문 내역이 없습니다.</p>-->
+        <p th:if="${!sales.isEmpty()}">
+            <span th:each="sale : ${sales}">
+                주문 번호: <span th:text="${sale.id}"></span>, 상품명: <span th:text="${sale.itemName}"></span>, 가격: <span th:text="${sale.price}"></span><br>
+            </span>
+        </p>
+        <p th:if="${sales.isEmpty()}">주문 내역이 없습니다.</p>
     </div>
     <button class="accordion">내가 작성한 리뷰</button>
     <div class="panel">
