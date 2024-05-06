@@ -137,8 +137,35 @@ public class ItemController {
         Long loggedInUserId = result.get().getId();
         System.out.println("로그인한 유저 id"+loggedInUserId);
         model.addAttribute("loggedInUserId", loggedInUserId);
-        itemRepository.deleteById(id);
-        redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
+//        itemRepository.deleteById(id);
+//        redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
+
+        // 이게 비효율적인 느낌 - > 근데 타임리프문법으로 하면 자꾸 에러남 왜 ?...
+
+        // 상품 정보 조회
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            Long itemUserId = item.getUserId();
+            System.out.println("상품을 작성한 사용자 id: " + itemUserId);
+
+            // 현재 로그인한 사용자의 아이디와 상품을 작성한 사용자의 아이디 비교
+            if (loggedInUserId.equals(itemUserId)) {
+                // 일치하는 경우 삭제
+                itemRepository.deleteById(id);
+                redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
+            } else {
+                // 일치하지 않는 경우에는 에러 메시지 설정
+                redirectAttributes.addFlashAttribute("errorMessage", "해당 상품을 삭제할 수 있는 권한이 없습니다.");
+            }
+        } else {
+            // 상품이 없는 경우에도 에러 메시지 설정
+            redirectAttributes.addFlashAttribute("errorMessage", "상품을 찾을 수 없습니다.");
+        }
+
+
+
+
         return "redirect:/list";
     }
 
