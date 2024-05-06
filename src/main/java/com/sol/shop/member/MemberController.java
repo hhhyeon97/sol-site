@@ -1,5 +1,9 @@
 package com.sol.shop.member;
 
+import com.sol.shop.comment.Comment;
+import com.sol.shop.comment.CommentRepository;
+import com.sol.shop.sales.Sales;
+import com.sol.shop.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -11,12 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SalesRepository salesRepository;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/join")
     String join(Authentication authentication) {
@@ -60,15 +68,24 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage(Authentication auth){
-        if(auth != null && auth.isAuthenticated()){
+    public String myPage(Model model, Authentication auth) {
+        if (auth != null && auth.isAuthenticated()) {
+            CustomUser user = (CustomUser) auth.getPrincipal();
+            Member member = memberRepository.findByUsername(user.getUsername()).orElse(null);
+            if (member != null) {
+                model.addAttribute("username", member.getUsername());
+                model.addAttribute("displayName", member.getDisplayName());
+//                // 주문 내역 가져오기
+//                List<Sales> sales = salesRepository.findByMemberId(member.getId());
+//                model.addAttribute("sales", sales);
+                // 작성한 리뷰 가져오기
+                List<Comment> reviews = commentRepository.findByUsername(member.getUsername());
+                model.addAttribute("reviews", reviews);
+            }
             return "mypage.html";
-        }else {
+        } else {
             return "redirect:/";
         }
-//        CustomUser result = (CustomUser)auth.getPrincipal();
-//        System.out.println(result.displayName);
-
     }
 
     @GetMapping("/user/1")

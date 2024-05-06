@@ -7,4 +7,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findAllByParentId(Long parentId);
+
+    List<Comment> findByUsername(String username);
 }
