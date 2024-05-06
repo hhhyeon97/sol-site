@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,7 +17,12 @@
     <input name="searchText" style="display:inline">
     <button type="submit">검색</button>
 </form>
-
+<!-- 삭제 성공 메시지 -->
+<div th:if="${successMessage}">
+    <div class="alert alert-primary" role="alert">
+        <span th:text="${successMessage}"></span>
+    </div>
+</div>
 <div class="container">
     <div class="card" th:each="item : ${items}">
         <!-- 상품 이미지 -->
@@ -31,13 +36,14 @@
             <p th:text="${item.price + '원'}"></p>
             <!-- 상품 편집 페이지 링크 -->
             <a th:href="@{'/edit/' + ${item.id}}">✏️</a>
-            <!-- 상품 삭제 버튼 -->
-            <form id="deleteForm" th:action="@{/delete/{id}(id=${item.id})}" method="post" style="display:inline">
-                <input type="hidden" name="_method" value="delete">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <button type="button" onclick="confirmDelete()">삭제</button>
-            </form>
+
         </div>
+        <!-- 상품 삭제 버튼 -->
+<!--        <div th:if="${item.userId == loggedInUserId}">-->
+            <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post" style="display:inline">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                <button type="submit">삭제</button>
+            </form>
     </div>
 </div>
 
@@ -63,11 +69,11 @@
 </div>
 
 <script>
-    function confirmDelete() {
-        if (confirm("정말로 삭제하시겠습니까?")) {
-            document.getElementById("deleteForm").submit();
-        }
-    }
+    function confirmDelete(formId) {
+      if (confirm("정말로 삭제하시겠습니까?")) {
+          document.getElementById(formId).submit();
+      }
+  }
 </script>
 </body>
 </html>

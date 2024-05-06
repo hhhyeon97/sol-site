@@ -2,6 +2,8 @@ package com.sol.shop.item;
 
 import com.sol.shop.comment.Comment;
 import com.sol.shop.comment.CommentRepository;
+import com.sol.shop.member.CustomUser;
+import com.sol.shop.member.Member;
 import com.sol.shop.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
@@ -51,6 +54,7 @@ public class ItemController {
     model.addAttribute("items", itemsPage.getContent());
     model.addAttribute("currentPage", page);
     model.addAttribute("totalPages", itemsPage.getTotalPages());
+
     return "list.html";
     }
 
@@ -122,11 +126,29 @@ public class ItemController {
         return "redirect:/list";
     }
 
+
     @PostMapping("/delete/{id}")
-    String deleteItem(@PathVariable Long id){
+    public String deleteItem(@PathVariable Long id, RedirectAttributes redirectAttributes, Authentication authentication, Model model) {
+        // 현재 로그인한 사용자의 아이디 가져오기
+        String username = authentication.getName();
+        // 해당 아이디로 사용자 정보 조회
+        var result = memberRepository.findByUsername(username);
+        // 사용자 정보에서 userId 가져오기
+        Long loggedInUserId = result.get().getId();
+        System.out.println("로그인한 유저 id"+loggedInUserId);
+        model.addAttribute("loggedInUserId", loggedInUserId);
         itemRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
         return "redirect:/list";
     }
+
+
+//    @PostMapping("/delete/{id}")
+//    String deleteItem(@PathVariable Long id){
+//        itemRepository.deleteById(id);
+//        return "redirect:/list";
+//    }
+
 //    @DeleteMapping("/item")
 //    ResponseEntity<String> deleteItem(@RequestParam Long id){
 //        itemRepository.deleteById(id);
