@@ -61,9 +61,11 @@
                 <h4 th:text="${item.title}"></h4>
             </a>
             <p th:text="${item.price + '원'}"></p>
-            <!-- 상품 편집 페이지 링크 -->
-            <a th:href="@{'/edit/' + ${item.id}}">✏️</a>
-
+<!--            &lt;!&ndash; 상품 편집 페이지 링크 &ndash;&gt;-->
+<!--            <a th:href="@{'/edit/' + ${item.id}}">✏️</a>-->
+            <!-- 수정 버튼 -->
+            <a th:if="${#authorization.expression('isAuthenticated()')}"
+               th:href="@{'/edit/' + ${item.id}}">✏️</a>
         </div>
         <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post" style="display:inline">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">

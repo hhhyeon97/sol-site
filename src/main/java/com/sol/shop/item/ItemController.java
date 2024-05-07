@@ -103,16 +103,38 @@ public class ItemController {
     }
     }
 
-    @GetMapping("/edit/{id}")
-    String edit(Model model, @PathVariable Long id){
-        Optional<Item> result = itemRepository.findById(id);
-        if(result.isPresent()){
-            model.addAttribute("data",result.get());
+//    @GetMapping("/edit/{id}")
+//    String edit(Model model, @PathVariable Long id){
+//        Optional<Item> result = itemRepository.findById(id);
+//        if(result.isPresent()){
+//            model.addAttribute("data",result.get());
+//            return "edit.html";
+//        }else {
+//            return "redirect:/list";
+//        }
+//    }
+@GetMapping("/edit/{id}")
+String edit(Model model, @PathVariable Long id, Authentication authentication){
+    Optional<Item> result = itemRepository.findById(id);
+    if(result.isPresent()){
+        Item item = result.get();
+
+        // 현재 로그인한 사용자와 아이템 작성자 비교
+        String loggedInUsername = authentication.getName();
+        Long loggedInUserId = memberRepository.findByUsername(loggedInUsername)
+                .orElseThrow()
+                .getId();
+        if (loggedInUserId.equals(item.getUserId())) {
+            model.addAttribute("data", item);
             return "edit.html";
-        }else {
-            return "redirect:/list";
+        } else {
+            return "redirect:/list?editError=true";
         }
+    } else {
+        return "redirect:/list";
     }
+}
+
 
     @PostMapping("/edit")
     String editItem(@RequestParam String title, Integer price, Long id){
