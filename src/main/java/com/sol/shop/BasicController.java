@@ -8,10 +8,10 @@ import java.time.ZonedDateTime;
 
 @Controller
 public class BasicController {
-   @GetMapping("/")
-    String main(){
-    return "index.html";
-   }
+//   @GetMapping("/")
+//    String main(){
+//    return "index.html";
+//   }
 
 //    @GetMapping("/login")
 //    @ResponseBody

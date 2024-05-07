@@ -44,7 +44,7 @@ public class ItemController {
 //        return "list.html";
 //    }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page) {
     // 페이지 번호는 0부터 시작하므로 -1 처리
     Pageable pageable = PageRequest.of(page - 1, 5, Sort.by("id").descending());
@@ -84,7 +84,7 @@ public class ItemController {
         String imageUrl = s3Service2.uploadImageToS3(imageFile, "items");
 
         itemService.saveItem(title, price, userId, imageUrl);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
 
@@ -128,10 +128,10 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
             model.addAttribute("data", item);
             return "edit.html";
         } else {
-            return "redirect:/list?editError=true";
+            return "redirect:/?editError=true";
         }
     } else {
-        return "redirect:/list";
+        return "redirect:/";
     }
 }
 
@@ -139,13 +139,13 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
     @PostMapping("/edit")
     String editItem(@RequestParam String title, Integer price, Long id){
       itemService.editItem(title,price,id);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
     @PostMapping("/test1")
     String test1(@RequestBody Map<String, Object> body){
         System.out.println(body);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
 
@@ -188,7 +188,7 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
 
 
 
-        return "redirect:/list";
+        return "redirect:/";
     }
 
 
