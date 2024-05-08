@@ -47,7 +47,7 @@ public class MemberController {
             member.setPassword(hash);
             member.setDisplayName(displayName);
             memberRepository.save(member);
-            return "redirect:/list";
+            return "redirect:/";
 
         } catch (DataIntegrityViolationException e) {
             // 중복된 아이디 예외 처리

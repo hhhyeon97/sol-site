@@ -21,31 +21,47 @@
     </div>
 <form action="/member" method="POST" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input name="displayName"  placeholder="이름">
+    <input name="displayName" id="displayName" placeholder="이름">
     <input name="username" id="username" placeholder="id는 5자 이상이어야 해요!">
     <input name="password" id="password" placeholder="password는 8자 이상이어야 해요!">
     <button type="submit" id="joinBtn">가입하기</button>
-    <a href="/login">이미 회원이신가요?</a>
+    <a href="/login">💡 이미 회원이신가요?</a>
 </form>
 
 </div>
 <script>
     function validateForm() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+        var displayName = document.getElementById("displayName").value.trim();
+        var username = document.getElementById("username").value.trim();
+        var password = document.getElementById("password").value.trim();
 
-    if (username.length < 5) {
-        alert("아이디는 5자 이상이어야 합니다.");
-        return false;
+        if (displayName === "" || username === "" || password === "") {
+            alert("이름, 아이디, 비밀번호를 모두 입력해주세요.");
+            // 입력창으로 포커스 이동
+            if (displayName === "") {
+                document.getElementById("displayName").focus();
+            } else if (username === "") {
+                document.getElementById("username").focus();
+            } else {
+                document.getElementById("password").focus();
+            }
+            return false;
+        }
+
+        if (username.length < 5) {
+            alert("아이디는 5자 이상이어야 합니다.");
+            document.getElementById("username").focus();
+            return false;
+        }
+
+        if (password.length < 8) {
+            alert("비밀번호는 8자 이상이어야 합니다.");
+            document.getElementById("password").focus();
+            return false;
+        }
+        alert("회원가입이 완료되었습니다!");
+        return true;
     }
-
-    if (password.length < 8) {
-        alert("비밀번호는 8자 이상이어야 합니다.");
-        return false;
-    }
-
-    return true;
-}
 </script>
 </body>
 </html>
