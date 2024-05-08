@@ -41,7 +41,7 @@
             <button type="submit" class="review-btn">등록</button>
         </form>
         <ul class="review-content">
-            <li th:each="c : ${comment}" th:text="'🌱'+${c.content}"></li>
+            <li th:each="c : ${comment}" th:text="'🌱 '+${c.content}"></li>
         </ul>
     </div>
 </div>
