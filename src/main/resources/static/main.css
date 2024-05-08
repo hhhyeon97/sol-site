@@ -107,7 +107,6 @@ a:hover {
 
 }
 
-
 /* my-page */
 
 .my-area {
@@ -132,40 +131,37 @@ a:hover {
 .bold-text {
     font-weight: bold;
 }
-
-  .accordion {
-            background-color: #9fc4a9;
-            color: #333;
-            cursor: pointer;
-            padding: 18px;
-            width: 90%;
-            border: none;
-            text-align: left;
-            font-size: 15px;
-            transition: 0.4s;
-            margin: 5px 0;
-            outline:none;
-        }
-
-        .active, .accordion:hover {
-            background-color: #7bb58b;
-        }
-
-        .panel {
-        display:flex;
-        justify-content:center;
-        margin : 10px auto;
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-            margin-bottom: 30px;
-             width:80%;
-        }
-        .panel p {
-            text-align:left;
-        }
-        .panel span {
-        }
+.accordion {
+    background-color: #9fc4a9;
+    color: #333;
+    cursor: pointer;
+    padding: 18px;
+    width: 90%;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    transition: 0.4s;
+    margin: 5px 0;
+    outline:none;
+}
+.active, .accordion:hover {
+   background-color: #7bb58b;
+}
+.panel {
+    display:flex;
+    justify-content:center;
+    margin : 10px auto;
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    margin-bottom: 30px;
+    width:80%;
+}
+.panel p {
+    text-align:left;
+}
+.panel span {
+}
 
 /* login */
 
@@ -302,27 +298,7 @@ a:hover {
     text-decoration:underline;
 }
 
-
-
-/*
-.nav button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline : none;
-}
-
-.nav button:hover {
-    color: #007bff;
-}
-
-.nav div {
-    display: flex;
-    align-items: center;
-}
-*/
-
-
+/* search-input */
 
 .search-area {
 
@@ -330,6 +306,35 @@ display: flex;
 justify-content: right;
 
 }
+
+.search-area input {
+    width: 20%;
+    margin: 15px;
+    border: none;
+    border-bottom: 2px solid #9fc4a9;;
+    background: transparent;
+}
+.search-area input:focus {
+    outline: none;
+}
+.search-btn {
+    border: none;
+    background:none;
+}
+.search-btn:focus {
+    outline: none;
+}
+
+.search-btn i {
+    font-size: 20px;
+    color: gray;
+    font-weight:bold;
+    position:relative;
+    right:8px;
+    top: 5px;
+}
+
+
 
 
 .detail {
