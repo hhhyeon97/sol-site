@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans:400');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Titan+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&family=Titan+One&display=swap');
 @font-face {
     font-family: 'logoFont';
     src: url('/fonts/Autarquica-demo-font-FFP.otf') format('opentype');
@@ -12,17 +9,10 @@
     font-weight: normal;
     font-style: normal;
 }
-@font-face {
-    font-family: 'SBAggroB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 
 body {
     font-family: "Noto Sans KR", sans-serif;
 }
-
 
 /* navbar */
 .nav {
@@ -392,6 +382,7 @@ a:hover {
 }
 .detail-text-area h4{
     color: #3d403d;
+    font-size: 20px;
 }
 .detail-text-area p {
     color: gray;
@@ -514,7 +505,7 @@ a:hover {
 }
 
 /* error.html */
-.container {
+.error-wrap {
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -529,7 +520,8 @@ a:hover {
     border: 2px solid #9fc4a9;
     width: 500px;
     border-radius: 10px;
-    height: 50vh;
+    height: 60vh;
+    padding: 8px 12px;
 }
 
 .error-area h2 {
@@ -543,6 +535,10 @@ a:hover {
     color: gray;
     margin-top: 10px;
     font-size: 18px;
+}
+
+.error-area p {
+    word-wrap: break-word;
 }
 
 /* list.html */
