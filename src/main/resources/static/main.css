@@ -261,7 +261,7 @@ a:hover {
 
 }
 .join-area input:focus {
-  outline-color: #9fc4a9;
+  outline: #9fc4a9;
 }
 
 #joinBtn {
@@ -279,7 +279,7 @@ a:hover {
 	transition: background-color 0.3s ease;
 }
 #joinBtn:focus {
-    outline-color: none;
+    outline: none;
 }
 
 #joinBtn:hover {
@@ -301,10 +301,8 @@ a:hover {
 /* search */
 
 .search-area {
-
-display: flex;
-justify-content: right;
-
+    display: flex;
+    justify-content: right;
 }
 
 .search-area input {
@@ -351,10 +349,10 @@ justify-content: right;
 }
 
 .write-btn:focus {
-    outline-color: none;
+    outline: none;
 }
 .edit-btn:focus {
-    outline-color: none;
+    outline none;
 }
 .write-btn:hover {
 	background-color: #9fc4a9;
@@ -371,6 +369,129 @@ justify-content: right;
     width : 200px;
 }
 
+/* detail.html */
+/* 레이아웃 다른 방법 찾기 */
+.detail-area {
+    width : 100%;
+    height: 100vh;
+    text-align:center;
+    margin-top: 60px;
+}
+.detail-img {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    right: 100px;
+    margin-right:30px;
+}
+.detail-text-area {
+    margin-top: 15px;
+    position: relative;
+    right: 100px;
+    margin-right:30px;
+}
+.detail-text-area h4{
+    color: #3d403d;
+}
+.detail-text-area p {
+    color: gray;
+}
+.buy-area {
+    text-align:right;
+    position: relative;
+    bottom: 300px;
+    right: 400px;
+}
+
+.buy-area input {
+    margin : 10px 0;
+}
+#totalPrice {
+    font-weight:bold;
+}
+.buy-btn {
+      padding: 10px;
+    	width: 100px;
+    	background-color: #fff;
+    	border: 2px solid #9fc4a9;
+    	border-radius: 4px;
+    	cursor: pointer;
+    	margin-top: 10px;
+    	margin-bottom: 20px;
+    	color:#3b3d3b;
+    	font-size: 17px;
+        outline:none;
+    	transition: background-color 0.3s ease;
+}
+.buy-btn:focus {
+    outline: none;
+}
+.buy-btn:hover {
+	background-color: #9fc4a9;
+	color: white;
+	font-weight: bold;
+}
+.review-form {
+    display : flex;
+    text-align : center;
+    align-items : center;
+    justify-content : center;
+}
+.review-form h3 {
+    color: #9fc4a9;
+    margin-bottom:25px;
+    font-family: 'ONE-Mobile-POP';
+    letter-spacing : 5px;
+    margin-right: 20px;
+}
+.review-content {
+    list-style : none;
+    text-align : center;
+    padding : 0;
+}
+.review-content li {
+    margin : 5px auto;
+}
+.review-input {
+    border : 2px solid #9fc4a9;
+    border-radius:4px;
+    margin-right: 7px;
+    position: relative;
+    bottom: 12px;
+}
+.review-input:focus {
+    outline: none;
+}
+.review-btn {
+    border: 2px solid #9fc4a9;
+    background-color: white;
+    border-radius:4px;
+    color: gray;
+    position:relative;
+    bottom:12px;
+    transition: 0.3s;
+}
+
+.review-btn:hover {
+    color: white;
+    background-color: #9fc4a9;
+}
+
+.review-btn:focus {
+    outline:none;
+}
+
+.review-area {
+    position: absolute;
+    width: 45%;
+    left: 30%;
+    top: 85vh;
+    border-top: 2px solid lightgray;
+    padding-top: 15px;
+}
+
+
+/* error.html */
 
 /* list.html */
 
@@ -387,29 +508,6 @@ justify-content: right;
 }
 .card-link:hover {
     color: inherit;
-}
-
-.detail {
-  text-align : center;
-}
-.detail img{
-  max-width : 30%;
-  display : block;
-  margin : auto;
-}
-
-.review-form {
-    display : flex;
-    text-align : center;
-    align-items : center;
-    justify-content : center;
-    flex-direction : column;
-}
-
-.review-content {
-    list-style : none;
-    text-align : center;
-    padding : 0;
 }
 
 .image {
