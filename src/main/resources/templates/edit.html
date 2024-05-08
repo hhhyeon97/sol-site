@@ -13,14 +13,34 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 <div class="container join-area">
     <h2>상품 수정</h2>
-<form action="/edit" method="POST">
+<form action="/edit" method="POST" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="id" th:value="${data.id}" style="display:none">
     <img th:if="${data.imageUrl}" th:src="${data.imageUrl}" alt="상품 이미지" class="edit-img">
-    <input name="title" th:value="${data.title}" placeholder="수정할 상품명">
-    <input name="price" th:value="${data.price}" placeholder="수정할 상품 가격">
+    <input name="title"  id="title"th:value="${data.title}" placeholder="수정할 상품명">
+    <input name="price"  id="price" th:value="${data.price}" placeholder="수정할 상품 가격">
     <button type="submit" class="edit-btn">수정</button>
 </form>
+</div>
+<script>
+    function validateForm() {
+        var title = document.getElementById("title").value.trim();
+        var price = document.getElementById("price").value.trim();
 
+        if (title === "" || price === "") {
+            alert("상품명과 가격을 입력해주세요.");
+            if (title === "") {
+                document.getElementById("title").focus();
+                document.getElementById("title").value = "";
+            } else {
+                document.getElementById("price").focus();
+                document.getElementById("price").value = "";
+            }
+            return false;
+        }
+
+        return true;
+    }
+</script>
 </body>
 </html>
