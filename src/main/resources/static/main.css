@@ -7,12 +7,14 @@
     src: url('/fonts/Autarquica-demo-font-FFP.otf') format('opentype');
 }
 @font-face {
-    font-family: 'logoFont2';
-    src: url('/fonts/solid 3d.ttf') format('true type');
-}
-@font-face {
     font-family: 'ONE-Mobile-POP';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -36,12 +38,12 @@ body {
 }
 
 .logo {
- /*font-family: "Titan One", sans-serif;*/
-    font-family: 'ONE-Mobile-POP';
+    font-family: 'logoFont';
     color: white;
     font-size: 40px;
     font-weight: bold;
     margin-right: 25px;
+    letter-spacing:5px;
 }
 
 a {
@@ -50,8 +52,8 @@ a {
 }
 
 a:hover {
-    color: gray;
-    text-decoration: none;
+    color: white;
+    text-decoration:none;
 }
 
 .logout-btn {
@@ -60,10 +62,26 @@ a:hover {
     cursor: pointer;
     outline : none;
     font-weight:bold;
+    color: white;
+}
+.logout-btn:focus {
+    outline: none;
 }
 
 .menu {
     font-weight:bold;
+    margin: 0 25px;
+}
+.menu:hover {
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+}
+
+.login-user {
+    display:flex;
+}
+
+.login-user-name {
 }
 
 /* footer */
@@ -77,7 +95,7 @@ a:hover {
     align-items: center;
     border-top : 1px solid #c4c4c4;
     background-color : #89b089;
-    margin-top: 50px;
+    margin-top: 110px;
 }
 
 .footer p {
@@ -285,6 +303,7 @@ a:hover {
 }
 
 
+
 /*
 .nav button {
     background-color: transparent;
@@ -349,4 +368,8 @@ width : 150px;
  width : 150px;
  height : 150px;
  margin-right : 20px;
+}
+
+.card-link {
+    color: black;
 }

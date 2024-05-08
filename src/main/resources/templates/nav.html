@@ -1,16 +1,17 @@
 <div class="nav" th:fragment="navbar">
-    <a href="/"><span class="logo">SOL-SITE</span></a>
+    <a href="/"><span class="logo">SOLSITE</span></a>
     <a href="/write" class="menu">상품 등록</a>
     <a href="/my-page" class="menu">마이페이지</a>
     <a href="/join" class="menu">회원가입</a>
     <span th:unless="${#authorization.expression('isAuthenticated()')}">
-        <a href="/login" class="menu">로그인</a>
+        <a href="/login" class="menu">LOGIN</a>
     </span>
-          <span th:if="${#authorization.expression('isAuthenticated()')}">
-              <span th:text="${#authentication.principal.username}+'님'" />
+          <span th:if="${#authorization.expression('isAuthenticated()')}" class="login-user">
+
         <form th:action="@{/logout}" method="post">
             <!-- 로그아웃 버튼 -->
-            <button type="submit" class="logout-btn">로그아웃</button>
+            <button type="submit" class="menu logout-btn">로그아웃</button>
         </form>
+              <span th:text="'🌱'+${#authentication.principal.username}+'님'" class="login-user-name"/>
     </span>
 </div>
