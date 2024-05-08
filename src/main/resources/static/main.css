@@ -149,7 +149,71 @@ a:hover {
         .panel span {
         }
 
+/* login */
 
+.login-area {
+    width : 80%;
+    height: 80vh;
+    text-align:center;
+    margin-top: 60px;
+}
+
+.login-area h2 {
+    font-weight:bold;
+    color: #9fc4a9;
+    margin-bottom:25px;
+    font-family: 'ONE-Mobile-POP';
+    letter-spacing : 5px;
+}
+.login-area form {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.login-error-message {
+    font-size : 20px;
+    color:#547359;
+}
+
+.login-area input {
+    width: 40%;
+	height: 40px;
+	margin: 15px 0;
+	border-radius: 5px;
+	border: 2px solid #9fc4a9;
+	padding: 10px 5px;
+
+}
+.login-area input:focus {
+  outline-color: #9fc4a9;
+  /*background-color: #d1e0d3;*/
+
+}
+
+#loginBtn {
+	padding: 10px;
+	width: 100px;
+	background-color: #fff;
+	border: 2px solid #9fc4a9;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	color:#3b3d3b;
+	font-size: 17px;
+    outline:none;
+	transition: background-color 0.3s ease;
+}
+#loginBtn:focus {
+    outline-color: none;
+}
+
+#loginBtn:hover {
+	background-color: #9fc4a9;
+	color: white;
+	font-weight: bold;
+}
 
 /*
 .nav button {
