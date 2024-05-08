@@ -42,7 +42,7 @@ public class SalesController {
         sales.setMember(member);
 //        sales.setMemberId(user.userId);
         salesRepository.save(sales);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
     @GetMapping("/order/all")

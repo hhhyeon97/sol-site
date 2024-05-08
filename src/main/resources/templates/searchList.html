@@ -11,14 +11,16 @@
 </head>
 <body>
 <div th:replace="~{nav.html::navbar}"></div>
-<div class="container">
-    <h2>검색 결과</h2>
+<div class="container search-list-area">
+    <h2><span th:text="'&quot;' + ${searchText} + '&quot;'"></span> 검색 결과</h2>
     <ul>
         <li th:each="item : ${searchList}">
             <span th:text="${item.id}"></span> -
             <span th:text="${item.title}"></span> -
-            <span th:text="${item.price}"></span>
-            <img class="image" th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+            <span th:text="${item.price+'원'}"></span>
+                <a th:href="@{/detail/{id}(id=${item.id})}" class="card-link">
+                <img class="image" th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+            </a>
             <img class="image" th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
         </li>
     </ul>

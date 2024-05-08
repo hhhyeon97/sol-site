@@ -136,7 +136,7 @@ a:hover {
     color: #333;
     cursor: pointer;
     padding: 18px;
-    width: 90%;
+    width: 60%;
     border: none;
     text-align: left;
     font-size: 15px;
@@ -155,7 +155,7 @@ a:hover {
     display: none;
     overflow: hidden;
     margin-bottom: 30px;
-    width:80%;
+    width:60%;
 }
 .panel p {
     text-align:left;
@@ -298,7 +298,7 @@ a:hover {
     text-decoration:underline;
 }
 
-/* search */
+/* search input */
 
 .search-area {
     display: flex;
@@ -490,6 +490,28 @@ a:hover {
     padding-top: 15px;
 }
 
+/* searchList.html */
+
+.search-list-area {
+     width : 80%;
+     min-height: 85vh;
+     text-align:center;
+     margin-top: 60px;
+}
+.search-list-area h2 {
+        font-weight:bold;
+        color: #9fc4a9;
+        margin-bottom:25px;
+        font-family: 'ONE-Mobile-POP';
+        letter-spacing : 5px;
+}
+.search-list-area li {
+    width: 50%;
+    list-style:none;
+    margin : 10px auto;
+    border: 2px solid #9fc4a9;
+    border-radius : 10px;
+}
 
 /* error.html */
 

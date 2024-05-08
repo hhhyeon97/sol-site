@@ -233,7 +233,7 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
         List<Item> result = itemRepository.rawQuery1(searchText);
         //System.out.println(result);
         model.addAttribute("searchList",result);
-
+        model.addAttribute("searchText", searchText);
         return "searchList.html";
     }
 
