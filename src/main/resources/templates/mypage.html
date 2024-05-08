@@ -6,34 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>mypage</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
-    <style>
-        .accordion {
-            background-color: #f1f1f1;
-            color: #333;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-            margin: 5px 0;
-        }
-
-        .active, .accordion:hover {
-            background-color: #ddd;
-        }
-
-        .panel {
-            padding: 0 18px;
-            background-color: white;
-            display: none;
-            overflow: hidden;
-        }
-    </style>
 </head>
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
@@ -44,15 +19,15 @@
 <!--    <h3>이 유저는 일반 유저 권한입니다.</h3>-->
 <!--</div>-->
 
-<div class="container">
-    <h2>My Page</h2>
-    <p>user 아이디  <span th:text="${username}"></span></p>
-    <p>user 이름 <span th:text="${displayName}"></span></p>
+<div class="container my-area">
+    <h2><i class='bx bxs-user-circle my-con' ></i> My Page</h2>
+    <p>my id <span class="bold-text" th:text="${username}"></span></p>
+    <p>my name <span class="bold-text" th:text="${displayName}"></span></p>
     <button class="accordion">주문 내역</button>
     <div class="panel">
         <p th:if="${!sales.isEmpty()}">
             <span th:each="sale : ${sales}">
-                주문 번호: <span th:text="${sale.id}"></span>, 상품명: <span th:text="${sale.itemName}"></span>, 가격: <span th:text="${sale.price}"></span><br>
+                주문 번호: <span th:text="${sale.id}"></span> 상품명: <span th:text="${sale.itemName}"></span> 가격: <span th:text="${sale.price}+'원'"></span><br>
             </span>
         </p>
         <p th:if="${sales.isEmpty()}">주문 내역이 없습니다.</p>
@@ -61,12 +36,13 @@
     <div class="panel">
         <p th:if="${!reviews.isEmpty()}">
             <span th:each="review : ${reviews}">
-                리뷰 번호: <span th:text="${review.id}"></span>, 내용: <span th:text="${review.content}"></span><br>
+                리뷰 번호: <span th:text="${review.id}"></span> 내용: <span th:text="${review.content}"></span><br>
             </span>
         </p>
         <p th:if="${reviews.isEmpty()}">작성한 리뷰가 없습니다.</p>
     </div>
 </div>
+<div th:replace="~{footer.html::footer}"></div>
 
 <script>
     var acc = document.getElementsByClassName("accordion");

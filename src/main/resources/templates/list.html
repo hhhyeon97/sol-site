@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
     <style>
@@ -53,28 +54,55 @@
 
 
 <div class="container">
-    <div class="card" th:each="item : ${items}">
-        <!-- 상품 이미지 -->
-        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
-        <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
-        <div>
-            <!-- 상품 상세 페이지 링크 -->
-            <a th:href="@{/detail/{id}(id=${item.id})}">
-                <h4 th:text="${item.title}"></h4>
-            </a>
-            <p th:text="${item.price + '원'}"></p>
-<!--            &lt;!&ndash; 상품 편집 페이지 링크 &ndash;&gt;-->
-<!--            <a th:href="@{'/edit/' + ${item.id}}">✏️</a>-->
-            <!-- 수정 버튼 -->
-            <a th:if="${#authorization.expression('isAuthenticated()')}"
-               th:href="@{'/edit/' + ${item.id}}">✏️</a>
+    <div class="row">
+        <div class="col-md-3 mb-4" th:each="item : ${items}">
+            <div class="card">
+                <!-- 상품 이미지 -->
+                <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="card-img-top">
+                <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음" class="card-img-top">
+                <div class="card-body">
+                    <!-- 상품 상세 페이지 링크 -->
+                    <a th:href="@{/detail/{id}(id=${item.id})}" class="card-link">
+                        <h4 class="card-title" th:text="${item.title}"></h4>
+                    </a>
+                    <p class="card-text" th:text="${item.price + '원'}"></p>
+                    <!-- 수정 버튼 -->
+                    <a th:if="${#authorization.expression('isAuthenticated()')}"
+                       th:href="@{'/edit/' + ${item.id}}" class="btn btn-primary">✏️ 수정</a>
+                </div>
+                <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <button type="submit" class="btn btn-danger" sec:authorize="isAuthenticated()">삭제</button>
+                </form>
+            </div>
         </div>
-        <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post" style="display:inline">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-            <button type="submit" sec:authorize="isAuthenticated()">삭제</button>
-        </form>
     </div>
 </div>
+
+
+<!--<div class="container">-->
+<!--    <div class="card" th:each="item : ${items}">-->
+<!--        &lt;!&ndash; 상품 이미지 &ndash;&gt;-->
+<!--        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">-->
+<!--        <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">-->
+<!--        <div>-->
+<!--            &lt;!&ndash; 상품 상세 페이지 링크 &ndash;&gt;-->
+<!--            <a th:href="@{/detail/{id}(id=${item.id})}">-->
+<!--                <h4 th:text="${item.title}"></h4>-->
+<!--            </a>-->
+<!--            <p th:text="${item.price + '원'}"></p>-->
+<!--&lt;!&ndash;            &lt;!&ndash; 상품 편집 페이지 링크 &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{'/edit/' + ${item.id}}">✏️</a>&ndash;&gt;-->
+<!--            &lt;!&ndash; 수정 버튼 &ndash;&gt;-->
+<!--            <a th:if="${#authorization.expression('isAuthenticated()')}"-->
+<!--               th:href="@{'/edit/' + ${item.id}}">✏️</a>-->
+<!--        </div>-->
+<!--        <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post" style="display:inline">-->
+<!--            <input type="hidden" name="_csrf" th:value="${_csrf.token}">-->
+<!--            <button type="submit" sec:authorize="isAuthenticated()">삭제</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="pagination justify-content-center">
     <ul class="pagination">
