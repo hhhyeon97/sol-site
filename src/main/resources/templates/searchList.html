@@ -13,9 +13,11 @@
 <div th:replace="~{nav.html::navbar}"></div>
 <div class="container search-list-area">
     <h2><span th:text="'&quot;' + ${searchText} + '&quot;'"></span> 검색 결과</h2>
+    <div th:if="${#lists.isEmpty(searchList)}">
+        <span>일치하는 결과가 없습니다.</span>
+    </div>
     <ul>
         <li th:each="item : ${searchList}">
-            <span th:text="${item.id}"></span> -
             <span th:text="${item.title}"></span> -
             <span th:text="${item.price+'원'}"></span>
                 <a th:href="@{/detail/{id}(id=${item.id})}" class="card-link">

@@ -514,6 +514,36 @@ a:hover {
 }
 
 /* error.html */
+.container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error-area {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    flex-direction: column;
+    border: 2px solid #9fc4a9;
+    width: 500px;
+    border-radius: 10px;
+    height: 50vh;
+}
+
+.error-area h2 {
+        font-weight:bold;
+        color: #9fc4a9;
+        margin-bottom:25px;
+        font-family: 'ONE-Mobile-POP';
+        letter-spacing : 5px;
+}
+.error-area h3 {
+    color: gray;
+    margin-top: 10px;
+    font-size: 18px;
+}
 
 /* list.html */
 

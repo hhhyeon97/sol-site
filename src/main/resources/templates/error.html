@@ -8,17 +8,42 @@
     <title>error</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
+    <style>
+        @keyframes blink-animation {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .blink {
+            animation: blink-animation 1s infinite;
+        }
+    </style>
 </head>
 <body>
+<div th:replace="~{nav.html::navbar}"></div>
+<div class="container">
 <div class="error-area">
-<h3>에러페이지입니다!</h3>
-
+<h2>ERROR</h2>
 <p th:text="${status}"></p>
 <p th:text="${error}"></p>
 <p th:text="${path}"></p>
 <p th:text="${message}"></p>
 <p th:text="${exception}"></p>
+    <h3 id="redirect-message" class="blink">5초 후에 집으로 돌아갑니다...🐢</h3>
 </div>
+</div>
+<script>
+    setTimeout(function() {
+        window.location.href = "/";
+    }, 5000);
+</script>
 </body>
 </html>
 
