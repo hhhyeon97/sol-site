@@ -72,6 +72,8 @@ a:hover {
 }
 
 .login-user-name {
+    position:relative;
+    top: 2px;
 }
 
 /* footer */
@@ -279,7 +281,7 @@ a:hover {
 }
 
 .join-area a {
-    font-size : 20px;
+    font-size : 18px;
     color: gray;
 }
 
@@ -504,6 +506,10 @@ a:hover {
     border-radius : 10px;
 }
 
+.search-image {
+    width : 150px;
+}
+
 /* error.html */
 .error-wrap {
     display: flex;
@@ -543,6 +549,12 @@ a:hover {
 
 /* list.html */
 
+.pagination {
+    margin-top: 30px;
+}
+.page-link:focus {
+        outline: #28a745;
+}
 .delete-btn {
     border:none;
     background:none;
@@ -550,7 +562,6 @@ a:hover {
 .delete-btn:focus {
     outline:none;
 }
-
 .card-link {
      color: #2a2b2a;
 }
@@ -558,17 +569,28 @@ a:hover {
     color: inherit;
 }
 
-.image {
-width : 150px;
-}
-.card {
- width : 200px;
- margin : 30px auto;
+.product-card {
+ width : 250px;
+ margin : 25px auto;
  display : flex;
-}
-.card img {
- width : 150px;
- height : 150px;
- margin-right : 20px;
+ flex-direction:column;
+ align-items: center;
+ border-radius: 15px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.product-card img {
+ margin-top: 5px;
+ width : 200px;
+ height : 150px;
+}
+.card-title{
+    margin-top: 5px;
+    font-size: 18px;
+}
+.card-price {
+    color: gray;
+}
+.text-right, .delete-btn {
+    text-align:right
+}

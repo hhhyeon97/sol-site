@@ -21,9 +21,9 @@
             <span th:text="${item.title}"></span> -
             <span th:text="${item.price+'원'}"></span>
                 <a th:href="@{/detail/{id}(id=${item.id})}" class="card-link">
-                <img class="image" th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
+                <img class="search-image" th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지">
             </a>
-            <img class="image" th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
+            <img class="search-image" th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
         </li>
     </ul>
 </div>
