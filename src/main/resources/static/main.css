@@ -58,7 +58,7 @@ a:hover {
 
 .logout-btn {
     background-color: transparent;
-    border: none;
+    border : 2px solid transparent;
     cursor: pointer;
     outline : none;
     font-weight:bold;
