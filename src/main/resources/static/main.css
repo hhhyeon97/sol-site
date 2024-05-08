@@ -215,6 +215,76 @@ a:hover {
 	font-weight: bold;
 }
 
+/* join */
+
+.join-area {
+    width : 80%;
+    height: 80vh;
+    text-align:center;
+    margin-top: 60px;
+}
+
+.join-area h2 {
+    font-weight:bold;
+    color: #9fc4a9;
+    margin-bottom:25px;
+    font-family: 'ONE-Mobile-POP';
+    letter-spacing : 5px;
+}
+.join-area form {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.join-area input {
+    width: 40%;
+	height: 40px;
+	margin: 15px 0;
+	border-radius: 5px;
+	border: 2px solid #9fc4a9;
+	padding: 10px 5px;
+
+}
+.join-area input:focus {
+  outline-color: #9fc4a9;
+}
+
+#joinBtn {
+	padding: 10px;
+	width: 100px;
+	background-color: #fff;
+	border: 2px solid #9fc4a9;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	color:#3b3d3b;
+	font-size: 17px;
+    outline:none;
+	transition: background-color 0.3s ease;
+}
+#joinBtn:focus {
+    outline-color: none;
+}
+
+#joinBtn:hover {
+	background-color: #9fc4a9;
+	color: white;
+	font-weight: bold;
+}
+
+.join-area a {
+    font-size : 20px;
+    color: gray;
+}
+
+.join-area a:hover {
+    color : #9fc4a9;
+    text-decoration:underline;
+}
+
+
 /*
 .nav button {
     background-color: transparent;
