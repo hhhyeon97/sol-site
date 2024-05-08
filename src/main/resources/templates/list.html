@@ -55,7 +55,7 @@
 
 <div class="container list-area">
     <div class="row">
-        <div class="col-md-3 mb-4" th:each="item : ${items}">
+        <div class="col-md-4 mb-6" th:each="item : ${items}">
             <div class="card">
                 <!-- 상품 이미지 -->
                 <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="card-img-top">
@@ -68,11 +68,11 @@
                     <p class="card-text" th:text="${item.price + '원'}"></p>
                     <!-- 수정 버튼 -->
                     <a th:if="${#authorization.expression('isAuthenticated()')}"
-                       th:href="@{'/edit/' + ${item.id}}" class="btn btn-primary">✏️ 수정</a>
+                       th:href="@{'/edit/' + ${item.id}}">✏️</a>
                 </div>
                 <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post">
                     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <button type="submit" class="btn btn-danger" sec:authorize="isAuthenticated()">삭제</button>
+                    <button type="submit" class="delete-btn" sec:authorize="isAuthenticated()">🗑️</button>
                 </form>
             </div>
         </div>
@@ -83,18 +83,18 @@
 <div class="pagination justify-content-center">
     <ul class="pagination">
         <li class="page-item" th:unless="${currentPage == 1}">
-            <a class="page-link" th:href="@{/list(page=${currentPage - 1})}" aria-label="Previous">
+            <a class="page-link" th:href="@{/(page=${currentPage - 1})}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
 
         <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
-            <a class="page-link" th:href="@{/list(page=${pageNum})}" th:text="${pageNum}"></a>
+            <a class="page-link" th:href="@{/(page=${pageNum})}" th:text="${pageNum}"></a>
         </li>
 
         <li class="page-item" th:unless="${currentPage == totalPages}">
-            <a class="page-link" th:href="@{/list(page=${currentPage + 1})}" aria-label="Next">
+            <a class="page-link" th:href="@{/(page=${currentPage + 1})}" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

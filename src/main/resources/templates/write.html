@@ -6,20 +6,24 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>write</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
-
+<div class="container join-area">
+<h2>상품 등록</h2>
 <form id="itemForm" action="/add" method="POST" enctype="multipart/form-data">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input name="title" placeholder="제목" required>
+    <input name="title" placeholder="상품명" required>
     <input name="price" placeholder="가격" required>
     <input type="file" name="imageFile" id="imageInput" required>
-    <button type="submit">등록</button>
+    <div class="preview-area">
+        <img id="previewImage" src="" alt="미리보기 이미지">
+    </div>
+    <button type="submit" class="write-btn">등록</button>
 </form>
-
-<img id="previewImage" src="" alt="미리보기 이미지">
+</div>
 <script>
     document.getElementById('imageInput').addEventListener('change', function(event) {
         let input = event.target;

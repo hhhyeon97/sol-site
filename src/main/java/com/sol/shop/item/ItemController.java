@@ -47,7 +47,7 @@ public class ItemController {
     @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page) {
     // 페이지 번호는 0부터 시작하므로 -1 처리
-    Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("id").descending());
+    Pageable pageable = PageRequest.of(page - 1, 9, Sort.by("id").descending());
 
     // 페이지네이션된 결과 가져오기
     Page<Item> itemsPage = itemRepository.findAll(pageable);
