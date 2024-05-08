@@ -19,7 +19,6 @@
 
 body {
     font-family: "Noto Sans KR", sans-serif;
-    background-color:#8e998e;
 }
 
 
@@ -30,31 +29,44 @@ body {
     align-items: center;
     padding: 0 25px;
     /*background-color: #89b089;*/
-     background-color: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(3px);
+     /*background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(3px);*/
+    background-color : #89b089;
+
 }
 
 .logo {
  /*font-family: "Titan One", sans-serif;*/
     font-family: 'ONE-Mobile-POP';
-
+    color: white;
     font-size: 40px;
     font-weight: bold;
-    color: #8ca896;
     margin-right: 25px;
 }
 
 a {
-    color: black;
-    text-decoration: none; /* 기본 링크 효과 제거 */
-}
-
-a:hover {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
+a:hover {
+    color: gray;
+    text-decoration: none;
+}
 
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline : none;
+    font-weight:bold;
+}
+
+.menu {
+    font-weight:bold;
+}
+
+/* footer */
 .footer {
     bottom: 0;
     left: 0;
@@ -64,40 +76,32 @@ a:hover {
     justify-content: center;
     align-items: center;
     border-top : 1px solid #c4c4c4;
-    /*background-color : #89b089;*/
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(3px);
-    margin-top: 200px;
+    background-color : #89b089;
+    margin-top: 50px;
 }
 
 .footer p {
     margin: 0;
-    color: #8ca896;
+    color: white;
+    /*#8ca896;*/
     font-size: 20px;
     font-weight: bold;
 
 }
 
 
-.logout-btn {
-  background-color: transparent;
-    border: none;
-    cursor: pointer;
-    outline : none;
-   font-weight:bold;
-}
-
 /* my-page */
 
 .my-area {
     width : 80%;
+    height: 80vh;
     text-align:center;
     margin-top: 60px;
 }
 
 .my-area h2 {
     font-weight:bold;
-    color: gray;
+    color: #9fc4a9;
     margin-bottom:25px;
     font-family: 'ONE-Mobile-POP';
 }
@@ -112,31 +116,40 @@ a:hover {
 }
 
   .accordion {
-            background-color: #f1f1f1;
+            background-color: #9fc4a9;
             color: #333;
             cursor: pointer;
             padding: 18px;
             width: 90%;
             border: none;
             text-align: left;
-            outline: none;
             font-size: 15px;
             transition: 0.4s;
             margin: 5px 0;
+            outline:none;
         }
 
         .active, .accordion:hover {
-            background-color: #ddd;
+            background-color: #7bb58b;
         }
 
         .panel {
+        display:flex;
+        justify-content:center;
+        margin : 10px auto;
             padding: 0 18px;
-            background-color: white;
             display: none;
             overflow: hidden;
+            margin-bottom: 30px;
+             width:80%;
         }
         .panel p {
+            text-align:left;
         }
+        .panel span {
+        }
+
+
 
 /*
 .nav button {
@@ -156,9 +169,7 @@ a:hover {
 }
 */
 
-.menu {
-font-weight:bold;
-}
+
 
 .search-area {
 
