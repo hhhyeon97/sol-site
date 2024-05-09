@@ -16,7 +16,7 @@
     <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
     <div class="detail-text-area">
         <h4 th:text="${item.title}" class="detail-item-name"></h4>
-        <p th:text="${item.price + '원'}"></p>
+       <!-- <p th:text="${item.price + '원'}"></p> -->
         <p th:if="${item.descContent}" th:text="${item.descContent}"></p>
     </div>
 
