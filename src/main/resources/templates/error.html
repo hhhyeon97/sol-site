@@ -22,7 +22,7 @@
         }
 
         .blink {
-            animation: blink-animation 1s infinite;
+            animation: blink-animation 2s infinite;
         }
     </style>
 </head>
@@ -36,13 +36,13 @@
 <p th:text="${path}"></p>
 <p th:text="${message}"></p>
 <p th:text="${exception}"></p>
-    <h3 id="redirect-message" class="blink">5초 후에 집으로 돌아갑니다...🐢</h3>
+    <h3 id="redirect-message" class="blink">10초 후에 집으로 돌아갑니다...🐢</h3>
 </div>
 </div>
 <script>
     setTimeout(function() {
         window.location.href = "/";
-    }, 5000);
+    }, 10000);
 </script>
 </body>
 </html>

@@ -13,12 +13,13 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(String title, Integer price, Long userId, String imageUrl){
+    public void saveItem(String title, Integer price, Long userId, String imageUrl, String descContent){
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
         item.setUserId(userId);
         item.setImageUrl(imageUrl);
+        item.setDescContent(descContent);
         itemRepository.save(item);
     }
 

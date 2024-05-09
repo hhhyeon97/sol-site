@@ -68,7 +68,8 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    String addPost(@RequestParam String title, @RequestParam Integer price,@RequestParam("imageFile") MultipartFile imageFile, Authentication authentication) {
+    String addPost(@RequestParam String title, @RequestParam Integer price,
+                   @RequestParam String descContent, @RequestParam("imageFile") MultipartFile imageFile, Authentication authentication) {
         // 현재 로그인한 사용자의 아이디 가져오기
         String username = authentication.getName();
 
@@ -83,7 +84,7 @@ public class ItemController {
         // 이미지 파일을 S3에 업로드하고 URL 가져오기
         String imageUrl = s3Service2.uploadImageToS3(imageFile, "items");
 
-        itemService.saveItem(title, price, userId, imageUrl);
+        itemService.saveItem(title, price, userId, imageUrl, descContent);
         return "redirect:/";
     }
 

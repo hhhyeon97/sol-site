@@ -17,6 +17,7 @@
     <div class="detail-text-area">
         <h4 th:text="${item.title}" class="detail-item-name"></h4>
         <p th:text="${item.price + '원'}"></p>
+        <p th:if="${item.descContent}" th:text="${item.descContent}"></p>
     </div>
 
     <form action="/order" method="POST" class="buy-area">
@@ -41,7 +42,9 @@
             <button type="submit" class="review-btn">등록</button>
         </form>
         <ul class="review-content">
-            <li th:each="c : ${comment}" th:text="'🌱 '+${c.content}"></li>
+            <li th:each="c : ${comment}">
+                <span class="review-user" th:text="${c.username}"></span> : <span th:text="${c.content}"></span>
+            </li>
         </ul>
     </div>
 </div>
