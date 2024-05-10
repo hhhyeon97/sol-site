@@ -19,7 +19,7 @@
     <div th:if="${errorMessage != null}">
         <div style="color: red;" th:text="${errorMessage}"></div>
     </div>
-<form action="/member" method="POST" onsubmit="return validateForm()">
+<form id="joinForm" action="/member" method="POST" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="displayName" id="displayName" placeholder="이름">
     <input name="username" id="username" placeholder="id는 5자 이상이어야 해요!">
@@ -31,36 +31,53 @@
 </div>
 <script>
     function validateForm() {
-        var displayName = document.getElementById("displayName").value.trim();
-        var username = document.getElementById("username").value.trim();
-        var password = document.getElementById("password").value.trim();
+       var displayName = document.getElementById("displayName").value.trim();
+       var username = document.getElementById("username").value.trim();
+       var password = document.getElementById("password").value.trim();
 
-        if (displayName === "" || username === "" || password === "") {
-            alert("이름, 아이디, 비밀번호를 모두 입력해주세요.");
-            if (displayName === "") {
-                document.getElementById("displayName").focus();
-            } else if (username === "") {
-                document.getElementById("username").focus();
-            } else {
-                document.getElementById("password").focus();
-            }
-            return false;
-        }
+       if (displayName === "" || username === "" || password === "") {
+           alert("이름, 아이디, 비밀번호를 모두 입력해주세요.");
+           if (displayName === "") {
+               document.getElementById("displayName").focus();
+           } else if (username === "") {
+               document.getElementById("username").focus();
+           } else {
+               document.getElementById("password").focus();
+           }
+           return false;
+       }
 
-        if (username.length < 5) {
-            alert("아이디는 5자 이상이어야 합니다.");
-            document.getElementById("username").focus();
-            return false;
-        }
+       if (username.length < 5) {
+           alert("아이디는 5자 이상이어야 합니다.");
+           document.getElementById("username").focus();
+           return false;
+       }
 
-        if (password.length < 8) {
-            alert("비밀번호는 8자 이상이어야 합니다.");
-            document.getElementById("password").focus();
-            return false;
-        }
-        alert("회원가입이 완료되었습니다!");
-        return true;
-    }
+       if (password.length < 8) {
+           alert("비밀번호는 8자 이상이어야 합니다.");
+           document.getElementById("password").focus();
+           return false;
+       }
+
+       // 중복 아이디 확인을 서버에서 처리하도록 AJAX 요청 보내기
+       var xhr = new XMLHttpRequest();
+       xhr.open("GET", "/checkUsername?username=" + username, true);
+       xhr.onreadystatechange = function() {
+           if (xhr.readyState === XMLHttpRequest.DONE) {
+               if (xhr.status === 200) {
+                   // 서버에서 중복 아이디가 아니라는 응답을 받으면 폼을 제출
+                   alert("회원가입이 완료되었습니다!");
+                   document.getElementById("joinForm").submit();
+               } else {
+                   // 서버에서 중복 아이디라는 응답을 받으면 에러 메시지 표시
+                   alert("이미 사용 중인 아이디입니다. 다른 아이디를 선택해주세요.");
+               }
+           }
+       };
+       xhr.send();
+       // 폼 제출 막기
+       return false;
+   }
 </script>
 </body>
 </html>
