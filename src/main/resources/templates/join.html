@@ -47,17 +47,30 @@
            return false;
        }
 
-       if (username.length < 5) {
-           alert("아이디는 5자 이상이어야 합니다.");
-           document.getElementById("username").focus();
-           return false;
-       }
 
-       if (password.length < 8) {
-           alert("비밀번호는 8자 이상이어야 합니다.");
+      var displayNamePattern = /^[가-힣a-zA-Z]*$/;
+        if (!displayNamePattern.test(displayName)) {
+        alert("이름은 한글 또는 알파벳 문자로만 이루어져야 합니다.");
+        document.getElementById("displayName").focus();
+        return false;
+        }
+
+
+      var usernamePattern = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/;
+        if (!usernamePattern.test(username)) {
+        alert("아이디는 알파벳과 숫자로 이루어진 문자열이어야 하며, 적어도 하나의 알파벳이 포함되어야 합니다.");
+        document.getElementById("username").focus();
+        return false;
+        }
+
+       // password 유효성 검증
+       var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+       if (!passwordPattern.test(password)) {
+           alert("비밀번호는 대소문자를 포함한 알파벳과 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");
            document.getElementById("password").focus();
            return false;
        }
+
 
        // 중복 아이디 확인을 서버에서 처리하도록 AJAX 요청 보내기
        var xhr = new XMLHttpRequest();
