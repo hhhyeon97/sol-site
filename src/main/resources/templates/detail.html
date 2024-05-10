@@ -50,16 +50,6 @@
 </div>
 
 <script>
-    var detailImgWrap = document.querySelector('.detail-img');
-    detailImgWrap.addEventListener('mousemove', function(e) {
-      var x = e.offsetX;
-      var y = e.offsetY;
-      var rotateY = -1/5 * x + 20;
-      var rotateX = -4/30 * y - 20;
-
-      detailImgWrap.style.transform = `perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-
       window.onload = function() {
           updatePrice(); // 페이지 로드시 total price 업데이트
       };
