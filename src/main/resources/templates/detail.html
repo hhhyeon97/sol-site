@@ -12,7 +12,7 @@
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
 <div class="detail-area">
-    <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="detail-img">
+        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="detail-img">
     <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
     <div class="detail-text-area">
         <h4 th:text="${item.title}" class="detail-item-name"></h4>
@@ -50,23 +50,33 @@
 </div>
 
 <script>
-    window.onload = function() {
-        updatePrice(); // 페이지 로드시 total price 업데이트
-    };
+    var detailImgWrap = document.querySelector('.detail-img');
+    detailImgWrap.addEventListener('mousemove', function(e) {
+      var x = e.offsetX;
+      var y = e.offsetY;
+      var rotateY = -1/5 * x + 20;
+      var rotateX = -4/30 * y - 20;
 
-    function updatePrice() {
-        var count = parseInt(document.getElementById('count').value);
-        var price = parseFloat(document.getElementById('itemPrice').value);
-        var totalPrice = count * price;
-        document.getElementById('totalPrice').innerText = totalPrice + '원';
-    }
+      detailImgWrap.style.transform = `perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
 
-    function validateInput(event) {
-        var keyCode = event.keyCode;
-        if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
-            event.preventDefault();
-        }
-    }
+      window.onload = function() {
+          updatePrice(); // 페이지 로드시 total price 업데이트
+      };
+
+      function updatePrice() {
+          var count = parseInt(document.getElementById('count').value);
+          var price = parseFloat(document.getElementById('itemPrice').value);
+          var totalPrice = count * price;
+          document.getElementById('totalPrice').innerText = totalPrice + '원';
+      }
+
+      function validateInput(event) {
+          var keyCode = event.keyCode;
+          if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
+              event.preventDefault();
+          }
+      }
 </script>
 
 </body>
