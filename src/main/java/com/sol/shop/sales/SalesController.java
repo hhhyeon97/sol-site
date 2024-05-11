@@ -45,22 +45,7 @@ public class SalesController {
         return "redirect:/";
     }
 
-    @GetMapping("/order/all")
-    String getOrderAll(Model model) {
-//        List<Sales> result = salesRepository.findAll();
-    List<Sales> result = salesRepository.customFindAll();
-//        System.out.println(result);
-//        var salesDto = new SalesDto();
-//        salesDto.itemName = result.get(0).getItemName();
-//        salesDto.price = result.get(0).getPrice();
-//        salesDto.username = result.get(0).getMember().getUsername();
-        model.addAttribute("orderList",result);
 
-        var result2 = memberRepository.findById(1L);
-        System.out.println(result2.get().getSales());
-
-        return "orderList.html";
-    }
 
 }
 

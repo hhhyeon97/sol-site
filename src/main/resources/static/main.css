@@ -635,3 +635,43 @@ a:hover {
     }
 
 }
+
+/* admin */
+.admin-nav {
+    display:flex;
+    justify-content: center;
+    background-color: gray;
+    height: 80px;
+}
+
+.admin-nav h2 {
+    font-weight:bold;
+    color: white;
+    margin-top:25px;
+    font-family: 'ONE-Mobile-POP';
+    letter-spacing: 5px;
+}
+
+.order-list-title {
+    text-align:center;
+    font-weight:bold;
+    margin-top:25px;
+    font-family: 'ONE-Mobile-POP';
+    border-radius: 6px;
+    border: 2px solid gray;
+    width: 50%;
+    cursor: pointer;
+}
+
+.order-area {
+    display:flex;
+    justify-content:center;
+}
+
+.arrowIcon {
+   transition: transform 0.3s ease-in-out;
+}
+
+.order-area ul {
+    transition: max-height 0.3s ease-in-out;
+}
