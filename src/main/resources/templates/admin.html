@@ -15,16 +15,27 @@
     <h2>admin page 👤</h2>
 </div>
 <div class="order-area">
-    <h3 onclick="toggleOrderList()" class="order-list-title">전체 주문 내역<i id="arrowIcon" class="fas fa-chevron-down"></i></h3>
-    <ul id="orderList" style="display: none;">
-        <li th:each="item : ${orderList}">
-            <span th:text="${item.id}"></span>
-            <span th:text="${item.itemName}"></span>
-            <span th:text="${item.price}"></span>
-            <span th:text="${item.count}"></span>
-            <span th:text="${item.member.displayName}"></span>
-        </li>
-    </ul>
+    <h3 onclick="toggleOrderList()" class="order-list-title">전체 주문 내역 <i id="arrowIcon" class="fas fa-chevron-down"></i></h3>
+    <table id="orderList" style="display: none;">
+        <thead>
+        <tr>
+            <th>주문 번호</th>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>구매자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${orderList}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.itemName}"></td>
+            <td th:text="${item.price}"></td>
+            <td th:text="${item.count}"></td>
+            <td th:text="${item.member.displayName}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script>
