@@ -22,8 +22,8 @@
 <form id="joinForm" action="/member" method="POST" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="displayName" id="displayName" placeholder="이름">
-    <input name="username" id="username" placeholder="id는 5자 이상이어야 해요!">
-    <input name="password" id="password" placeholder="password는 8자 이상이어야 해요!">
+    <input name="username" id="username" placeholder="id">
+    <input name="password" id="password" placeholder="password">
     <button type="submit" id="joinBtn">가입하기</button>
     <a href="/login">💡 이미 회원이신가요?</a>
 </form>

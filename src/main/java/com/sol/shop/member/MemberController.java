@@ -48,6 +48,7 @@ public class MemberController {
             var hash = passwordEncoder.encode(password);
             member.setPassword(hash);
             member.setDisplayName(displayName);
+            member.setRole("ROLE_USER");
             memberRepository.save(member);
             return "redirect:/";
 
