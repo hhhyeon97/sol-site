@@ -31,10 +31,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository())
                 .ignoringRequestMatchers("/login")
         );
-        http.authorizeRequests((authorize) ->
-                authorize.requestMatchers("/admin").hasRole("ADMIN") // "/admin" 경로에 대한 접근 제어 설정
-                        .anyRequest().permitAll() // 다른 모든 요청은 인증된 사용자에게만 허용
+        http.authorizeHttpRequests((authorize) ->
+                authorize.requestMatchers("/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+
         );
+
         http.formLogin((formLogin) ->
                 formLogin.loginPage("/login").defaultSuccessUrl("/")
         );

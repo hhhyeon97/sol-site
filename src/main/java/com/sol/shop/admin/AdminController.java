@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class AdminController {
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/123")
     String admin() {
         return "admin.html";
     }
