@@ -138,9 +138,14 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
 
 
     @PostMapping("/edit")
-    String editItem(@RequestParam String title, Integer price, Long id){
-      itemService.editItem(title,price,id);
-        return "redirect:/";
+    @ResponseBody
+    public ResponseEntity<String> editItem(@RequestParam String title, Integer price, Long id, String descContent){
+        try {
+            itemService.editItem(title, price, id, descContent);
+            return ResponseEntity.ok("수정이 완료되었습니다 !");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/test1")

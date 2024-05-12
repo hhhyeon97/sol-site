@@ -28,7 +28,7 @@
             <td th:text="${item.price}"></td>
             <td th:text="${item.count}"></td>
             <td th:text="${item.member.username}"></td>
-            <td th:text="${#temporals.format(item.created, 'yyyy.MM.dd HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(item.created, 'yyyy.MM.dd HH:mm')}"></td>
         </tr>
     </table>
 </div>

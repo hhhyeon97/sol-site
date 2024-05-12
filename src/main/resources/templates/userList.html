@@ -14,13 +14,19 @@
 
 <div class="user-all-list">
     <span class="user-list-title">user list</span>
-    <table>
-        <tr th:each="member : ${memberList}">
-            <td th:text="${member.id}"></td>
-            <td th:text="${member.displayName}"></td>
-            <td th:text="${member.username}"></td>
-            <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>        </tr>
-    </table>
+        <table>
+            <tr>
+                <th>회원번호</th>
+                <th>회원명</th>
+                <th>아이디</th>
+                <th>권한</th>
+            </tr>
+            <tr th:each="member : ${memberList}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.displayName}"></td>
+                <td th:text="${member.username}"></td>
+                <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>        </tr>
+        </table>
 </div>
 </body>
 </html>
