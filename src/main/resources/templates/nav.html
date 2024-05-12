@@ -4,6 +4,7 @@
     <a href="/write" class="menu">상품 등록</a>
     <a href="/my-page" class="menu">마이페이지</a>
     <a href="/join" class="menu">회원가입</a>
+
     </span>
     <span th:unless="${#authorization.expression('isAuthenticated()')}">
         <a href="/login" class="menu">로그인</a>
@@ -14,5 +15,6 @@
             <button type="submit" class="logout-btn">로그아웃</button>
         </form>
               <span th:text="'🌱 '+${#authentication.principal.username}+'님'" class="login-user-name"/>
+        </span>
     </span>
 </div>

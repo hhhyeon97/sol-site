@@ -14,44 +14,54 @@
 <div class="admin-nav">
     <h2>admin page 👤</h2>
 </div>
-<div class="order-area">
-    <h3 onclick="toggleOrderList()" class="order-list-title">전체 주문 내역 <i id="arrowIcon" class="fas fa-chevron-down"></i></h3>
-    <table id="orderList" style="display: none;">
-        <thead>
+<div class="order-all-area">
+    <span class="order-list-title">전체 주문 내역</span>
+    <table>
         <tr>
-            <th>주문 번호</th>
+            <th>주문번호</th>
             <th>상품명</th>
             <th>가격</th>
             <th>수량</th>
             <th>구매자</th>
+            <th>주문일1</th>
+            <th>주문일</th>
         </tr>
-        </thead>
-        <tbody>
         <tr th:each="item : ${orderList}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.itemName}"></td>
             <td th:text="${item.price}"></td>
             <td th:text="${item.count}"></td>
             <td th:text="${item.member.displayName}"></td>
+            <td th:text="${item.created}"></td>
+            <td th:text="${#temporals.format(item.created, 'yyyy.MM.dd HH:mm:ss')}"></td>
         </tr>
-        </tbody>
+    </table>
+</div>
+<div class="review-all-list">
+    <div class="review-all-title">전체 리뷰 내역</div>
+    <table>
+        <tr th:each="item : ${reviewList}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.content}"></td>
+            <td th:text="${item.username}"></td>
+        </tr>
     </table>
 </div>
 
 <script>
-    function toggleOrderList() {
-       var orderList = document.getElementById("orderList");
-       var arrowIcon = document.getElementById("arrowIcon");
-       if (orderList.style.display === "none") {
-           orderList.style.display = "block";
-           arrowIcon.classList.remove("fa-chevron-down");
-           arrowIcon.classList.add("fa-chevron-up");
-       } else {
-           orderList.style.display = "none";
-           arrowIcon.classList.remove("fa-chevron-up");
-           arrowIcon.classList.add("fa-chevron-down");
-       }
-   }
+<!--    function toggleOrderList() {-->
+<!--       var orderList = document.getElementById("orderList");-->
+<!--       var arrowIcon = document.getElementById("arrowIcon");-->
+<!--       if (orderList.style.display === "none") {-->
+<!--           orderList.style.display = "block";-->
+<!--           arrowIcon.classList.remove("fa-chevron-down");-->
+<!--           arrowIcon.classList.add("fa-chevron-up");-->
+<!--       } else {-->
+<!--           orderList.style.display = "none";-->
+<!--           arrowIcon.classList.remove("fa-chevron-up");-->
+<!--           arrowIcon.classList.add("fa-chevron-down");-->
+<!--       }-->
+<!--   }-->
 </script>
 </body>
 </html>

@@ -67,8 +67,7 @@ a:hover {
     margin: 0 25px;
 }
 .menu:hover {
-    border-bottom: 2px solid white;
-    padding-bottom: 2px;
+    color: gray;
 }
 
 .login-user {
@@ -652,37 +651,20 @@ a:hover {
     letter-spacing: 5px;
 }
 
-.order-list-title {
+.order-list-title,.review-all-title {
     text-align:center;
     font-weight:bold;
     margin-top:25px;
     font-family: 'ONE-Mobile-POP';
     border-radius: 6px;
-    cursor: pointer;
     color: gray;
     letter-spacing: 5px;
+    font-size: 27px;
 }
 
-.order-area {
+.order-all-area,.review-all-list {
     display:flex;
     justify-content:center;
     flex-decoration:column;
-    height: 100vh;
     margin-top: 25px;
-}
-
- .order-area table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.order-area th, .order-area td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-.order-area th {
-    background-color: #f2f2f2;
-}
-.order-area tbody tr:nth-child(even) {
-   background-color: #f2f2f2;
 }

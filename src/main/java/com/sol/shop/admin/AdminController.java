@@ -1,6 +1,8 @@
 package com.sol.shop.admin;
 
 
+import com.sol.shop.comment.Comment;
+import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +19,14 @@ import java.util.List;
 public class AdminController {
 
     private final SalesRepository salesRepository;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/admin")
     String admin(Model model) {
         List<Sales> result = salesRepository.customFindAll();
-
+        List<Comment> result2 = commentRepository.findAll();
         model.addAttribute("orderList",result);
-
+        model.addAttribute("reviewList",result2);
         return "admin.html";
     }
 
