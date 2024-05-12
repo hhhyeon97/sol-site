@@ -668,3 +668,12 @@ a:hover {
     flex-decoration:column;
     margin-top: 25px;
 }
+
+.admin-menu a{
+    color:black;
+}
+
+.admin-user-name {
+    font-size: 15px;
+    color: black;
+}

@@ -35,4 +35,23 @@ public class AdminController {
         return "admin.html";
     }
 
+    @GetMapping("/admin/user-list")
+    String userList(Model model){
+        List<Member> result = memberRepository.findAll();
+        model.addAttribute("memberList",result);
+        return "userList.html";
+    }
+    @GetMapping("/admin/order-list")
+    String orderList(Model model){
+        List<Sales> result = salesRepository.customFindAll();
+        model.addAttribute("orderList",result);
+        return "orderList.html";
+    }
+    @GetMapping("/admin/review-list")
+    String reviewList(Model model){
+        List<Comment> result = commentRepository.findAll();
+        model.addAttribute("reviewList",result);
+        return "reviewList.html";
+    }
+
 }

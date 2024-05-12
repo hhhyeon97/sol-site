@@ -12,8 +12,9 @@
 </head>
 <body>
 <div class="admin-nav">
-    <h2>admin page 👤</h2>
+    <h2>admin page 👤<span class="admin-user-name" th:text="'관리자 : '+${#authentication.principal.username}"></span></h2>
 </div>
+<div th:replace="~{ adminNav.html::admin-navbar }"></div>
 
 <div class="user-all-list">
     <span class="order-list-title">user list</span>
