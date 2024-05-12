@@ -3,6 +3,8 @@ package com.sol.shop.admin;
 
 import com.sol.shop.comment.Comment;
 import com.sol.shop.comment.CommentRepository;
+import com.sol.shop.member.Member;
+import com.sol.shop.member.MemberRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +22,16 @@ public class AdminController {
 
     private final SalesRepository salesRepository;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/admin")
     String admin(Model model) {
         List<Sales> result = salesRepository.customFindAll();
         List<Comment> result2 = commentRepository.findAll();
+        List<Member> result3 = memberRepository.findAll();
         model.addAttribute("orderList",result);
         model.addAttribute("reviewList",result2);
+        model.addAttribute("memberList",result3);
         return "admin.html";
     }
 

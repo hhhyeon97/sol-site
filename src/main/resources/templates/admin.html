@@ -14,6 +14,18 @@
 <div class="admin-nav">
     <h2>admin page 👤</h2>
 </div>
+
+<div class="user-all-list">
+    <span class="order-list-title">user list</span>
+    <table>
+        <tr th:each="member : ${memberList}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.displayName}"></td>
+            <td th:text="${member.username}"></td>
+            <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>        </tr>
+    </table>
+
+</div>
 <div class="order-all-area">
     <span class="order-list-title">전체 주문 내역</span>
     <table>
@@ -47,6 +59,8 @@
         </tr>
     </table>
 </div>
+
+
 
 <script>
 <!--    function toggleOrderList() {-->

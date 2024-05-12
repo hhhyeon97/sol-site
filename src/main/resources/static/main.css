@@ -662,7 +662,7 @@ a:hover {
     font-size: 27px;
 }
 
-.order-all-area,.review-all-list {
+.order-all-area,.review-all-list,.user-all-list {
     display:flex;
     justify-content:center;
     flex-decoration:column;
