@@ -651,7 +651,15 @@ a:hover {
     letter-spacing: 5px;
 }
 
-.order-list-title,.review-all-title {
+.admin-nav a {
+    margin: auto 20px;
+    letter-spacing: 5px;
+}
+.admin-nav a:hover {
+    color: #4d5054;
+}
+
+.order-list-title,.review-all-title,.user-list-title {
     text-align:center;
     font-weight:bold;
     margin-top:25px;
@@ -674,6 +682,19 @@ a:hover {
 }
 
 .admin-user-name {
-    font-size: 15px;
-    color: black;
+    font-size: 25px;
+    font-family: 'ONE-Mobile-POP';
+    margin-top: 20px;
+    letter-spacing: 4px;
+    color: white;
+}
+
+.admin-area {
+    display:flex;
+    justify-content:center;
+    background-image:url('https://i.pinimg.com/originals/f5/8f/e8/f58fe8e19a7e25ddf0c459a3599261d6.gif');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity:0.2;
 }

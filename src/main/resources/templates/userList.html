@@ -6,10 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>userList</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="~{ adminNav.html::admin-navbar }"></div>
+
 <div class="user-all-list">
-    <span class="order-list-title">user list</span>
+    <span class="user-list-title">user list</span>
     <table>
         <tr th:each="member : ${memberList}">
             <td th:text="${member.id}"></td>

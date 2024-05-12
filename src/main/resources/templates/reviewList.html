@@ -6,8 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>reviewList</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="~{ adminNav.html::admin-navbar }"></div>
+
 <div class="review-all-list">
     <div class="review-all-title">전체 리뷰 내역</div>
     <table>
@@ -15,6 +19,7 @@
             <td th:text="${item.id}"></td>
             <td th:text="${item.content}"></td>
             <td th:text="${item.username}"></td>
+            <td th:text="${item.parentId}"></td>
         </tr>
     </table>
 </div>
