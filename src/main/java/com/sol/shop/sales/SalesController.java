@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class SalesController {
                      Authentication auth,
                      @RequestParam Long itemId,
                      HttpServletRequest request,
-                     Model model
+                     Model model,
+                     RedirectAttributes redirectAttributes
     ) {
         String referer = request.getHeader("Referer");
 
@@ -46,9 +48,10 @@ public class SalesController {
         sales.setMember(member);
         salesRepository.save(sales);
 
-        //model.addAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
+//        model.addAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
+        redirectAttributes.addFlashAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
 
-        return "redirect:/";
+        return "redirect:"+ referer;
 
     }
 }

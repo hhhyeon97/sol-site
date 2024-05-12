@@ -8,14 +8,27 @@
     <title>detail</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
+    <style>
+  @keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  }
+
+  #orderSuccessMessage {
+    animation: fadeOut 1s ease-out 2s forwards;
+  }
+    </style>
 </head>
 <body>
 <div th:replace="~{ nav.html::navbar }"></div>
-<div th:if="${orderSuccessMessage}">
-    <div id="orderSuccessMessage" class="alert alert-success" role="alert">
-        <span th:text="${orderSuccessMessage}"></span>
-    </div>
+<div th:if="${orderSuccessMessage}" class="alert alert-success" role="alert" id="orderSuccessMessage">
+    <span th:text="${orderSuccessMessage}"></span>
 </div>
+
 
 <div class="detail-area">
         <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="detail-img">
@@ -56,23 +69,23 @@
 
 <script>
 
-     window.onload = function() {
-          updatePrice(); // 페이지 로드시 total price 업데이트
-      };
+  window.onload = function() {
+       updatePrice(); // 페이지 로드시 total price 업데이트
+   };
 
-      function updatePrice() {
-          var count = parseInt(document.getElementById('count').value);
-          var price = parseFloat(document.getElementById('itemPrice').value);
-          var totalPrice = count * price;
-          document.getElementById('totalPrice').innerText = totalPrice + '원';
-      }
+   function updatePrice() {
+       var count = parseInt(document.getElementById('count').value);
+       var price = parseFloat(document.getElementById('itemPrice').value);
+       var totalPrice = count * price;
+       document.getElementById('totalPrice').innerText = totalPrice + '원';
+   }
 
-      function validateInput(event) {
-          var keyCode = event.keyCode;
-          if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
-              event.preventDefault();
-          }
-      }
+   function validateInput(event) {
+       var keyCode = event.keyCode;
+       if ((keyCode < 48 || keyCode > 57) && keyCode !== 8 && keyCode !== 46) {
+           event.preventDefault();
+       }
+   }
 
 
 </script>
