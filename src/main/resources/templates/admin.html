@@ -13,7 +13,7 @@
 <body>
 <div th:replace="~{ adminNav.html::admin-navbar }"></div>
 <div class="admin-area">
-    <h2><span class="admin-user-name" th:text="${#authentication.principal.username}+'으로 접속중 ...'"></span></h2>
+    <span class="admin-user-name" th:text="${'welcome ! '+#authentication.principal.username+' ^_^'}"></span>
 </div>
 </body>
 </html>

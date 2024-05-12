@@ -682,30 +682,26 @@ a:hover {
     align-items: center;
 }
 
-/* 테이블 스타일 */
 table {
     border-collapse: collapse;
     width: 70%;
     margin-bottom: 20px;
 }
 
-/* 테이블 셀 스타일 */
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
 
-/* 짝수 행 배경색 */
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-
 .admin-user-name {
-    font-size: 25px;
+    font-size: 30px;
     font-family: 'ONE-Mobile-POP';
-    margin-top: 20px;
+    margin-top: 35px;
     letter-spacing: 4px;
     color: white;
 }
