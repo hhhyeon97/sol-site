@@ -4,15 +4,15 @@ package com.sol.shop.sales;
 import com.sol.shop.member.CustomUser;
 import com.sol.shop.member.Member;
 import com.sol.shop.member.MemberRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,8 +28,12 @@ public class SalesController {
                      @RequestParam Integer count,
                      @RequestParam Integer price,
                      Authentication auth,
-                     @RequestParam Long itemId
-                     ) {
+                     @RequestParam Long itemId,
+                     HttpServletRequest request,
+                     Model model
+    ) {
+        String referer = request.getHeader("Referer");
+
         Sales sales = new Sales();
         sales.setCount(count);
         sales.setPrice(price*count);
@@ -40,14 +44,16 @@ public class SalesController {
         var member = new Member();
         member.setId(user.userId);
         sales.setMember(member);
-//        sales.setMemberId(user.userId);
         salesRepository.save(sales);
+
+        //model.addAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
+
         return "redirect:/";
+
     }
-
-
-
 }
+
+
 
 class SalesDto {
     public String itemName;
