@@ -37,19 +37,12 @@ public class ItemController {
     private final S3Service2 s3Service2;
     private final CommentRepository commentRepository;
 
-//    @GetMapping("/list")
-//    String list(Model model){
-//        List<Item> result = itemService.findAllItems(); // 서비스로부터 아이템 리스트를 가져옴
-//        model.addAttribute("items", result);
-//        return "list.html";
-//    }
+
 
     @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page) {
-    // 페이지 번호는 0부터 시작하므로 -1 처리
     Pageable pageable = PageRequest.of(page - 1, 9, Sort.by("id").descending());
 
-    // 페이지네이션된 결과 가져오기
     Page<Item> itemsPage = itemRepository.findAll(pageable);
     model.addAttribute("items", itemsPage.getContent());
     model.addAttribute("currentPage", page);
@@ -57,6 +50,7 @@ public class ItemController {
 
     return "list.html";
     }
+
 
     @GetMapping("/write")
     String write(Authentication authentication){
@@ -104,16 +98,6 @@ public class ItemController {
     }
     }
 
-//    @GetMapping("/edit/{id}")
-//    String edit(Model model, @PathVariable Long id){
-//        Optional<Item> result = itemRepository.findById(id);
-//        if(result.isPresent()){
-//            model.addAttribute("data",result.get());
-//            return "edit.html";
-//        }else {
-//            return "redirect:/list";
-//        }
-//    }
 @GetMapping("/edit/{id}")
 String edit(Model model, @PathVariable Long id, Authentication authentication){
     Optional<Item> result = itemRepository.findById(id);
@@ -165,10 +149,6 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
         Long loggedInUserId = result.get().getId();
         System.out.println("로그인한 유저 id"+loggedInUserId);
         model.addAttribute("loggedInUserId", loggedInUserId);
-//        itemRepository.deleteById(id);
-//        redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
-
-        // 이게 비효율적인 느낌 - > 근데 타임리프문법으로 하면 자꾸 에러남 왜 ?...
 
         // 상품 정보 조회
         Optional<Item> optionalItem = itemRepository.findById(id);
@@ -183,11 +163,10 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
                 itemRepository.deleteById(id);
                 redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
             } else {
-                // 일치하지 않는 경우에는 에러 메시지 설정
+
                 redirectAttributes.addFlashAttribute("errorMessage", "해당 상품을 삭제할 수 있는 권한이 없습니다.");
             }
         } else {
-            // 상품이 없는 경우에도 에러 메시지 설정
             redirectAttributes.addFlashAttribute("errorMessage", "상품을 찾을 수 없습니다.");
         }
 

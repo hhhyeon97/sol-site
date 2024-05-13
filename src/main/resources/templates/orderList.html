@@ -33,5 +33,27 @@
     </table>
 </div>
 
+<div class="pagination justify-content-center mb-5">
+    <ul class="pagination">
+        <li class="page-item" th:unless="${currentPage == 1}">
+            <a class="page-link" th:href="@{/admin/order-list(page=${currentPage - 1})}" aria-label="Previous">
+                <span aria-hidden="true" style="color:gray;">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a class="page-link" th:href="@{/admin/order-list(page=${pageNum})}" th:text="${pageNum}"
+               th:style="${pageNum == currentPage} ? 'background-color: gray; border-color: #89b089; color: #ffffff;' : 'color: gray;'"></a>
+        </li>
+
+        <li class="page-item" th:unless="${currentPage == totalPages}">
+            <a class="page-link" th:href="@{/admin/order-list(page=${currentPage + 1})}" aria-label="Next">
+                <span aria-hidden="true" style="color:gray;">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
 </body>
 </html>

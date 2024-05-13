@@ -8,10 +8,15 @@ import com.sol.shop.member.MemberRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,12 +46,21 @@ public class AdminController {
         model.addAttribute("memberList",result);
         return "userList.html";
     }
+
     @GetMapping("/admin/order-list")
-    String orderList(Model model){
-        List<Sales> result = salesRepository.customFindAll();
-        model.addAttribute("orderList",result);
+    String orderList(Model model, @RequestParam(defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("id").descending());
+
+        Page<Sales> salesPage = salesRepository.findAll(pageable);
+
+        model.addAttribute("orderList", salesPage.getContent());
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", salesPage.getTotalPages());
+
         return "orderList.html";
     }
+
     @GetMapping("/admin/review-list")
     String reviewList(Model model){
         List<Comment> result = commentRepository.findAll();
