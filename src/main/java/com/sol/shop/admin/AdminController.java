@@ -48,8 +48,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin/order-list")
-    String orderList(Model model, @RequestParam(defaultValue = "1") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("id").descending());
+    String orderList(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "desc") String sort) {
+        //Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("id").descending());
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.Direction.fromString(sort), "id");
 
         Page<Sales> salesPage = salesRepository.findAll(pageable);
 
@@ -57,7 +58,7 @@ public class AdminController {
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", salesPage.getTotalPages());
-
+        model.addAttribute("sort", sort);
         return "orderList.html";
     }
 
