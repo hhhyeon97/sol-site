@@ -36,7 +36,6 @@ public class SalesController {
                      Authentication auth,
                      @RequestParam Long itemId,
                      HttpServletRequest request,
-                     HttpServletResponse response,
                      Model model,
                      RedirectAttributes redirectAttributes
     ) {
@@ -59,7 +58,6 @@ public class SalesController {
             return "redirect:"+ referer;
         }else {
             redirectAttributes.addFlashAttribute("loginRequiredMessage", "로그인 후에 구매할 수 있습니다.");
-            Util.savePreviousPageUrl(request, response);
             return "redirect:/login";
         }
 
