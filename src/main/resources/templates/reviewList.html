@@ -11,7 +11,13 @@
 </head>
 <body>
 <div th:replace="~{ adminNav.html::admin-navbar }"></div>
-
+<div class="sort-box-area">
+    <input type="hidden" id="currentPage" th:value="${currentPage}">
+    <select id="sortSelect" onchange="changeSort()">
+        <option value="desc" th:selected="${sort == 'desc'}">최신순</option>
+        <option value="asc" th:selected="${sort == 'asc'}">오래된순</option>
+    </select>
+</div>
 <div class="review-all-list">
     <div class="review-all-title">전체 리뷰 내역</div>
     <table>
@@ -29,5 +35,34 @@
         </tr>
     </table>
 </div>
+
+<div class="pagination justify-content-center mb-5">
+    <ul class="pagination">
+        <li class="page-item" th:unless="${currentPage == 1}">
+            <a class="page-link" th:href="@{/admin/review-list(page=${currentPage - 1}, sort=${sort})}" aria-label="Previous">
+                <span aria-hidden="true" style="color:gray;">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
+            th:classappend="${pageNum == currentPage} ? 'active' : ''">
+            <a class="page-link" th:href="@{/admin/review-list(page=${pageNum}, sort=${sort})}" th:text="${pageNum}"
+               th:style="${pageNum == currentPage} ? 'background-color: gray; border-color: #89b089; color: #ffffff;' : 'color: gray;'"></a>
+        </li>
+
+        <li class="page-item" th:unless="${currentPage == totalPages}">
+            <a class="page-link" th:href="@{/admin/review-list(page=${currentPage + 1}, sort=${sort})}" aria-label="Next">
+                <span aria-hidden="true" style="color:gray;">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    function changeSort() {
+         var sortValue = document.getElementById("sortSelect").value;
+         var currentPage = document.getElementById("currentPage").value;
+         window.location.href = "/admin/review-list?page=" + currentPage + "&sort=" + sortValue;
+     }
+</script>
 </body>
 </html>

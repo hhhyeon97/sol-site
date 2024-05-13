@@ -63,9 +63,17 @@ public class AdminController {
     }
 
     @GetMapping("/admin/review-list")
-    String reviewList(Model model){
-        List<Comment> result = commentRepository.findAll();
-        model.addAttribute("reviewList",result);
+    String reviewList(Model model, @RequestParam(defaultValue = "1") int page,@RequestParam(defaultValue = "desc") String sort){
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.Direction.fromString(sort), "id");
+
+        Page<Comment> reviewPage = commentRepository.findAll(pageable);
+
+        model.addAttribute("reviewList", reviewPage.getContent());
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", reviewPage.getTotalPages());
+        model.addAttribute("sort", sort);
+
         return "reviewList.html";
     }
 
