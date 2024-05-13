@@ -496,6 +496,9 @@ a:hover {
     padding: 1px;
     color: white;
 }
+.review-cont  {
+    word-wrap: break-word;
+}
 
 /* searchList.html */
 
