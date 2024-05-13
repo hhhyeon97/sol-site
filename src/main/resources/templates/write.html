@@ -16,7 +16,7 @@
 <form id="itemForm" action="/add" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="title" id="titleInput" placeholder="상품명" required>
-    <input name="price" id="priceInput" placeholder="가격" required>
+    <input type="number" min="100" name="price" id="priceInput" placeholder="가격" required>
     <input name="descContent" id="descContent" placeholder="설명" required>
     <input type="file" name="imageFile" id="imageInput" required>
     <div class="preview-area">

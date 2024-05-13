@@ -34,7 +34,7 @@
         <tr th:each="item : ${orderList}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.itemName}"></td>
-            <td th:text="${item.price}"></td>
+            <td data-th-text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}" />
             <td th:text="${item.count}"></td>
             <td th:text="${item.member.username}"></td>
             <td th:text="${#temporals.format(item.created, 'yyyy.MM.dd HH:mm')}"></td>

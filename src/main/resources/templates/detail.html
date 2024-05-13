@@ -77,7 +77,11 @@
        var count = parseInt(document.getElementById('count').value);
        var price = parseFloat(document.getElementById('itemPrice').value);
        var totalPrice = count * price;
-       document.getElementById('totalPrice').innerText = totalPrice + '원';
+
+        // 한국 통화 형식으로 포맷팅
+       var formattedTotalPrice = totalPrice.toLocaleString('ko-KR') + '원';
+       document.getElementById('totalPrice').innerText = formattedTotalPrice;
+
    }
 
    function validateInput(event) {
