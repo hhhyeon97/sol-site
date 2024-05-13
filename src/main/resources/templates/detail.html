@@ -9,18 +9,18 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
     <style>
-  @keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-  }
+        @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+        }
 
-  #orderSuccessMessage {
-    animation: fadeOut 1s ease-out 2s forwards;
-  }
+        #orderSuccessMessage {
+          animation: fadeOut 1s ease-out 2s forwards;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +31,7 @@
 
 
 <div class="detail-area">
-        <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="detail-img">
+    <img th:if="${item.imageUrl}" th:src="${item.imageUrl}" alt="상품 이미지" class="detail-img">
     <img th:unless="${item.imageUrl}" src="/img/notfoundimg.png" alt="상품 이미지 없음">
     <div class="detail-text-area">
         <h4 th:text="${item.title}" class="detail-item-name"></h4>
@@ -51,6 +51,9 @@
             <button class="buy-btn" onclick="postOrder()">구매</button>
         </div>
     </form>
+    <div class="message">
+        <p th:if="${message}" th:text="${message}"></p>
+    </div>
     <div class="review-area">
         <form action="/comment" method="POST"  class="review-form" onsubmit="return validateForm()">
             <h3>Review <span th:text="'(' + ${comment.size() + ')'}"></span></h3>
