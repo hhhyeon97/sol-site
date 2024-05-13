@@ -11,14 +11,17 @@
 </head>
 <body>
 <div th:replace="~{ adminNav.html::admin-navbar }"></div>
-<div class="order-all-area">
-    <span class="order-list-title">전체 주문 내역</span>
-
+<div class="sort-box-area">
     <input type="hidden" id="currentPage" th:value="${currentPage}">
     <select id="sortSelect" onchange="changeSort()">
         <option value="desc" th:selected="${sort == 'desc'}">최신순</option>
         <option value="asc" th:selected="${sort == 'asc'}">오래된순</option>
     </select>
+</div>
+<div class="order-all-area">
+    <span class="order-list-title">전체 주문 내역</span>
+
+
     <table>
         <tr>
             <th>주문번호</th>

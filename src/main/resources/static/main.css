@@ -715,3 +715,13 @@ tr:nth-child(even) {
     background-size: cover;
     opacity:0.2;
 }
+
+.sort-box-area {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: 85px;
+    right: 250px;
+}
+
+
