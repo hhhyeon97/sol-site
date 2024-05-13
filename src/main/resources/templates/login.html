@@ -24,6 +24,15 @@
     <button id="loginBtn" type="submit">로그인</button>
 </form>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // 알림 메시지를 가져와서 표시
+    var loginRequiredMessage = /*[[${loginRequiredMessage}]]*/ null;
+    if (loginRequiredMessage) {
+        alert(loginRequiredMessage);
+    }
+    /*]]>*/
+</script>
 <script>
     function validateForm() {
         var username = document.getElementById("username").value.trim();
@@ -41,6 +50,8 @@
 
         return true;
     }
+
+
 </script>
 </body>
 </html>

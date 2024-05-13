@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,22 +39,25 @@ public class SalesController {
     ) {
         String referer = request.getHeader("Referer");
 
-        Sales sales = new Sales();
-        sales.setCount(count);
-        sales.setPrice(price*count);
-        sales.setItemName(title);
-        sales.setItemId(itemId);
-        CustomUser user = (CustomUser) auth.getPrincipal();
-        System.out.println(user.userId);
-        var member = new Member();
-        member.setId(user.userId);
-        sales.setMember(member);
-        salesRepository.save(sales);
-
-//        model.addAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
-        redirectAttributes.addFlashAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
-
-        return "redirect:"+ referer;
+        if (auth != null && auth.isAuthenticated()) {
+            Sales sales = new Sales();
+            sales.setCount(count);
+            sales.setPrice(price*count);
+            sales.setItemName(title);
+            sales.setItemId(itemId);
+            CustomUser user = (CustomUser) auth.getPrincipal();
+            System.out.println(user.userId);
+            var member = new Member();
+            member.setId(user.userId);
+            sales.setMember(member);
+            salesRepository.save(sales);
+            //        model.addAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("orderSuccessMessage", "주문이 성공적으로 완료되었습니다.");
+            return "redirect:"+ referer;
+        }else {
+            redirectAttributes.addFlashAttribute("loginRequiredMessage", "로그인 후에 구매할 수 있습니다.");
+            return "redirect:/login";
+        }
 
     }
 }
