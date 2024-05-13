@@ -4,7 +4,9 @@ package com.sol.shop.sales;
 import com.sol.shop.member.CustomUser;
 import com.sol.shop.member.Member;
 import com.sol.shop.member.MemberRepository;
+import com.sol.shop.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,7 @@ public class SalesController {
                      Authentication auth,
                      @RequestParam Long itemId,
                      HttpServletRequest request,
+                     HttpServletResponse response,
                      Model model,
                      RedirectAttributes redirectAttributes
     ) {
@@ -56,6 +59,7 @@ public class SalesController {
             return "redirect:"+ referer;
         }else {
             redirectAttributes.addFlashAttribute("loginRequiredMessage", "로그인 후에 구매할 수 있습니다.");
+            Util.savePreviousPageUrl(request, response);
             return "redirect:/login";
         }
 
