@@ -41,12 +41,13 @@ public class ItemController {
 
     @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "id") String sortBy) {
-        Sort sort = Sort.by(sortBy).descending();
-
+        Sort sort;
         if (sortBy.equals("price")) {
-            sort = Sort.by(sortBy).ascending();
+            sort = Sort.by("price").ascending();
         } else if (sortBy.equals("title")) {
-            sort = Sort.by(sortBy).ascending();
+            sort = Sort.by("title").ascending();
+        } else {
+            sort = Sort.by("id").descending(); // 기본적으로 id를 내림차순으로 정렬
         }
 
         Pageable pageable = PageRequest.of(page - 1, 9, sort);
@@ -55,6 +56,7 @@ public class ItemController {
         model.addAttribute("items", itemsPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", itemsPage.getTotalPages());
+        model.addAttribute("sortBy", sortBy); // 정렬 기준을 모델에 추가
 
         return "list.html";
     }
