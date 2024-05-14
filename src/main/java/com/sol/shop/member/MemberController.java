@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,17 +119,22 @@ public class MemberController {
     }
 
     @PostMapping("/withdraw")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
-    public String withdrawUser(Authentication authentication) {
-        String username = authentication.getName();
-        Optional<Member> optionalMember = memberRepository.findByUsername(username);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            memberRepository.delete(member);
-            return "회원 탈퇴가 완료되었습니다.";
+    public String withdrawUser(@RequestParam String username, Authentication authentication) {
+        // 현재 로그인한 사용자의 권한을 확인합니다.
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
+            // 회원을 탈퇴시킵니다.
+            System.out.println("권한 : "+authentication.getAuthorities());
+            Optional<Member> memberOptional = memberRepository.findByUsername(username);
+            if (memberOptional.isPresent()) {
+                memberRepository.delete(memberOptional.get());
+                return "회원 탈퇴가 완료되었습니다.";
+            } else {
+                return "해당 사용자를 찾을 수 없습니다.";
+            }
         } else {
-            return "회원 정보를 찾을 수 없습니다.";
+            // 권한이 없는 경우, 권한 없음 메시지를 반환합니다.
+            return "권한이 없습니다.";
         }
     }
 
