@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,9 +50,9 @@ public class MemberController {
             var hash = passwordEncoder.encode(password);
             member.setPassword(hash);
             member.setDisplayName(displayName);
-            member.setRole("ROLE_ADMIN");
+            member.setRole("ROLE_USER");
             memberRepository.save(member);
-            return "redirect:/";
+            return "redirect:/login";
 
         } catch (DataIntegrityViolationException e) {
             // 중복된 아이디 예외 처리
@@ -113,6 +115,22 @@ public class MemberController {
         var data = new MemberDto(result.getUsername(), result.getDisplayName(), result.getId());
         return data;
     }
+
+    @PostMapping("/withdraw")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public String withdrawUser(Authentication authentication) {
+        String username = authentication.getName();
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            memberRepository.delete(member);
+            return "회원 탈퇴가 완료되었습니다.";
+        } else {
+            return "회원 정보를 찾을 수 없습니다.";
+        }
+    }
+
 
 }
 
