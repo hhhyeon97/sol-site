@@ -108,6 +108,9 @@ a:hover {
     font-family: 'UhBeeSe_hyun';
 }
 
+#sortSelect {
+    box-shadow: 0 0 0 3px #80b087;
+}
 /* my-page */
 
 .my-area {

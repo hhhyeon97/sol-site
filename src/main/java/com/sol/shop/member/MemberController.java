@@ -185,17 +185,6 @@ public class MemberController {
         return "redirect:/my-page";
     }
 
-    @GetMapping("/get-username")
-    public String getUsername(Authentication authentication) {
-        String username = authentication.getName();
-        Optional<Member> optionalMember = memberRepository.findByUsername(username);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            return member.getDisplayName();
-        }
-        return "";
-    }
-
 
 
 }
