@@ -111,6 +111,20 @@ a:hover {
 #sortSelect {
     box-shadow: 0 0 0 3px #80b087;
 }
+select option:focus {
+    background-color:black;
+}
+
+select option:checked {
+    background-color: #8cad9a;
+}
+/*
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}*/
+
 /* my-page */
 
 .my-area {

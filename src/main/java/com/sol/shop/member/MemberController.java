@@ -185,6 +185,18 @@ public class MemberController {
         return "redirect:/my-page";
     }
 
+    @GetMapping("/user-info")
+    public String getUserInfo(Authentication authentication) {
+        String username = authentication.getName();
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            String displayName = member.getDisplayName();
+            System.out.println(displayName);
+            return displayName;
+        }
+        return ""; // 사용자가 없는 경우 빈 문자열 반환 또는 다른 기본값을 설정할 수 있습니다.
+    }
 
 
 }
