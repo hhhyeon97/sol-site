@@ -40,15 +40,23 @@ public class ItemController {
 
 
     @GetMapping("/")
-    public String list(Model model, @RequestParam(defaultValue = "1") int page) {
-    Pageable pageable = PageRequest.of(page - 1, 9, Sort.by("id").descending());
+    public String list(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "id") String sortBy) {
+        Sort sort = Sort.by(sortBy).descending();
 
-    Page<Item> itemsPage = itemRepository.findAll(pageable);
-    model.addAttribute("items", itemsPage.getContent());
-    model.addAttribute("currentPage", page);
-    model.addAttribute("totalPages", itemsPage.getTotalPages());
+        if (sortBy.equals("price")) {
+            sort = Sort.by(sortBy).ascending();
+        } else if (sortBy.equals("title")) {
+            sort = Sort.by(sortBy).ascending();
+        }
 
-    return "list.html";
+        Pageable pageable = PageRequest.of(page - 1, 9, sort);
+
+        Page<Item> itemsPage = itemRepository.findAll(pageable);
+        model.addAttribute("items", itemsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", itemsPage.getTotalPages());
+
+        return "list.html";
     }
 
 

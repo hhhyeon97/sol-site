@@ -52,6 +52,20 @@
     </div>
 </div>
 
+<!-- 가격순으로 정렬 -->
+<a class="btn btn-sm btn-outline-secondary" th:href="@{/?(page=1, sortBy='price')}">가격순</a>
+
+<!-- 이름순으로 정렬 -->
+<a class="btn btn-sm btn-outline-secondary" th:href="@{/?(page=1, sortBy='title')}">이름순</a>
+
+<form th:action="@{/}" method="get">
+    <select class="form-select" name="sortBy">
+        <option value="id" th:selected="${sortBy == 'id'}">기본</option>
+        <option value="price" th:selected="${sortBy == 'price'}">가격순</option>
+        <option value="title" th:selected="${sortBy == 'title'}">이름순</option>
+    </select>
+    <button type="submit" class="btn btn-primary">정렬</button>
+</form>
 
 <div class="container list-area">
     <div class="row">
@@ -80,20 +94,23 @@
 
 <div class="pagination justify-content-center">
     <ul class="pagination">
+        <!-- 이전 페이지 -->
         <li class="page-item" th:unless="${currentPage == 1}">
-            <a class="page-link" th:href="@{/(page=${currentPage - 1})}" aria-label="Previous">
+            <a class="page-link" th:href="@{/(page=${currentPage - 1}, sortBy=${sortBy})}" aria-label="Previous">
                 <span aria-hidden="true" style="color:gray;">&laquo;</span>
             </a>
         </li>
 
+        <!-- 페이지 번호 -->
         <li class="page-item" th:each="pageNum : ${#numbers.sequence(1, totalPages)}"
             th:classappend="${pageNum == currentPage} ? 'active' : ''">
-            <a class="page-link" th:href="@{/(page=${pageNum})}" th:text="${pageNum}"
+            <a class="page-link" th:href="@{/(page=${pageNum}, sortBy=${sortBy})}" th:text="${pageNum}"
                th:style="${pageNum == currentPage} ? 'background-color: #89b089; border-color: #89b089; color: #ffffff;' : 'color: gray;'"></a>
         </li>
 
+        <!-- 다음 페이지 -->
         <li class="page-item" th:unless="${currentPage == totalPages}">
-            <a class="page-link" th:href="@{/(page=${currentPage + 1})}" aria-label="Next">
+            <a class="page-link" th:href="@{/(page=${currentPage + 1}, sortBy=${sortBy})}" aria-label="Next">
                 <span aria-hidden="true" style="color:gray;">&raquo;</span>
             </a>
         </li>

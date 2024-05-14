@@ -9,6 +9,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+font-family: 'UhBeeSe_hyun';
+src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
 
 body {
     font-family: "Noto Sans KR", sans-serif;
@@ -28,7 +34,7 @@ body {
 }
 
 .logo {
-    font-family: 'logoFont';
+font-family: 'UhBeeSe_hyun';
     color: white;
     font-size: 40px;
     font-weight: bold;
@@ -99,7 +105,7 @@ a:hover {
     /*#8ca896;*/
     font-size: 20px;
     font-weight: bold;
-
+    font-family: 'UhBeeSe_hyun';
 }
 
 /* my-page */
