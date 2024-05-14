@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -139,7 +140,7 @@ public class MemberController {
     }
 
     @PostMapping("/update")
-    public String updateProfile(@RequestParam String displayName, @RequestParam String password, Authentication authentication) {
+    public String updateProfile(@RequestParam String displayName, @RequestParam String password, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         String username = authentication.getName();
         Optional<Member> optionalMember = memberRepository.findByUsername(username);
@@ -149,10 +150,16 @@ public class MemberController {
             member.setDisplayName(displayName);
             member.setPassword(passwordEncoder.encode(password));
             memberRepository.save(member);
+            redirectAttributes.addFlashAttribute("message", "회원 정보가 성공적으로 수정되었습니다!");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "회원 정보 수정에 실패하였습니다.");
         }
 
         return "redirect:/my-page";
     }
+
+
+
 
 
 }
