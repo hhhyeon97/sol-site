@@ -42,12 +42,14 @@ public class ItemController {
     @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "id") String sortBy) {
         Sort sort;
-        if (sortBy.equals("price")) {
+        if (sortBy.equals("priceDesc")) {
+            sort = Sort.by("price").descending();
+        } else if (sortBy.equals("priceAsc")) {
             sort = Sort.by("price").ascending();
         } else if (sortBy.equals("title")) {
             sort = Sort.by("title").ascending();
         } else {
-            sort = Sort.by("id").descending(); // 기본적으로 id를 내림차순으로 정렬
+            sort = Sort.by("id").descending(); // 기본적으로 id를 내림차순 정렬
         }
 
         Pageable pageable = PageRequest.of(page - 1, 9, sort);

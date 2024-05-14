@@ -59,13 +59,16 @@
 </div>
 
 
-<div>
-    <input type="hidden" id="currentPage" th:value="${currentPage}">
-    <select id="sortSelect" onchange="changeSort()">
-        <option value="id" th:selected="${sortBy == 'id'}">등록순</option>
-        <option value="price" th:selected="${sortBy == 'price'}">가격순</option>
-        <option value="title" th:selected="${sortBy == 'title'}">이름순</option>
-    </select>
+<div class="row justify-content-end list-sort-mobile">
+    <div class="col-md-2 list-sort-box mr-5">
+        <input type="hidden" id="currentPage" th:value="${currentPage}">
+        <select id="sortSelect" onchange="changeSort()" class="form-control">
+            <option value="id" th:selected="${sortBy == 'id'}">등록순</option>
+            <option value="priceDesc" th:selected="${sortBy == 'priceDesc'}">가격 높은 순</option>
+            <option value="priceAsc" th:selected="${sortBy == 'priceAsc'}">가격 낮은 순</option>
+            <option value="title" th:selected="${sortBy == 'title'}">이름순</option>
+        </select>
+    </div>
 </div>
 
 <div class="container list-area">
