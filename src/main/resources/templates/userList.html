@@ -28,26 +28,25 @@
                 <td th:text="${member.username}"></td>
                 <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>
                 <td>
-                    <button class="withdraw-button" data-username="${member.username}">탈퇴</button>
-                    <input type="hidden" class="username-field" th:value="${member.username}">
+                    <button class="withdraw-button" th:attr="data-username=${member.username}">탈퇴</button>
                 </td>
             </tr>
         </table>
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    document.addEventListener('DOMContentLoaded', function() {
-        var buttons = document.querySelectorAll('.withdraw-button');
-        buttons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var username = button.getAttribute('data-username');
-                if (confirm(username + '님을 정말로 탈퇴시키시겠습니까?')) {
-                    withdrawUser(username);
-                    console.log(username);
-                }
-            });
+ document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('.withdraw-button');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var username = button.getAttribute('data-username');
+            console.log(username); // 사용자 이름을 콘솔에 출력
+            if (confirm(username + '님을 정말로 탈퇴시키시겠습니까?')) {
+                withdrawUser(username);
+            }
         });
     });
+});
 
     function withdrawUser(username) {
         var csrfToken = /*[[${_csrf.token}]]*/ ''; // CSRF 토큰 가져오기

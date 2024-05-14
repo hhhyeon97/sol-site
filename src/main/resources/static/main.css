@@ -732,4 +732,13 @@ tr:nth-child(even) {
     right: 250px;
 }
 
+.withdraw-button {
+    background:none;
+    border : 2px solid lightgray;
+    border-radius: 6px;
+}
+
+.withdraw-button:hover {
+    background-color : lightgray;
+}
 

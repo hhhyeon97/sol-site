@@ -121,11 +121,12 @@ public class MemberController {
     @PostMapping("/withdraw")
     @ResponseBody
     public String withdrawUser(@RequestParam String username, Authentication authentication) {
-        // 현재 로그인한 사용자의 권한을 확인합니다.
+        // 현재 로그인한 사용자 권환 확인하기
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            // 회원을 탈퇴시킵니다.
+            // 사용자 탈퇴
             System.out.println("권한 : "+authentication.getAuthorities());
             Optional<Member> memberOptional = memberRepository.findByUsername(username);
+            System.out.println("탈퇴시키려는유저 : "+username);
             if (memberOptional.isPresent()) {
                 memberRepository.delete(memberOptional.get());
                 return "회원 탈퇴가 완료되었습니다.";
@@ -133,7 +134,6 @@ public class MemberController {
                 return "해당 사용자를 찾을 수 없습니다.";
             }
         } else {
-            // 권한이 없는 경우, 권한 없음 메시지를 반환합니다.
             return "권한이 없습니다.";
         }
     }
