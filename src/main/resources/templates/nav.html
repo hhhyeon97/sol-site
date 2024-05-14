@@ -1,3 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>navbar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
 <div class="nav" th:fragment="navbar">
     <a href="/"><span class="logo">SOLSITE</span></a>
     <span>
@@ -16,8 +27,30 @@
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="logout-btn">로그아웃</button>
         </form>
-<!--              <span th:text="'🍃 '+${#authentication.principal.username}+'님'" class="login-user-name"/>-->
-        <span th:text="'🍃 '+${#authentication.principal.displayName}+'님'" class="login-user-name"/>
+<!--                <span th:text="'🍃 '+${#authentication.principal.displayName}+'님'" class="login-user-name"/>-->
+          <span class="login-user-name"></span>
         </span>
-    </span>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function updateNavbarDisplayName() {
+        // Ajax를 사용하여 서버에서 새로운 닉네임을 가져옴
+        $.get("/get-username", function(data) {
+            // 가져온 닉네임을 네브바에 반영
+            var displayName = data;
+            if (displayName) {
+                $('.login-user-name').text('🍃 ' + displayName + '님');
+                console.log(displayName);
+            }
+        });
+    }
+    console.log(displayName);
+
+    // 페이지가 로드될 때와 닉네임이 업데이트될 때 호출
+    $(document).ready(function() {
+        updateNavbarDisplayName();
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
