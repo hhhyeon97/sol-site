@@ -500,6 +500,11 @@ a:hover {
     word-wrap: break-word;
 }
 
+.review-form-message {
+    position:relative;
+    bottom: 5px;
+}
+
 /* searchList.html */
 
 .search-list-area {

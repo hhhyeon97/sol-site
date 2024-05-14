@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.http.HttpRequest;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,11 +27,11 @@ public class CommentController {
     @PostMapping("/comment")
     String postComment(@RequestParam String content, @RequestParam Long parent,HttpServletRequest request,Authentication auth, RedirectAttributes redirectAttributes, Model model) {
 
-        CustomUser user = (CustomUser) auth.getPrincipal();
         String referer = request.getHeader("Referer");
 
-        var result = memberRepository.findByUsername(user.getUsername());
+        String username = auth.getName();
 
+        Optional<Member> result = memberRepository.findByUsername(username);
         // 사용자가 해당 상품을 구매했는지 확인
         boolean hasPurchased = result.get().getSales().stream()
                 .anyMatch(sale -> sale.getItemId().equals(parent));
@@ -38,13 +39,14 @@ public class CommentController {
         if (!auth.isAuthenticated()) {
             redirectAttributes.addFlashAttribute("message", "로그인 후 이용 가능합니다.");
             return "redirect:"+ referer;
-        } else if (!hasPurchased) {
+        }
+        else if (!hasPurchased) {
             redirectAttributes.addFlashAttribute("message", "해당 상품을 구매한 유저만 리뷰를 작성할 수 있습니다.");
             return "redirect:"+ referer;
         } else {
             Comment data = new Comment();
             data.setContent(content);
-            data.setUsername(user.getUsername());
+            data.setUsername(username);
             data.setParentId(parent);
             commentRepository.save(data);
             return "redirect:"+ referer;

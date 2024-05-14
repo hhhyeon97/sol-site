@@ -51,16 +51,27 @@
             <button class="buy-btn" onclick="postOrder()">구매</button>
         </div>
     </form>
-    <div class="message">
-        <p th:if="${message}" th:text="${message}"></p>
-    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        // 알림 메시지를 가져와서 표시
+        var message = /*[[${message}]]*/ null;
+        console.log("Message:", message);
+        if (message) {
+            alert(message);
+        }
+        /*]]>*/
+    </script>
     <div class="review-area">
-        <form action="/comment" method="POST"  class="review-form" onsubmit="return validateForm()">
+        <form th:if="${#authorization.expression('isAuthenticated()')}" action="/comment" method="POST" class="review-form" onsubmit="return validateForm()">
             <h3>Review <span th:text="'(' + ${comment.size() + ')'}"></span></h3>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <input name="parent" th:value="${item.id}" style="display:none">
-            <input name="content" id="reviewInput"  class="review-input" maxlength="200" placeholder="리뷰 작성 : )">
+            <input name="content" id="reviewInput" class="review-input" maxlength="200" placeholder="리뷰 작성 : )">
             <button type="submit" class="review-btn">등록</button>
+        </form>
+        <form th:unless="${#authorization.expression('isAuthenticated()')}" class="review-form">
+            <h3>Review <span th:text="'(' + ${comment.size() + ')'}"></span></h3>
+            <p class="review-form-message">로그인 후에 리뷰를 작성할 수 있습니다.</p>
         </form>
         <ul class="review-content">
             <li th:each="c : ${comment}">
