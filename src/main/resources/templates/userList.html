@@ -20,18 +20,50 @@
                 <th>회원명</th>
                 <th>아이디</th>
                 <th>권한</th>
+                <th>탈퇴</th>
             </tr>
             <tr th:each="member : ${memberList}">
                 <td th:text="${member.id}"></td>
                 <td th:text="${member.displayName}"></td>
                 <td th:text="${member.username}"></td>
-                <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>        </tr>
+                <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>
+                <td>
+                    <button class="withdraw-button" data-username="${member.username}">탈퇴</button>
+                </td>
+            </tr>
         </table>
-
-
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
 <script>
+    /*<![CDATA[*/
+  $(document).ready(function() {
+      $('.withdraw-button').on('click', function() {
+          var username = $(this).data('username');
+          if (confirm('정말로 회원을 탈퇴하시겠습니까?')) { // 알림창을 띄워 사용자에게 확인 요청
+              withdrawUser(username); // 탈퇴 요청 함수 호출
+          }
+      });
+  });
 
+  function withdrawUser(username) {
+      var csrfToken = /*[[${_csrf.token}]]*/ ''; // CSRF 토큰 가져오기
+      $.ajax({
+          type: 'POST',
+          url: '/withdraw', // 탈퇴 요청을 처리하는 엔드포인트
+          data: {
+              username: username,
+              _csrf: csrfToken // CSRF 토큰 추가
+          },
+          success: function(response) {
+              alert(response); // 서버로부터 받은 응답 메시지를 알림창으로 표시
+              window.location.reload(); // 페이지 새로고침
+          },
+          error: function(xhr, status, error) {
+              alert(xhr.responseText); // 오류 메시지를 알림창으로 표시
+          }
+      });
+  }
+  /*]]>*/
 </script>
 </body>
 </html>
