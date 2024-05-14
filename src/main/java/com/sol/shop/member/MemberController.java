@@ -4,6 +4,7 @@ import com.sol.shop.comment.Comment;
 import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -139,25 +143,47 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/update")
-    public String updateProfile(@RequestParam String displayName, @RequestParam String password, Authentication authentication, RedirectAttributes redirectAttributes) {
 
+    @PostMapping("/update-nickname")
+    public String updateNickname(@RequestParam String displayName,Authentication authentication, RedirectAttributes redirectAttributes){
         String username = authentication.getName();
         Optional<Member> optionalMember = memberRepository.findByUsername(username);
 
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             member.setDisplayName(displayName);
-            member.setPassword(passwordEncoder.encode(password));
             memberRepository.save(member);
-            redirectAttributes.addFlashAttribute("message", "회원 정보가 성공적으로 수정되었습니다!");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "회원 정보 수정에 실패하였습니다.");
+            redirectAttributes.addFlashAttribute("message", "닉네임이 업데이트 되었습니다!");
         }
-
+        else {
+            redirectAttributes.addFlashAttribute("message", "닉네임 수정에 실패하였습니다.");
+        }
         return "redirect:/my-page";
     }
 
+    @PostMapping("/update-password")
+    public String updatePassword(@RequestParam String password,Authentication authentication,
+                                 RedirectAttributes redirectAttributes, HttpServletRequest request){
+        String username = authentication.getName();
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            member.setPassword(passwordEncoder.encode(password));
+            memberRepository.save(member);
+            // 로그아웃 처리
+            LogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+            logoutHandler.logout(request, null, SecurityContextHolder.getContext().getAuthentication());
+
+            redirectAttributes.addFlashAttribute("notification", "패스워드가 업데이트 되었습니다! 다시 로그인 해주세요");
+
+            return "redirect:/login";
+        }
+        else {
+            redirectAttributes.addFlashAttribute("message", "패스워드 재설정에 실패하였습니다.");
+        }
+        return "redirect:/my-page";
+    }
 
 
 
