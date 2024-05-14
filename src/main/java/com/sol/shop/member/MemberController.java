@@ -138,6 +138,22 @@ public class MemberController {
         }
     }
 
+    @PostMapping("/update")
+    public String updateProfile(@RequestParam String displayName, @RequestParam String password, Authentication authentication) {
+
+        String username = authentication.getName();
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            member.setDisplayName(displayName);
+            member.setPassword(passwordEncoder.encode(password));
+            memberRepository.save(member);
+        }
+
+        return "redirect:/my-page";
+    }
+
 
 }
 

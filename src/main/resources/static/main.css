@@ -82,7 +82,7 @@ a:hover {
 
 .login-user-name {
     position:relative;
-    top: 2px;
+    top: 3px;
 }
 
 /* footer */
@@ -112,9 +112,10 @@ a:hover {
 
 .my-area {
     width : 80%;
-    height: 80vh;
+    height: 100vh;
     text-align:center;
     margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .my-area h2 {
