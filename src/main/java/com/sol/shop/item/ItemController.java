@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -171,11 +173,13 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
 
             // 현재 로그인한 사용자의 아이디와 상품을 작성한 사용자의 아이디 비교
             if (loggedInUserId.equals(itemUserId)) {
+
                 // 일치하는 경우 S3에서 이미지 삭제
                 String imageUrl = item.getImageUrl();
                 String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-                System.out.println("Deleting file from S3: items/" + fileName);
-                s3Service2.deleteImageFromS3("items/" + fileName);
+                String decodedFileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
+                System.out.println("Deleting file from S3: items/" + decodedFileName);
+                s3Service2.deleteImageFromS3("items/" + decodedFileName);
 
                 // db에서도 상품 삭제
                 itemRepository.deleteById(id);
@@ -187,10 +191,6 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "상품을 찾을 수 없습니다.");
         }
-
-
-
-
         return "redirect:/";
     }
 

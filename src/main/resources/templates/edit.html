@@ -18,7 +18,7 @@
     <input name="id" th:value="${data.id}" style="display:none">
     <img th:if="${data.imageUrl}" th:src="${data.imageUrl}" alt="상품 이미지" class="edit-img">
     <input name="title"  id="title"th:value="${data.title}" placeholder="수정할 상품명">
-    <input name="price"  id="price" th:value="${data.price}" placeholder="수정할 상품 가격">
+    <input type="number" name="price" id="price" min="100" th:value="${data.price}" placeholder="수정할 상품 가격">
     <input name="descContent"  id="descContent" th:value="${data.descContent}" placeholder="수정할 상품 설명">
     <button type="submit" class="edit-btn">수정</button>
 </form>
