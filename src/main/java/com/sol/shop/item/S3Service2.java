@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectResponse;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -37,6 +39,7 @@ public class S3Service2 {
         }
     }
 
+
     private File convertMultipartFileToFile(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());
         Files.copy(multipartFile.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -61,4 +64,19 @@ public class S3Service2 {
             System.out.println("로컬 파일 삭제 실패");
         }
     }
+
+    public void deleteImageFromS3(String fileName) {
+        try {
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(fileName)
+                    .build();
+            DeleteObjectResponse deleteObjectResponse = amazonS3Client.deleteObject(deleteObjectRequest);
+            System.out.println("Delete response: " + deleteObjectResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error deleting file from S3: " + e.getMessage());
+        }
+    }
+
 }

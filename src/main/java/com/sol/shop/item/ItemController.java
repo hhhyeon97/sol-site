@@ -159,7 +159,7 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
         var result = memberRepository.findByUsername(username);
         // 사용자 정보에서 userId 가져오기
         Long loggedInUserId = result.get().getId();
-        System.out.println("로그인한 유저 id"+loggedInUserId);
+        System.out.println("로그인한 유저 id : "+loggedInUserId);
         model.addAttribute("loggedInUserId", loggedInUserId);
 
         // 상품 정보 조회
@@ -167,11 +167,17 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
             Long itemUserId = item.getUserId();
-            System.out.println("상품을 작성한 사용자 id: " + itemUserId);
+            System.out.println("상품을 작성한 사용자 id : " + itemUserId);
 
             // 현재 로그인한 사용자의 아이디와 상품을 작성한 사용자의 아이디 비교
             if (loggedInUserId.equals(itemUserId)) {
-                // 일치하는 경우 삭제
+                // 일치하는 경우 S3에서 이미지 삭제
+                String imageUrl = item.getImageUrl();
+                String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+                System.out.println("Deleting file from S3: items/" + fileName);
+                s3Service2.deleteImageFromS3("items/" + fileName);
+
+                // db에서도 상품 삭제
                 itemRepository.deleteById(id);
                 redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
             } else {
