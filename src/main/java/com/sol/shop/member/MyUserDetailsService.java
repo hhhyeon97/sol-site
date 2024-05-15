@@ -31,9 +31,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
         if (user.getRole().equals("ROLE_ADMIN")) {
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else {
-            authorities.add(new SimpleGrantedAuthority("USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
 
         var a = new CustomUser(user.getUsername(), user.getPassword(),authorities);

@@ -67,6 +67,7 @@ public class ItemController {
 
 
     @GetMapping("/write")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     String write(Authentication authentication){
         if (authentication != null && authentication.isAuthenticated()) {
             return "write.html";
