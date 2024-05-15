@@ -58,7 +58,8 @@
 - 마이페이지에서는 해당 유저의 주문, 리뷰 내역을 확인할 수 있습니다.
 - 유저는 닉네임과 비밀번호를 재설정할 수 있습니다.
 
-![solsite1](https://github.com/hhhyeon97/shop2/assets/148893126/227d5292-d012-4edd-8d6e-9648db8e6f71)
+![solsite7](https://github.com/hhhyeon97/shop2/assets/148893126/f04aef65-84ef-4bde-ae05-dae9a2741c1a)
+
 
 ### 상품 정렬
 
@@ -67,7 +68,8 @@
 - 유저는 최신순, 가격순, 이름순으로 정렬된 상품을 확인할 수 있습니다.<br>
   기본적으로는 상품 id를 기준으로 내림차순 정렬로 설정하였습니다.
 
-![solsite2](https://github.com/hhhyeon97/shop2/assets/148893126/dd47f804-689b-4c18-99e9-4bde910a64e5)
+![solsite9](https://github.com/hhhyeon97/shop2/assets/148893126/d08dd908-4da2-43e3-9eda-bbed61a33f1f)
+
 
 ### 상품 등록
 
@@ -107,6 +109,7 @@
 - 관리자 페이지에서는 회원 목록, 전체 리뷰 내역, 전체 주문 내역을 확인할 수 있습니다.
 - 회원 목록 페이지에서는 회원 탈퇴를 수행할 수 있습니다.
   
-![solsite5](https://github.com/hhhyeon97/shop2/assets/148893126/87c38472-44d1-4d9e-86f7-cdad69dc4cac)
+![solsite10](https://github.com/hhhyeon97/shop2/assets/148893126/7aec7194-be25-4b98-91e8-802b40be5433)
+
 
 
