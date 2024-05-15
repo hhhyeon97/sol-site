@@ -108,22 +108,6 @@ a:hover {
     font-family: 'UhBeeSe_hyun';
 }
 
-#sortSelect {
-    box-shadow: 0 0 0 3px #80b087;
-}
-select option:focus {
-    background-color:black;
-}
-
-select option:checked {
-    background-color: #8cad9a;
-}
-/*
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}*/
 
 /* my-page */
 
@@ -179,7 +163,47 @@ select {
 .panel p {
     text-align:left;
 }
-.panel span {
+
+#listSortSelect {
+    box-shadow: 0 0 0 3px #80b087;
+}
+
+/*
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}*/
+.name-edit-input {
+    border: 2px solid #8cad9a;
+    border-radius: 6px;
+}
+.name-edit-input:focus {
+    outline: none;
+}
+.info-edit-btn {
+    border: 2px solid #8cad9a;
+    background: none;
+    border-radius: 6px;
+}
+.info-edit-btn:hover {
+    background-color: #8cad9a;
+    color: white;
+}
+.pw-edit-area {
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
+.pw-edit-area input {
+    border: 2px solid #8cad9a;
+    border-radius: 6px;
+    outline: none;
+    width: 50%;
+}
+.pw-edit-btn {
+    margin-top: 10px;
 }
 
 /* login */

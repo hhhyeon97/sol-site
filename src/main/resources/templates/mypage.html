@@ -57,22 +57,22 @@
     </div>
     <button class="accordion">닉네임 수정하기</button>
     <div class="panel">
-        <form action="/update-nickname" method="post" onsubmit="return validateDisplayName()">
+        <form action="/update-nickname" class="name-edit-area" method="post" onsubmit="return validateDisplayName()">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <label for="displayName">닉네임</label>
-            <input type="text" id="displayName" name="displayName" placeholder="수정할 닉네임" th:value="${displayName}">
-            <input type="submit" class="btn btn-sm btn-outline-secondary" value="수정하기">
+            <input type="text" id="displayName" class="name-edit-input" name="displayName" placeholder="수정할 닉네임" th:value="${displayName}">
+            <input type="submit" class="info-edit-btn" value="수정하기">
         </form>
     </div>
     <button class="accordion">비밀번호 재설정</button>
     <div class="panel">
-        <form action="/update-password" method="post" onsubmit="return validatePassword()">
+        <form action="/update-password" class="pw-edit-area" method="post" onsubmit="return validatePassword()">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <label for="newPassword">새 비밀번호</label>
             <input type="password" id="newPassword" name="password" placeholder="새 비밀번호">
             <label for="confirmPassword">새 비밀번호 재입력</label>
             <input type="password" id="confirmPassword"  placeholder="새 비밀번호 재입력">
-            <input type="submit" class="btn btn-sm btn-outline-secondary" value="변경하기">
+            <input type="submit" class="info-edit-btn pw-edit-btn" value="변경하기">
         </form>
     </div>
 
@@ -123,21 +123,8 @@ function validateDisplayName() {
           return false;
       }
       return true; // 유효성 검증 통과
-    sessionStorage.updateItem('displayName', displayName);
 
   }
-
-window.onload = function() {
-    // 세션 스토리지에서 닉네임을 가져와서 네비게이션바에 표시
-    var displayName = sessionStorage.getItem('displayName');
-    if (displayName) {
-        var loginUserName = document.querySelector('.login-user-name');
-        loginUserName.textContent = '🍃 ' + displayName + '님';
-        console.log(loginUserName);
-    }
-};
-
-
 
 function validatePassword() {
       var newPassword = document.getElementById("newPassword").value;

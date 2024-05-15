@@ -57,7 +57,7 @@
     <div class="row justify-content-start">
         <div class="col-md-2 list-sort-box">
             <input type="hidden" id="currentPage" th:value="${currentPage}">
-            <select id="sortSelect" onchange="changeSort()" class="form-control">
+            <select id="listSortSelect" onchange="changeSort()" class="form-control">
                 <option value="id" class="others" th:selected="${sortBy == 'id'}">등록순</option>
                 <option value="priceDesc" class="others" th:selected="${sortBy == 'priceDesc'}">가격 높은 순</option>
                 <option value="priceAsc" class="others" th:selected="${sortBy == 'priceAsc'}">가격 낮은 순</option>
@@ -120,7 +120,7 @@
 
 
     function changeSort() {
-            var sortValue = document.getElementById("sortSelect").value;
+            var sortValue = document.getElementById("listSortSelect").value;
             var currentPage = document.getElementById("currentPage").value;
             window.location.href = "/?page=" + currentPage + "&sortBy=" + sortValue;
         }
