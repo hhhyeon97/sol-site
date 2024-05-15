@@ -36,13 +36,13 @@
 <p th:text="${path}"></p>
 <p th:text="${message}"></p>
 <p th:text="${exception}"></p>
-    <h3 id="redirect-message" class="blink">10초 후에 집으로 돌아갑니다...🐢</h3>
+    <h3 id="redirect-message" class="blink">5초 후에 집으로 돌아갑니다...🐢</h3>
 </div>
 </div>
 <script>
     setTimeout(function() {
         window.location.href = "/";
-    }, 10000);
+    }, 5000);
 </script>
 </body>
 </html>

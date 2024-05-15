@@ -40,7 +40,6 @@ public class ItemController {
     private final CommentRepository commentRepository;
 
 
-
     @GetMapping("/")
     public String list(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "id") String sortBy) {
         Sort sort;
@@ -68,7 +67,7 @@ public class ItemController {
 
     @GetMapping("/write")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    String write(Authentication authentication){
+    String write(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             return "write.html";
         } else {
@@ -84,7 +83,7 @@ public class ItemController {
 
         // 해당 아이디로 사용자 정보 조회
         var result = memberRepository.findByUsername(username);
-        if(result.isEmpty()){
+        if (result.isEmpty()) {
 
         }
         // 사용자 정보에서 userId 가져오기
@@ -101,44 +100,35 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Long id, Model model) {
 
-    List<Comment> comment = commentRepository.findAllByParentId(id);
-    Optional<Item> result = itemService.findItemById(id);
-    if (result.isPresent()) {
-        Item item = result.get();
-        model.addAttribute("item", item);
-        model.addAttribute("comment",comment);
-        return "detail.html";
-    } else {
-        return "404page.html";
-    }
+        List<Comment> comment = commentRepository.findAllByParentId(id);
+        Optional<Item> result = itemService.findItemById(id);
+        if (result.isPresent()) {
+            Item item = result.get();
+            model.addAttribute("item", item);
+            model.addAttribute("comment", comment);
+            return "detail.html";
+        } else {
+            return "404page.html";
+        }
     }
 
-@GetMapping("/edit/{id}")
-String edit(Model model, @PathVariable Long id, Authentication authentication){
-    Optional<Item> result = itemRepository.findById(id);
-    if(result.isPresent()){
-        Item item = result.get();
-
-        // 현재 로그인한 사용자와 아이템 작성자 비교
-        String loggedInUsername = authentication.getName();
-        Long loggedInUserId = memberRepository.findByUsername(loggedInUsername)
-                .orElseThrow()
-                .getId();
-        if (loggedInUserId.equals(item.getUserId())) {
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    String edit(Model model, @PathVariable Long id, Authentication authentication) {
+        Optional<Item> result = itemRepository.findById(id);
+        if (result.isPresent()) {
+            Item item = result.get();
             model.addAttribute("data", item);
             return "edit.html";
         } else {
-            return "redirect:/?editError=true";
+            return "redirect:/";
         }
-    } else {
-        return "redirect:/";
     }
-}
 
 
     @PostMapping("/edit")
     @ResponseBody
-    public ResponseEntity<String> editItem(@RequestParam String title, Integer price, Long id, String descContent){
+    public ResponseEntity<String> editItem(@RequestParam String title, Integer price, Long id, String descContent) {
         try {
             itemService.editItem(title, price, id, descContent);
             return ResponseEntity.ok("수정이 완료되었습니다 !");
@@ -148,47 +138,30 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
     }
 
     @PostMapping("/test1")
-    String test1(@RequestBody Map<String, Object> body){
+    String test1(@RequestBody Map<String, Object> body) {
         System.out.println(body);
         return "redirect:/";
     }
 
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteItem(@PathVariable Long id, RedirectAttributes redirectAttributes, Authentication authentication, Model model) {
-        // 현재 로그인한 사용자의 아이디 가져오기
-        String username = authentication.getName();
-        // 해당 아이디로 사용자 정보 조회
-        var result = memberRepository.findByUsername(username);
-        // 사용자 정보에서 userId 가져오기
-        Long loggedInUserId = result.get().getId();
-        System.out.println("로그인한 유저 id : "+loggedInUserId);
-        model.addAttribute("loggedInUserId", loggedInUserId);
-
         // 상품 정보 조회
         Optional<Item> optionalItem = itemRepository.findById(id);
         if (optionalItem.isPresent()) {
             Item item = optionalItem.get();
-            Long itemUserId = item.getUserId();
-            System.out.println("상품을 작성한 사용자 id : " + itemUserId);
 
-            // 현재 로그인한 사용자의 아이디와 상품을 작성한 사용자의 아이디 비교
-            if (loggedInUserId.equals(itemUserId)) {
+            // S3에서 이미지 삭제
+            String imageUrl = item.getImageUrl();
+            String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+            String decodedFileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
+            System.out.println("Deleting file from S3: items/" + decodedFileName);
+            s3Service2.deleteImageFromS3("items/" + decodedFileName);
 
-                // 일치하는 경우 S3에서 이미지 삭제
-                String imageUrl = item.getImageUrl();
-                String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-                String decodedFileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
-                System.out.println("Deleting file from S3: items/" + decodedFileName);
-                s3Service2.deleteImageFromS3("items/" + decodedFileName);
-
-                // db에서도 상품 삭제
-                itemRepository.deleteById(id);
-                redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
-            } else {
-
-                redirectAttributes.addFlashAttribute("errorMessage", "해당 상품을 삭제할 수 있는 권한이 없습니다.");
-            }
+            // DB에서 상품 삭제
+            itemRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "상품이 성공적으로 삭제되었습니다.");
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "상품을 찾을 수 없습니다.");
         }
@@ -209,7 +182,7 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
 //    }
 
     @GetMapping("/test2")
-    String test2(){
+    String test2() {
         var result = new BCryptPasswordEncoder().encode("문자~");
         System.out.println(result);
         return "list.html";
@@ -224,19 +197,19 @@ String edit(Model model, @PathVariable Long id, Authentication authentication){
 
     @GetMapping("/presigned-url")
     @ResponseBody
-    String getURL(@RequestParam String filename){
+    String getURL(@RequestParam String filename) {
 //        System.out.println(filename);
-        var result = s3Service.createPreSignedUrl("test/"+filename);
+        var result = s3Service.createPreSignedUrl("test/" + filename);
         System.out.println(result);
         return result;
     }
 
     @PostMapping("/search")
-    String postSearch(@RequestParam String searchText, Model model){
+    String postSearch(@RequestParam String searchText, Model model) {
 
         List<Item> result = itemRepository.rawQuery1(searchText);
         //System.out.println(result);
-        model.addAttribute("searchList",result);
+        model.addAttribute("searchList", result);
         model.addAttribute("searchText", searchText);
         return "searchList.html";
     }

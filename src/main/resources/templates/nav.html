@@ -4,8 +4,8 @@
     <a href="/write" class="menu">상품 등록</a>
     <a href="/my-page" class="menu">마이페이지</a>
     <a href="/join" class="menu">회원가입</a>
-    <span th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-         <a href="/admin" class="menu">ADMIN</a>
+    <span sec:authorize="hasRole('ROLE_ADMIN')">
+    <a href="/admin" class="menu">ADMIN</a>
     </span>
     </span>
     <span th:unless="${#authorization.expression('isAuthenticated()')}">
