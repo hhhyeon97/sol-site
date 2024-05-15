@@ -1,9 +1,9 @@
 <div class="nav" th:fragment="navbar">
     <a href="/"><span class="logo">SOLSITE</span></a>
     <span>
-    <a href="/write" class="menu">상품 등록</a>
+    <a href="/write" class="menu" sec:authorize="hasRole('ROLE_ADMIN')">상품 등록</a>
     <a href="/my-page" class="menu">마이페이지</a>
-    <a href="/join" class="menu">회원가입</a>
+    <a sec:authorize="isAnonymous()" href="/join" class="menu">회원가입</a>
     <span sec:authorize="hasRole('ROLE_ADMIN')">
     <a href="/admin" class="menu">ADMIN</a>
     </span>

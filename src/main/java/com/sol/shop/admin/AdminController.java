@@ -13,13 +13,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,13 +31,7 @@ public class AdminController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/admin")
-    String admin(Model model) {
-        List<Sales> result = salesRepository.customFindAll();
-        List<Comment> result2 = commentRepository.findAll();
-        List<Member> result3 = memberRepository.findAll();
-        model.addAttribute("orderList",result);
-        model.addAttribute("reviewList",result2);
-        model.addAttribute("memberList",result3);
+    String admin() {
         return "admin.html";
     }
 
@@ -45,6 +40,20 @@ public class AdminController {
         List<Member> result = memberRepository.findAll();
         model.addAttribute("memberList",result);
         return "userList.html";
+    }
+
+    @PostMapping("/withdraw")
+    @ResponseBody
+    @PreAuthorize("hasRole('ADMIN')")
+    public String withdrawUser(@RequestParam String username) {
+        // 사용자 탈퇴
+        Optional<Member> memberOptional = memberRepository.findByUsername(username);
+        if (memberOptional.isPresent()) {
+            memberRepository.delete(memberOptional.get());
+            return "회원 탈퇴가 완료되었습니다.";
+        } else {
+            return "해당 사용자를 찾을 수 없습니다.";
+        }
     }
 
     @GetMapping("/admin/order-list")
