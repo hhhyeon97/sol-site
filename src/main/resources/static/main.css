@@ -133,6 +133,7 @@ a:hover {
 
 .bold-text {
     font-weight: bold;
+    color: #464a46;
 }
 .accordion {
     background-color: #9fc4a9;
@@ -207,6 +208,65 @@ a:hover {
 }
 .pw-edit-btn {
     margin-top: 10px;
+}
+
+.my-order-table,.my-review-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.my-order-table th,
+.my-order-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.my-order-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.my-order-table tr:last-child td {
+    border-bottom: none;
+}
+
+.my-order-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.my-order-table tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+.my-review-table th,
+.my-review-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.my-review-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.my-review-table tr:last-child td {
+    border-bottom: none;
+}
+
+.my-review-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.my-review-table tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* login */

@@ -39,21 +39,47 @@
     <p>닉네임 <span class="bold-text" th:text="${displayName}"></span></p>
     <button class="accordion">주문 내역</button>
     <div class="panel">
-        <ul>
-            <li th:if="${!sales.isEmpty()}" th:each="sale : ${sales}" class="my-order-list-color">
-                주문 번호: <span th:text="${sale.id}"></span> 상품명: <span th:text="${sale.itemName}"></span> 수량: <span th:text="${sale.count}"></span> 주문 가격: <span data-th-text="${#numbers.formatInteger(sale.price, 3, 'COMMA') + '원'}" /></span><br>
-            </li>
-            <li th:if="${sales.isEmpty()}">주문 내역이 없습니다.</li>
-        </ul>
+        <table class="my-order-table">
+            <thead>
+            <tr>
+                <th>주문 번호</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>주문 가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale : ${sales}" class="my-order-list-color">
+                <td th:text="${sale.id}"></td>
+                <td th:text="${sale.itemName}"></td>
+                <td th:text="${sale.count}"></td>
+                <td><span th:text="${#numbers.formatInteger(sale.price, 3, 'COMMA') + '원'}"></span></td>
+            </tr>
+            <tr th:if="${sales.isEmpty()}">
+                <td colspan="4">주문 내역이 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <button class="accordion">내가 작성한 리뷰</button>
     <div class="panel">
-        <ul>
-            <li th:if="${!reviews.isEmpty()}" th:each="review : ${reviews}">
-                리뷰 번호: <span th:text="${review.id}"></span> 내용: <span th:text="${review.content}"></span><br>
-            </li>
-            <li th:if="${reviews.isEmpty()}">작성한 리뷰가 없습니다.</li>
-        </ul>
+        <table class="my-review-table">
+            <thead>
+            <tr>
+                <th>리뷰 번호</th>
+                <th>내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="review : ${reviews}">
+                <td th:text="${review.id}"></td>
+                <td th:text="${review.content}"></td>
+            </tr>
+            <tr th:if="${reviews.isEmpty()}">
+                <td colspan="2">작성한 리뷰가 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <button class="accordion">닉네임 수정하기</button>
     <div class="panel">
