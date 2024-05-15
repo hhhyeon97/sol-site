@@ -46,7 +46,6 @@ public class AdminController {
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")
     public String withdrawUser(@RequestParam String username) {
-        // 사용자 탈퇴
         Optional<Member> memberOptional = memberRepository.findByUsername(username);
         if (memberOptional.isPresent()) {
             Member member = memberOptional.get();
@@ -55,8 +54,11 @@ public class AdminController {
             for (Sales sales : salesList) {
                 salesRepository.delete(sales);
             }
-
-
+            // 회원과 연관된 리뷰 데이터 삭제
+            List<Comment> commentList = commentRepository.findByUsername(username);
+            for (Comment comment : commentList) {
+                commentRepository.delete(comment);
+            }
             memberRepository.delete(memberOptional.get());
             return "회원 탈퇴가 완료되었습니다.";
         } else {

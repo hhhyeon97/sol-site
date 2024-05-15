@@ -795,6 +795,9 @@ tr:nth-child(even) {
     border : 2px solid lightgray;
     border-radius: 6px;
 }
+.withdraw-button:focus{
+    outline:none;
+}
 
 .withdraw-button:hover {
     background-color : lightgray;
