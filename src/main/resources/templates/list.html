@@ -150,5 +150,14 @@
 
 
 </script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // 알림 메시지를 가져와서 표시
+    var MyPageMessage = /*[[${MyPageMessage}]]*/ null;
+    if (MyPageMessage) {
+        alert(MyPageMessage);
+    }
+    /*]]>*/
+</script>
 </body>
 </html>

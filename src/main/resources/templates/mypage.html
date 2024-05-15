@@ -39,21 +39,21 @@
     <p>닉네임 <span class="bold-text" th:text="${displayName}"></span></p>
     <button class="accordion">주문 내역</button>
     <div class="panel">
-        <p th:if="${!sales.isEmpty()}">
-            <span th:each="sale : ${sales}">
+        <ul>
+            <li th:if="${!sales.isEmpty()}" th:each="sale : ${sales}" class="my-order-list-color">
                 주문 번호: <span th:text="${sale.id}"></span> 상품명: <span th:text="${sale.itemName}"></span> 가격: <span th:text="${sale.price}+'원'"></span><br>
-            </span>
-        </p>
-        <p th:if="${sales.isEmpty()}">주문 내역이 없습니다.</p>
+            </li>
+            <li th:if="${sales.isEmpty()}">주문 내역이 없습니다.</li>
+        </ul>
     </div>
     <button class="accordion">내가 작성한 리뷰</button>
     <div class="panel">
-        <p th:if="${!reviews.isEmpty()}">
-            <span th:each="review : ${reviews}">
+        <ul>
+            <li th:if="${!reviews.isEmpty()}" th:each="review : ${reviews}">
                 리뷰 번호: <span th:text="${review.id}"></span> 내용: <span th:text="${review.content}"></span><br>
-            </span>
-        </p>
-        <p th:if="${reviews.isEmpty()}">작성한 리뷰가 없습니다.</p>
+            </li>
+            <li th:if="${reviews.isEmpty()}">작성한 리뷰가 없습니다.</li>
+        </ul>
     </div>
     <button class="accordion">닉네임 수정하기</button>
     <div class="panel">

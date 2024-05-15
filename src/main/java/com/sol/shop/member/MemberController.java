@@ -94,7 +94,7 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage(Model model, Authentication auth) {
+    public String myPage(Model model, Authentication auth, RedirectAttributes redirectAttributes) {
         if (auth != null && auth.isAuthenticated()) {
             CustomUser user = (CustomUser) auth.getPrincipal();
             Member member = memberRepository.findByUsername(user.getUsername()).orElse(null);
@@ -110,6 +110,7 @@ public class MemberController {
             }
             return "mypage.html";
         } else {
+            redirectAttributes.addFlashAttribute("MyPageMessage", "로그인 후 이용가능합니다 !");
             return "redirect:/";
         }
     }

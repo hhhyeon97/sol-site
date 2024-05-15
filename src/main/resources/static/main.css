@@ -146,6 +146,7 @@ a:hover {
     transition: 0.4s;
     margin: 5px 0;
     outline:none;
+    border-radius: 4px;
 }
 .active, .accordion:hover {
    background-color: #7bb58b;
@@ -160,31 +161,30 @@ a:hover {
     margin-bottom: 30px;
     width:60%;
 }
-.panel p {
-    text-align:left;
+.accordion:focus {
+    outline:none;
+}
+.panel ul {
+    list-style-type: none;
+    padding: 0;
+}
+.panel li {
+    margin-bottom: 5px;
 }
 
-#listSortSelect {
-    box-shadow: 0 0 0 3px #80b087;
-}
-
-/*
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}*/
 .name-edit-input {
     border: 2px solid #8cad9a;
     border-radius: 6px;
-}
-.name-edit-input:focus {
+    height: 40px;
     outline: none;
+    padding-left : 4px;
 }
+
 .info-edit-btn {
     border: 2px solid #8cad9a;
     background: none;
     border-radius: 6px;
+    height: 40px;
 }
 .info-edit-btn:hover {
     background-color: #8cad9a;
@@ -195,12 +195,14 @@ select {
     justify-content:center;
     flex-direction:column;
     align-items:center;
+    margin-bottom: 30px;
 }
 .pw-edit-area input {
     border: 2px solid #8cad9a;
     border-radius: 6px;
     outline: none;
     width: 50%;
+    height: 40px;
 }
 .pw-edit-btn {
     margin-top: 10px;
@@ -694,8 +696,10 @@ select {
         width: 50%;
         margin-right: 20px;
     }
+}
 
-
+#listSortSelect {
+    box-shadow: 0 0 0 3px #80b087;
 }
 
 /* admin */
