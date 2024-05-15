@@ -49,6 +49,14 @@ public class AdminController {
         // 사용자 탈퇴
         Optional<Member> memberOptional = memberRepository.findByUsername(username);
         if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            // 회원과 연관된 주문 데이터 삭제
+            List<Sales> salesList = member.getSales();
+            for (Sales sales : salesList) {
+                salesRepository.delete(sales);
+            }
+
+
             memberRepository.delete(memberOptional.get());
             return "회원 탈퇴가 완료되었습니다.";
         } else {

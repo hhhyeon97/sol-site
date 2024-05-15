@@ -170,6 +170,7 @@ a:hover {
 }
 .panel li {
     margin-bottom: 5px;
+    text-align:left;
 }
 
 .name-edit-input {

@@ -41,7 +41,7 @@
     <div class="panel">
         <ul>
             <li th:if="${!sales.isEmpty()}" th:each="sale : ${sales}" class="my-order-list-color">
-                주문 번호: <span th:text="${sale.id}"></span> 상품명: <span th:text="${sale.itemName}"></span> 가격: <span th:text="${sale.price}+'원'"></span><br>
+                주문 번호: <span th:text="${sale.id}"></span> 상품명: <span th:text="${sale.itemName}"></span> 주문 가격: <span data-th-text="${#numbers.formatInteger(sale.price, 3, 'COMMA') + '원'}" /></span><br>
             </li>
             <li th:if="${sales.isEmpty()}">주문 내역이 없습니다.</li>
         </ul>
@@ -68,7 +68,7 @@
     <div class="panel">
         <form action="/update-password" class="pw-edit-area" method="post" onsubmit="return validatePassword()">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <label for="newPassword">새 비밀번호</label>
+            <label for="newPassword"><span style="position:relative; right:5px">새 비밀번호</span></label>
             <input type="password" id="newPassword" name="password" placeholder="새 비밀번호">
             <label for="confirmPassword">새 비밀번호 재입력</label>
             <input type="password" id="confirmPassword"  placeholder="새 비밀번호 재입력">
