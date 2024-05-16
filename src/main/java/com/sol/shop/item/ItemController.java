@@ -139,7 +139,7 @@ public class ItemController {
 
     @PostMapping("/test1")
     String test1(@RequestBody Map<String, Object> body) {
-        System.out.println(body);
+//        System.out.println(body);
         return "redirect:/";
     }
 
@@ -156,7 +156,7 @@ public class ItemController {
             String imageUrl = item.getImageUrl();
             String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
             String decodedFileName = URLDecoder.decode(fileName, StandardCharsets.UTF_8);
-            System.out.println("Deleting file from S3: items/" + decodedFileName);
+//            System.out.println("Deleting file from S3: items/" + decodedFileName);
             s3Service2.deleteImageFromS3("items/" + decodedFileName);
 
             // DB에서 상품 삭제
@@ -184,7 +184,7 @@ public class ItemController {
     @GetMapping("/test2")
     String test2() {
         var result = new BCryptPasswordEncoder().encode("문자~");
-        System.out.println(result);
+//        System.out.println(result);
         return "list.html";
     }
 
@@ -200,7 +200,7 @@ public class ItemController {
     String getURL(@RequestParam String filename) {
 //        System.out.println(filename);
         var result = s3Service.createPreSignedUrl("test/" + filename);
-        System.out.println(result);
+//        System.out.println(result);
         return result;
     }
 

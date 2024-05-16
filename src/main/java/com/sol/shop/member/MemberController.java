@@ -5,6 +5,7 @@ import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -40,10 +41,8 @@ public class MemberController {
     @GetMapping("/join")
     String join(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
-            // 로그인한 사용자인 경우
             return "redirect:/";
         } else {
-            // 로그인하지 않은 사용자인 경우
             return "join.html";
         }
     }
@@ -101,7 +100,7 @@ public class MemberController {
             if (member != null) {
                 model.addAttribute("username", member.getUsername());
                 model.addAttribute("displayName", member.getDisplayName());
-//                // 주문 내역 가져오기
+                // 주문 내역 가져오기
                 List<Sales> sales = salesRepository.findByMemberId(member.getId());
                 model.addAttribute("sales", sales);
                 // 작성한 리뷰 가져오기
@@ -115,18 +114,9 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/user/1")
-    @ResponseBody
-    public MemberDto getUser(){
-        var a = memberRepository.findById(1L);
-        var result = a.get();
-        var data = new MemberDto(result.getUsername(), result.getDisplayName(), result.getId());
-        return data;
-    }
-
 
     @PostMapping("/update-nickname")
-    public String updateNickname(@RequestParam String displayName,Authentication authentication, RedirectAttributes redirectAttributes){
+    public String updateNickname(@RequestParam String displayName, Authentication authentication, HttpSession session, RedirectAttributes redirectAttributes){
         String username = authentication.getName();
         Optional<Member> optionalMember = memberRepository.findByUsername(username);
 
@@ -134,6 +124,8 @@ public class MemberController {
             Member member = optionalMember.get();
             member.setDisplayName(displayName);
             memberRepository.save(member);
+            // 세션에 사용자의 닉네임 업데이트
+            session.setAttribute("displayName", displayName);
             redirectAttributes.addFlashAttribute("message", "닉네임이 업데이트 되었습니다!");
         }
         else {
