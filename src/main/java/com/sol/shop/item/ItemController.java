@@ -147,6 +147,9 @@ public class ItemController {
             return ResponseEntity.ok("수정이 완료되었습니다 !");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (DataIntegrityViolationException e) {
+            // 중복된 아이템 이름일 때 예외 처리
+            return ResponseEntity.badRequest().body("이미 존재하는 상품명입니다. 다른 이름을 선택해주세요.");
         }
     }
 

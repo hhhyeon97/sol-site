@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>write</title>
+    <title>edit</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
 </head>
@@ -13,6 +13,7 @@
 <div th:replace="~{ nav.html::navbar }"></div>
 <div class="container join-area">
     <h2>상품 수정</h2>
+    <div id="alertArea" class="alert" style="display: none;"></div>
 <form action="/edit" id="editForm" method="POST" onsubmit="return submitForm()">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input name="id" th:value="${data.id}" style="display:none">
@@ -34,6 +35,11 @@
         return false;
     }
 
+    // 서버에서 받은 메시지를 표시하는 코드
+        var alertArea = document.getElementById("alertArea");
+        alertArea.innerHTML = ""; // 기존 메시지 초기화
+        alertArea.style.display = "none"; // 경고 영역 숨기기
+
 
    var xhr = new XMLHttpRequest();
     xhr.open("POST", "/edit", true);
@@ -42,6 +48,9 @@
             alert(xhr.responseText);
             window.location.href = "/";
         } else {
+         // 서버에서 예외 메시지를 받은 경우
+                alertArea.innerHTML = xhr.responseText; // 서버에서 받은 메시지를 표시
+                alertArea.style.display = "block"; // 경고 영역 표시
             alert("수정에 실패했습니다.");
         }
     };
