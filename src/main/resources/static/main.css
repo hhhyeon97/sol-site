@@ -272,10 +272,12 @@ a:hover {
 /* login */
 
 .login-area {
-    width : 80%;
-    height: 80vh;
+    width : 500px;
+    height: 65vh;
     text-align:center;
     margin-top: 60px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .login-area h2 {
@@ -284,11 +286,14 @@ a:hover {
     margin-bottom:25px;
     font-family: 'ONE-Mobile-POP';
     letter-spacing : 5px;
+    position:relative;
+    top: 30px;
 }
 .login-area form {
     display: flex;
     flex-direction: column;
     align-items:center;
+    margin-top: 70px;
 }
 
 .login-error-message {
@@ -297,7 +302,7 @@ a:hover {
 }
 
 .login-area input {
-    width: 40%;
+    width: 50%;
 	height: 40px;
 	margin: 15px 0;
 	border-radius: 5px;
@@ -338,10 +343,12 @@ a:hover {
 /* join */
 
 .join-area {
-    width : 80%;
-    height: 80vh;
+    width : 500px;
+    height: 65vh;
     text-align:center;
     margin-top: 60px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .join-area h2 {
@@ -350,15 +357,18 @@ a:hover {
     margin-bottom:25px;
     font-family: 'ONE-Mobile-POP';
     letter-spacing : 5px;
+    position:relative;
+    top: 15px;
 }
 .join-area form {
     display: flex;
     flex-direction: column;
     align-items:center;
+    margin-top: 25px;
 }
 
 .join-area input {
-    width: 40%;
+    width: 50%;
 	height: 40px;
 	margin: 15px 0;
 	border-radius: 5px;
@@ -622,7 +632,7 @@ a:hover {
      width : 80%;
      min-height: 85vh;
      text-align:center;
-     margin-top: 60px;
+     margin: 60px auto;
 }
 .search-list-area h2 {
         font-weight:bold;

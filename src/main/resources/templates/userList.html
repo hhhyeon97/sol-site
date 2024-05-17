@@ -28,8 +28,11 @@
                 <td th:text="${member.username}"></td>
                 <td th:text="${member.role == 'ROLE_USER' ? '일반 유저' : (member.role == 'ROLE_ADMIN' ? '관리자' : '기타')}"></td>
                 <td>
-                    <button class="withdraw-button" th:attr="data-username=${member.username}">탈퇴</button>
+                    <button class="withdraw-button" th:if="${member.role == 'ROLE_USER'}" th:attr="data-username=${member.username}">탈퇴</button>
                 </td>
+            </tr>
+
+            </td>
             </tr>
         </table>
 </div>
