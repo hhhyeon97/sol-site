@@ -14,7 +14,9 @@ public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    @Column(unique = true)
     private String title;
+
     private Integer price;
     private String imageUrl;
     private String descContent;

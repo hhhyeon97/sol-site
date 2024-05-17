@@ -5,7 +5,9 @@ import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.member.CustomUser;
 import com.sol.shop.member.Member;
 import com.sol.shop.member.MemberRepository;
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -77,7 +79,8 @@ public class ItemController {
 
     @PostMapping("/add")
     String addPost(@RequestParam String title, @RequestParam Integer price,
-                   @RequestParam String descContent, @RequestParam("imageFile") MultipartFile imageFile, Authentication authentication) {
+                   @RequestParam String descContent, @RequestParam("imageFile") MultipartFile imageFile,
+                   Authentication authentication, Model model) {
         // 현재 로그인한 사용자의 아이디 가져오기
         String username = authentication.getName();
 
@@ -89,10 +92,20 @@ public class ItemController {
         // 사용자 정보에서 userId 가져오기
         Long userId = result.get().getId();
 
-        // 이미지 파일을 S3에 업로드하고 URL 가져오기
-        String imageUrl = s3Service2.uploadImageToS3(imageFile, "items");
+        try {
+            // 이미지 파일을 S3에 업로드하고 URL 가져오기
+            String imageUrl = s3Service2.uploadImageToS3(imageFile, "items");
+            itemService.saveItem(title, price, userId, imageUrl, descContent);
+        } catch (DataIntegrityViolationException e) {
+            // 중복된 아이템 이름일 때 예외 처리
+            model.addAttribute("errorMessage", "이미 존재하는 상품명입니다.");
+            return "write.html";
+        } catch (Exception e) {
+            // 일반 예외 처리
+            model.addAttribute("errorMessage", "아이템 추가 중 오류가 발생했습니다.");
+            return "error.html";
+        }
 
-        itemService.saveItem(title, price, userId, imageUrl, descContent);
         return "redirect:/";
     }
 
