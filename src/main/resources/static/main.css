@@ -173,7 +173,9 @@ a:hover {
     margin-bottom: 5px;
     text-align:left;
 }
-
+.name-edit-area {
+    margin-top: 15px;
+}
 .name-edit-input {
     border: 2px solid #8cad9a;
     border-radius: 6px;
@@ -229,6 +231,7 @@ a:hover {
     background-color: #f8f9fa;
     font-weight: bold;
     font-size: 16px;
+    color: #8cad9a;
 }
 
 .my-order-table tr:last-child td {
@@ -255,6 +258,7 @@ a:hover {
     background-color: #f8f9fa;
     font-weight: bold;
     font-size: 16px;
+    color: #8cad9a;
 }
 
 .my-review-table tr:last-child td {
@@ -353,7 +357,8 @@ a:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.join-area h2 {
+.join-area h2, .write-area h2,
+.edit-area h2 {
     font-weight:bold;
     color: #9fc4a9;
     margin-bottom:25px;
@@ -362,7 +367,8 @@ a:hover {
     position:relative;
     top: 30px;
 }
-.join-area form {
+.join-area form, .write-area form,
+ .edit-area form {
     display: flex;
     flex-direction: column;
     align-items:center;
@@ -451,6 +457,34 @@ a:hover {
 }
 
 /* write, edit */
+.write-area, .edit-area {
+    width : 80%;
+    height: 90vh;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+.edit-area {
+    margin-top: 50px;
+}
+.write-area input, .edit-area input {
+    width: 100%;
+	height: 40px;
+	margin: 15px 0;
+	border-radius: 5px;
+	border: 2px solid #9fc4a9;
+	padding: 10px 5px;
+
+}
+.write-area input:focus {
+  outline: #9fc4a9;
+}
+.edit-area input:focus {
+  outline: #9fc4a9;
+}
+
 .write-btn,.edit-btn {
     padding: 10px;
 	width: 100px;
