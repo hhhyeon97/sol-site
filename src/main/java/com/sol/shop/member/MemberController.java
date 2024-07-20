@@ -192,8 +192,11 @@ public class MemberController {
 
     @GetMapping("/mypage/jwt")
     @ResponseBody
-    String mypageJWT(HttpServletRequest request){
-
+    String myPageJWT(Authentication auth){
+        var user = (CustomUser) auth.getPrincipal();
+        System.out.println(user);
+        System.out.println(user.displayName);
+        System.out.println(user.getAuthorities());
 
         return "마이페이지데이터";
     }
