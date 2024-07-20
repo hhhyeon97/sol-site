@@ -4,13 +4,19 @@ import com.sol.shop.comment.Comment;
 import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
+import com.sol.shop.util.JwtUtil;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,13 +26,11 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -37,6 +41,7 @@ public class MemberController {
     private final PasswordEncoder passwordEncoder;
     private final SalesRepository salesRepository;
     private final CommentRepository commentRepository;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @GetMapping("/join")
     String join(Authentication authentication) {
@@ -83,13 +88,19 @@ public class MemberController {
     }
 
 
+//    @GetMapping("/login")
+//    public String login(Authentication auth){
+//        if (auth != null && auth.isAuthenticated()) {
+//            return "redirect:/";
+//        } else {
+//            return "login.html";
+//        }
+//    }
+
+    // jwt-login-test
     @GetMapping("/login")
-    public String login(Authentication auth){
-        if (auth != null && auth.isAuthenticated()) {
-            return "redirect:/";
-        } else {
-            return "login.html";
-        }
+    public String login(){
+        return "login.html";
     }
 
     @GetMapping("/my-page")
@@ -158,6 +169,33 @@ public class MemberController {
         return "redirect:/my-page";
     }
 
+    @PostMapping("/login/jwt")
+    @ResponseBody
+    public String loginJWT(@RequestBody Map<String, String> data, HttpServletResponse response) {
+        var authToken = new UsernamePasswordAuthenticationToken(data.get("username"), data.get("password"));
+        var auth = authenticationManagerBuilder.getObject().authenticate(authToken);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        var jwt = JwtUtil.createToken(SecurityContextHolder.getContext().getAuthentication());
+
+//        System.out.println("jwt : " + jwt);
+
+        var cookie = new Cookie("jwt",jwt);
+        cookie.setMaxAge(10);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        response.addCookie(cookie);
+
+        return jwt;
+    }
+
+    @GetMapping("/mypage/jwt")
+    @ResponseBody
+    String mypageJWT(){
+
+        return "마이페이지데이터";
+    }
 }
 
 class MemberDto {
