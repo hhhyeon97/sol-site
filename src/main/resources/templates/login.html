@@ -10,20 +10,20 @@
     <link href="/main.css" rel="stylesheet">
 </head>
 <body>
-<div th:replace="~{ nav.html::navbar }"></div>
-<div class="container login-area">
-<h2>로그인</h2>
-    <!-- 현재 url의 query string이 담겨 있음 -->
-<div th:if="${param.error}">
-    <h3 class="login-error-message">아이디 혹은 비밀번호가 일치하지 않습니다.</h3>
-</div>
-<form action="/login" method="POST">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input name="username"  id="username" placeholder="id">
-    <input name="password"  id="password" type="password" placeholder="password">
-    <button id="loginBtn" type="submit">로그인</button>
-</form>
-</div>
+<!--<div th:replace="~{ nav.html::navbar }"></div>-->
+<!--<div class="container login-area">-->
+<!--<h2>로그인</h2>-->
+<!--    &lt;!&ndash; 현재 url의 query string이 담겨 있음 &ndash;&gt;-->
+<!--<div th:if="${param.error}">-->
+<!--    <h3 class="login-error-message">아이디 혹은 비밀번호가 일치하지 않습니다.</h3>-->
+<!--</div>-->
+<!--<form action="/login" method="POST">-->
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+<!--    <input name="username"  id="username" placeholder="id">-->
+<!--    <input name="password"  id="password" type="password" placeholder="password">-->
+<!--    <button id="loginBtn" type="submit">로그인</button>-->
+<!--</form>-->
+<!--</div>-->
 
 <!--test -->
 <form>
@@ -31,7 +31,7 @@
     <input type="password" name="password" id="password2">
 </form>
 <button onclick="loginJWT()">JWT방식로그인</button>
-
+<button onclick="getMyPage()">JWT 마이페이지 주세요 !!!</button>
 <script>
     function loginJWT(){
         fetch('/login/jwt', {
@@ -42,6 +42,12 @@
                 password : document.querySelector('#password2').value
             })
         }).then(r => r.text()).then((r)=>{ console.log(r) })
+    }
+
+    function getMyPage(){
+        fetch('/mypage/jwt')
+            .then((r)=>r.text())
+            .then((r)=>{console.log(r)})
     }
 </script>
 
