@@ -24,6 +24,28 @@
     <button id="loginBtn" type="submit">로그인</button>
 </form>
 </div>
+
+<!--test -->
+<form>
+    <input name="username" id="username2">
+    <input type="password" name="password" id="password2">
+</form>
+<button onclick="loginJWT()">JWT방식로그인</button>
+
+<script>
+    function loginJWT(){
+        fetch('/login/jwt', {
+            method : 'POST',
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({
+                username : document.querySelector('#username2').value,
+                password : document.querySelector('#password2').value
+            })
+        }).then(r => r.text()).then((r)=>{ console.log(r) })
+    }
+</script>
+
+
 <script th:inline="javascript">
     /*<![CDATA[*/
     // 알림 메시지를 가져와서 표시
