@@ -5,6 +5,7 @@ import com.sol.shop.comment.CommentRepository;
 import com.sol.shop.sales.Sales;
 import com.sol.shop.sales.SalesRepository;
 import com.sol.shop.util.JwtUtil;
+import com.sol.shop.util.JwtUtil2;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -177,6 +178,7 @@ public class MemberController {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         var jwt = JwtUtil.createToken(SecurityContextHolder.getContext().getAuthentication());
+
 
 //        System.out.println("jwt : " + jwt);
 
