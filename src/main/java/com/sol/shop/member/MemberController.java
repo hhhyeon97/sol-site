@@ -192,7 +192,8 @@ public class MemberController {
 
     @GetMapping("/mypage/jwt")
     @ResponseBody
-    String mypageJWT(){
+    String mypageJWT(HttpServletRequest request){
+
 
         return "마이페이지데이터";
     }
