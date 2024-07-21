@@ -1,6 +1,7 @@
 package com.sol.shop.member;
 
 import com.sol.shop.util.JwtUtil;
+import com.sol.shop.util.JwtUtil2;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

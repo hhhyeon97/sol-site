@@ -45,7 +45,7 @@ public class SecurityConfig {
 //        );
         http.authorizeHttpRequests((authorize) ->
                 authorize.requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/**").permitAll()
+                      .requestMatchers("/**").permitAll()
         );
 
 //        http.formLogin((formLogin) ->
