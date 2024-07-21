@@ -67,30 +67,36 @@ public class ItemController {
     }
 
 
+//    @GetMapping("/write")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    String write(Authentication authentication) {
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            return "write.html";
+//        } else {
+//            return "redirect:/";
+//        }
+//    }
+
     @GetMapping("/write")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    String write(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            return "write.html";
-        } else {
-            return "redirect:/";
-        }
+    public String write(){
+        return "write.html";
     }
 
     @PostMapping("/add")
     String addPost(@RequestParam String title, @RequestParam Integer price,
                    @RequestParam String descContent, @RequestParam("imageFile") MultipartFile imageFile,
                    Authentication authentication, Model model) {
-        // 현재 로그인한 사용자의 아이디 가져오기
-        String username = authentication.getName();
-
-        // 해당 아이디로 사용자 정보 조회
-        var result = memberRepository.findByUsername(username);
-        if (result.isEmpty()) {
-
-        }
-        // 사용자 정보에서 userId 가져오기
-        Long userId = result.get().getId();
+//        // 현재 로그인한 사용자의 아이디 가져오기
+//        String username = authentication.getName();
+//
+//        // 해당 아이디로 사용자 정보 조회
+//        var result = memberRepository.findByUsername(username);
+//        if (result.isEmpty()) {
+//
+//        }
+//        // 사용자 정보에서 userId 가져오기
+//        Long userId = result.get().getId();
+        Long userId = 1L;
 
         try {
             // 이미지 파일을 S3에 업로드하고 URL 가져오기
@@ -222,6 +228,11 @@ public class ItemController {
 
     @PostMapping("/search")
     String postSearch(@RequestParam String searchText, Model model) {
+        // 유효성 검사
+        if (searchText == null || searchText.trim().isEmpty() || searchText.length() > 100) {
+            model.addAttribute("error", "Invalid search text.");
+            return "searchList.html";
+        }
 
         List<Item> result = itemRepository.rawQuery1(searchText);
         //System.out.println(result);

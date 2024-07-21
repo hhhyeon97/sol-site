@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class SalesController {
 
     private final SalesRepository salesRepository;
     private final MemberRepository memberRepository;
+
 
     @PostMapping("/order")
     String postOrder(@RequestParam String title,

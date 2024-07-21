@@ -27,10 +27,10 @@
     </style>
 </head>
 <body>
-<div th:replace="~{nav.html::navbar}"></div>
+<!--<div th:replace="~{nav.html::navbar}"></div>-->
 
 <form action="/search" method="POST" onsubmit="return validateSearch()">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
     <span class="search-area">
         <input name="searchText" id="searchText" class="search-box" style="display:inline">
         <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
@@ -80,11 +80,11 @@
 <!--                    <p class="card-price" th:text="${item.price + '원'}"></p>-->
                 <p class="card-price" data-th-text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}" />
                 <span class="text-right">
-                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/edit/' + ${item.id}}">✏️</a>
+<!--                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/edit/' + ${item.id}}">✏️</a>-->
                 </span>
                 <form th:id="'deleteForm_' + ${item.id}" th:action="@{'/delete/'+${item.id}}" method="post">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <button type="submit" class="delete-btn" sec:authorize="hasRole('ROLE_ADMIN')">🗑️</button>
+<!--                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">-->
+<!--                    <button type="submit" class="delete-btn" sec:authorize="hasRole('ROLE_ADMIN')">🗑️</button>-->
                 </form>
             </div>
         </div>
