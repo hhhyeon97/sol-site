@@ -145,6 +145,13 @@
       return false;
    }
 
+   if(searchText.length > 20){
+       alert("검색어는 20자를 넘길 수 없습니다.");
+       document.getElementById("searchText").value="";
+       document.getElementById("searchText").focus();
+       return false;
+   }
+
    return true;
    }
 

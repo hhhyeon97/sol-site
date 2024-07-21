@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,14 +24,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class SalesController {
 
     private final SalesRepository salesRepository;
-    private final MemberRepository memberRepository;
+
+//    private static final Logger logger = LoggerFactory.getLogger(SalesController.class);
 
 
     @PostMapping("/order")
@@ -65,6 +68,31 @@ public class SalesController {
         }
 
     }
+
+    // findAll vs customFindAll
+    @GetMapping("/order-all")
+    public String getOrderAll(Model model) {
+        long start, end;
+
+        // jpa 제공 메서드 findAll
+        start = System.currentTimeMillis();
+        List<Sales> result = salesRepository.findAll();  // 기존 코드
+        end = System.currentTimeMillis();
+        log.info("Execution time for findAll: {} ms", (end - start));
+
+        model.addAttribute("orderListFindAll", result);
+
+        // 커스텀메서드
+        start = System.currentTimeMillis();
+        result = salesRepository.customFindAll();  // 보완한 커스텀메서드
+        end = System.currentTimeMillis();
+        log.info("Execution time for customFindAll: {} ms", (end - start));
+
+        model.addAttribute("orderListCustomFindAll", result);
+
+        return "orderListTest.html";
+    }
+
 }
 
 

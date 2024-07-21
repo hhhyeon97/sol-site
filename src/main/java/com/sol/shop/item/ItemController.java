@@ -228,11 +228,6 @@ public class ItemController {
 
     @PostMapping("/search")
     String postSearch(@RequestParam String searchText, Model model) {
-        // 유효성 검사
-        if (searchText == null || searchText.trim().isEmpty() || searchText.length() > 100) {
-            model.addAttribute("error", "Invalid search text.");
-            return "searchList.html";
-        }
 
         List<Item> result = itemRepository.rawQuery1(searchText);
         //System.out.println(result);
