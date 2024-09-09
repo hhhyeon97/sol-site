@@ -71,6 +71,7 @@
 - 시큐리티를 활용해 유저의 정보를 db에 저장합니다.
 - 패스워드는 해싱하여 저장합니다.
 - 회원가입시 중복 아이디를 구분합니다.
+- jwt를 활용하여 로그인 상태를 유지합니다.
 
 
 ![image](https://github.com/hhhyeon97/shop2/assets/148893126/75f7d3d9-2e96-4347-aa40-b9f77ab4e00f)|![solsite4](https://github.com/hhhyeon97/shop2/assets/148893126/afd71f82-587a-4b3e-84e4-71dbf8eaae37)
